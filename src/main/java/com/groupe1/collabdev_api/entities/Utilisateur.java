@@ -1,0 +1,52 @@
+package com.groupe1.collabdev_api.entities;
+
+import com.groupe1.collabdev_api.entities.enums.Genre;
+import com.groupe1.collabdev_api.entities.enums.Role;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@NoArgsConstructor
+@Getter
+@Setter
+@Entity
+@Table(name = "utilisateurs")
+public class Utilisateur {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    @Column(nullable = false)
+    private String prenom;
+
+    @Column(nullable = false)
+    private String nom;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(nullable = false)
+    private String motDePasse;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Genre genre;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<CommentaireProjet> commentairesProjet = new ArrayList<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<CommentaireIdeeProjet> commentairesIdeeProjet = new ArrayList<>();
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
+}
