@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/gestionnaire")
-@RequiredArgsConstructor
+@RequestMapping("/utilisateurs/gestionnaires")
 public class GestionnaireController {
+
     @Autowired
     private GestionnaireService gestionnaireService;
-
 
     @GetMapping
     public List<Gestionnaire> afficherLesGestionnaire(){
