@@ -8,43 +8,39 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/idee-projet")
+@RequestMapping("/utilisateurs/idees-projet")
 public class IdeeProjetController {
     @Autowired
     private IdeeProjetService ideeProjetService;
 
-    @PostMapping("/ajouter")
-    public IdeeProjet ajouterIdeeProjet(@RequestBody IdeeProjet ideeProjet){
+    @PostMapping
+    public IdeeProjet ajouterIdeeProjet(@RequestBody IdeeProjet ideeProjet) {
         ideeProjet.setNombreDeSoutien(0);
         return ideeProjetService.ajouter(ideeProjet);
     }
-    @GetMapping("/liste")
-    public List<IdeeProjet> listeIdeeProjet (){
+
+    @GetMapping
+    public List<IdeeProjet> listeIdeeProjet() {
         return ideeProjetService.chercherTous();
     }
-    @PutMapping("modifier")
-    public IdeeProjet modifierIdeeProjet(@RequestBody IdeeProjet ideeProjet){
+
+    @PutMapping
+    public IdeeProjet modifierIdeeProjet(@RequestBody IdeeProjet ideeProjet) {
         return ideeProjetService.modifier(ideeProjet);
     }
-    @DeleteMapping("/supprimer/{id}")
-    public  Boolean supprimerIdeeProjet(@PathVariable int id){
-        return  ideeProjetService.supprimerParId(id);
+
+    @DeleteMapping("/{id}")
+    public Boolean supprimerIdeeProjet(@PathVariable int id) {
+        return ideeProjetService.supprimerParId(id);
     }
-    @GetMapping("/chercher-id")
-    public IdeeProjet chercherParId(@RequestParam int id){
+
+    @GetMapping("/{id}")
+    public IdeeProjet chercherParId(@RequestParam int id) {
         return ideeProjetService.chercherParId(id);
     }
 
-    @GetMapping("chercher-Titre")
-    public IdeeProjet chercherParTitre(@RequestParam String titre){
-        return  ideeProjetService.chercherParTitre(titre);
-    }
-    @PutMapping("/soutenir/{id}")
-    public  IdeeProjet soutenir(@PathVariable int id){
+    @PutMapping("/nombre-soutien/{id}")
+    public IdeeProjet soutenir(@PathVariable int id) {
         return ideeProjetService.soutenirIdeeProjet(id);
     }
-
-
-
-
 }

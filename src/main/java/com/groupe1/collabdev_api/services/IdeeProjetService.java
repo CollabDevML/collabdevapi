@@ -13,27 +13,23 @@ public class IdeeProjetService {
     @Autowired
     private IdeeProjetRepository ideeProjetRepository;
 
-    public IdeeProjet chercherParId(int id){
+    public IdeeProjet chercherParId(int id) {
         return ideeProjetRepository.findById(id).orElse(null);
     }
 
-    public List<IdeeProjet> chercherTous(){
+    public List<IdeeProjet> chercherTous() {
         return ideeProjetRepository.findAll();
     }
 
-    public  IdeeProjet chercherParTitre(String titre){
-        return ideeProjetRepository.findByTitre(titre);
-    }
-
-    public IdeeProjet ajouter(IdeeProjet ideeProjet){
+    public IdeeProjet ajouter(IdeeProjet ideeProjet) {
         return ideeProjetRepository.save(ideeProjet);
     }
 
-    public IdeeProjet modifier(IdeeProjet ideeProjet){
+    public IdeeProjet modifier(IdeeProjet ideeProjet) {
         return ideeProjetRepository.save(ideeProjet);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         ideeProjetRepository.deleteById(id);
         return true;
     }
