@@ -90,7 +90,7 @@ public class AdministrateurController {
     }
 
     //Pour la modification d'un badge :
-    @PutMapping(value = "badges/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "badge/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateBadge(
             @PathVariable("id") int id,
             @RequestParam(value = "titre",required = false) String titre,
