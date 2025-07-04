@@ -11,11 +11,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/gestionnaires")
-@RequiredArgsConstructor
 public class GestionnaireController {
+
     @Autowired
     private GestionnaireService gestionnaireService;
-
 
     @GetMapping
     public List<Gestionnaire> afficherLesGestionnaire(){
