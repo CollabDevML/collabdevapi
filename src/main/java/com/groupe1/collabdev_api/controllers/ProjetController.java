@@ -12,11 +12,16 @@ import java.util.List;
 @RequestMapping("/projets")
 @RequiredArgsConstructor
 public class ProjetController {
-    @Autowired
+
     private ProjetService projetService;
 
+    @Autowired
+    public ProjetController(ProjetService projetService) {
+        this.projetService = projetService;
+    }
+
     @PostMapping
-    public Projet ajouterProjet(@RequestBody Projet projet, @PathVariable int id){
+    public Projet ajouterProjet(@RequestParam int id, @RequestBody Projet projet){
         return projetService.ajouter(id,projet);
     }
 
@@ -24,15 +29,17 @@ public class ProjetController {
     public List<Projet> afficherToutLesProjet(){
         return  projetService.chercherTous();
     }
+
     @GetMapping("/{id}")
     public Projet afficherUnProjet(@PathVariable int id){
+
         return projetService.chercherParId(id);
     }
     @GetMapping("/GestionnaireProjets/{id}")
     public List<Projet> affichertousLesProjetDuGestionnaire(@PathVariable int id){
         return projetService.listerLesProjetParGestionnaireId(id);
     }
-    @GetMapping("/GestionnaireProjet/{id}/{id_projet})")
+    @GetMapping("/GestionnaireProjet/{id}/{id_projet}")
     public Projet afficherUnProjetDuGestionnaire(@PathVariable int id, @PathVariable int id_projet){
         return projetService.chercherUnProjetDuGestionnaire(id,id_projet);
     }
