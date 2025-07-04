@@ -21,6 +21,10 @@ public class IdeeProjetService {
         return ideeProjetRepository.findAll();
     }
 
+    public  IdeeProjet chercherParTitre(String titre){
+        return ideeProjetRepository.findByTitre(titre);
+    }
+
     public IdeeProjet ajouter(IdeeProjet ideeProjet){
         return ideeProjetRepository.save(ideeProjet);
     }
@@ -32,6 +36,14 @@ public class IdeeProjetService {
     public Boolean supprimerParId(int id){
         ideeProjetRepository.deleteById(id);
         return true;
+    }
+
+    public IdeeProjet soutenirIdeeProjet(int id) {
+        IdeeProjet projet = ideeProjetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Projet introuvable"));
+
+        projet.setNombreDeSoutien(projet.getNombreDeSoutien() + 1);
+        return ideeProjetRepository.save(projet);
     }
 }
 
