@@ -16,10 +16,6 @@ public class GestionnaireController {
     @Autowired
     private GestionnaireService gestionnaireService;
 
-    @PostMapping
-    public Gestionnaire ajouterUnGestionnair(@RequestBody Gestionnaire gestionnaire){
-        return gestionnaireService.ajouter(gestionnaire);
-    }
 
     @GetMapping
     public List<Gestionnaire> afficherLesGestionnaire(){
