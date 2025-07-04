@@ -39,7 +39,26 @@ public class UtilisateurService {
         utilisateurRepository.deleteById(id);
         return true;
     }
-    // pour bloquer les utilisateurs
+
+    public String debloqueUser(int id){
+        return "user debloquer";
+    }
+
+
+    public String bloqueUser(int id){
+        return "user bloquer";
+    }
+
+    public String validerDemande(int id){
+        return "demande valider";
+    }
+
+    public String rejeterDemande(int id) {
+        return "demande rejetter";
+    }
+
+
+    /*  pour bloquer les utilisateurs
     @PostMapping("/utilisateur/{id}/bloquer")
     public static String bloquerUtilisateur(@PathVariable Long id) {
         UtilisateurService.bloquerUtilisateur(id);
@@ -67,6 +86,6 @@ public class UtilisateurService {
         UtilisateurService demandeService = null;
         String n = demandeService.rejeterDemande(id);
         return "redirect:/admin";
-    }
+    } */
 }
 

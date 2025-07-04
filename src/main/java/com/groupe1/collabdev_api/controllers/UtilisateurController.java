@@ -14,23 +14,21 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @GetMapping
-    public List<Utilisateur> utilisateurList(){
+    public List<Utilisateur> utilisateurList() {
         return utilisateurService.chercherTous();
     }
 
     @GetMapping("/{id}")
     public Utilisateur userById(
             @PathVariable int idUser
-    ){
+    ) {
         return utilisateurService.chercherParId(idUser);
     }
 
     @PostMapping("/new")
     public Utilisateur createUser(
             @RequestBody Utilisateur user
-    ){
+    ) {
         return utilisateurService.ajouter(user);
     }
-
-
 }

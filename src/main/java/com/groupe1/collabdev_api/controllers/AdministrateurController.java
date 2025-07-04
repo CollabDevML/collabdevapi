@@ -3,10 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.Badge;
 import com.groupe1.collabdev_api.entities.enums.Role;
-import com.groupe1.collabdev_api.services.AdministrateurService;
-import com.groupe1.collabdev_api.services.BadgeService;
-import com.groupe1.collabdev_api.services.IdeeProjetService;
-import com.groupe1.collabdev_api.services.ProjetService;
+import com.groupe1.collabdev_api.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -31,15 +28,18 @@ public class AdministrateurController {
     @Autowired
     private ProjetService projetService;
 
+    @Autowired
+    private UtilisateurService utilisateurService;
+
     //Methode pour la creation de superAdmin :
     @GetMapping
-    public void index(){
+    public void index() {
         administrateurService.superAdmin();
     }
 
     //Methode pour la creation des autres Administrateurs :
     @PostMapping("new")
-    public Administrateur add(@RequestBody Administrateur admin){
+    public Administrateur add(@RequestBody Administrateur admin) {
         admin.setMotDePasse(BCrypt.hashpw(admin.getMotDePasse(), BCrypt.gensalt()));
         admin.setRole(Role.ADMIN);
         return administrateurService.ajouter(admin);
@@ -47,27 +47,28 @@ public class AdministrateurController {
 
     //Methode pour la modification d'un administrateur par id :
     @PutMapping("{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Administrateur admin){
-        return administrateurService.updateAdmin(id,admin);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Administrateur admin) {
+        return administrateurService.updateAdmin(id, admin);
     }
 
     //Methode pour la liste des Administrateurs :
     @GetMapping("list")
-    public List<Administrateur> list(){
-       if (administrateurService.chercherTous().isEmpty()){
-           return null;
-       }
-       return administrateurService.chercherTous();
+    public List<Administrateur> list() {
+        if (administrateurService.chercherTous().isEmpty()) {
+            return null;
+        }
+        return administrateurService.chercherTous();
     }
 
     //Methode pour afficher un seul administrateur :
     @GetMapping("{id}")
-    public Administrateur get(@PathVariable Integer id){
+    public Administrateur get(@PathVariable Integer id) {
         return administrateurService.chercherParId(id);
     }
+
     //Methode pour la suppression d'un administrateur :
-    public List<Administrateur> deleteAdmin(@PathVariable Integer id){
-        if (administrateurService.supprimerParId(id)){
+    public List<Administrateur> deleteAdmin(@PathVariable Integer id) {
+        if (administrateurService.supprimerParId(id)) {
             return administrateurService.chercherTous();
         }
         return null;
@@ -81,35 +82,58 @@ public class AdministrateurController {
      * Debut pour la gestion des badges
      */
     //Pour l'ajout des badges dans le systemes :
-    @PostMapping(value = "badge/new",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "badge/new", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addBadge(
             @RequestParam("titre") String titre,
             @RequestParam("fichier") MultipartFile chemin
     ) throws IOException {
-        return  badgeService.ajouteBadge(titre,chemin);
+        return badgeService.ajouteBadge(titre, chemin);
     }
 
     //Pour la modification d'un badge :
-    @PutMapping(value = "badge/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "badge/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateBadge(
             @PathVariable("id") int id,
-            @RequestParam(value = "titre",required = false) String titre,
-            @RequestParam(value = "fichier",required = false) MultipartFile chemin
+            @RequestParam(value = "titre", required = false) String titre,
+            @RequestParam(value = "fichier", required = false) MultipartFile chemin
     ) throws IOException {
-        return badgeService.modifieBadge(id,titre,chemin);
+        return badgeService.modifieBadge(id, titre, chemin);
     }
 
     //Pour la suppression de badge :
     @DeleteMapping("badge/{id}")
-    public ResponseEntity<?> deleteBadge(@PathVariable int id){
+    public ResponseEntity<?> deleteBadge(@PathVariable int id) {
         return badgeService.deleteBadge(id);
     }
 
     //Pour afficher tous les badges :
     @GetMapping("badge")
-    public List<Badge> getBadge(){
+    public List<Badge> getBadge() {
         return badgeService.afficheBadge();
     }
 
+    // pour bloquer les utilisateurs
+    @PostMapping("{id}/bloquer")
+    public String bloquerUtilisateur(@PathVariable int id) {
+        return utilisateurService.bloqueUser(id);
+    }
 
+    // pour debloquer un utilisateur
+    @PostMapping("{id}/debloquer")
+    public String debloquerUtilisateur(@PathVariable int id) {
+        return utilisateurService.debloqueUser(id);
+    }
+
+    // Validation des demandes
+    @PostMapping("{id}/valider")
+    public String validerDemande(@PathVariable int id) {
+        return utilisateurService.validerDemande(id);
+    }
+
+    //rejet des demandes
+
+    @PostMapping("{id}/rejeter")
+    public String rejeterDemande(@PathVariable int id) {
+        return utilisateurService.rejeterDemande(id);
+    }
 }
