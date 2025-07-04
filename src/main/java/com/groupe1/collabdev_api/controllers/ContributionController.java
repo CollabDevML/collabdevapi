@@ -39,17 +39,17 @@ public class ContributionController {
     {
         return contributionService.supprimerParId(id);
     }
-    @GetMapping
+    @GetMapping("/contributeurs")
     public List<Contribution> chercherParContributeurId(@RequestParam int idContributeur)
     {
         return contributionService.chercherParContributeurId(idContributeur);
     }
-    @GetMapping
+    @GetMapping("/projets")
     public List<Contribution> chercherParProjetId(@RequestParam int idProjet)
     {
         return contributionService.chercherParProjetId(idProjet);
     }
-    @GetMapping
+    @GetMapping("/valides")
     public List<Contribution> chercherContributionValide(
             @PathVariable int idContributeur
             ,@RequestParam boolean valide)
