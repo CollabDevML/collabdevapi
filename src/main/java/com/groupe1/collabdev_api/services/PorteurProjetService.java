@@ -1,17 +1,27 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.entities.PorteurProjet;
+import com.groupe1.collabdev_api.entities.Utilisateur;
+import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.PorteurProjetRepository;
+import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+import java.util.Optional;
+@Getter
+@Setter
 @Service
 public class PorteurProjetService {
 
     @Autowired
     private PorteurProjetRepository porteurProjetRepository;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
 
     public PorteurProjet chercherParId(int id){
         return porteurProjetRepository.findById(id).orElse(null);
@@ -21,11 +31,23 @@ public class PorteurProjetService {
         return porteurProjetRepository.findAll();
     }
 
-    public PorteurProjet ajouter(PorteurProjet porteurProjet){
+    public PorteurProjet ajouter(Utilisateur utilisateur){
+        utilisateur.setRole(Role.PORTEUR_PROJET);
+        Utilisateur user = utilisateurRepository.save(utilisateur);
+
+        PorteurProjet porteurProjet = new PorteurProjet();
+        porteurProjet.setUtilisateur(user);
         return porteurProjetRepository.save(porteurProjet);
     }
 
-    public PorteurProjet modifier(PorteurProjet porteurProjet){
+    public PorteurProjet modifier(int id, Utilisateur utilisateur ){
+        utilisateur.setRole(Role.PORTEUR_PROJET);
+        PorteurProjet porteurProjet = porteurProjetRepository.findById(id).orElse(null);
+        Utilisateur user = porteurProjet.getUtilisateur();
+
+        porteurProjet.setUtilisateur(user);
+        utilisateurRepository.save(utilisateur);
+
         return porteurProjetRepository.save(porteurProjet);
     }
 
@@ -33,5 +55,6 @@ public class PorteurProjetService {
         porteurProjetRepository.deleteById(id);
         return true;
     }
+
 }
 
