@@ -29,6 +29,12 @@ public class ContributeurService {
         return contributeurRepository.save(contributeur);
     }
 
+    public Contributeur modifier(int id, Contributeur contributeur)
+    {
+        contributeur.setId(id);
+        return contributeurRepository.save(contributeur);
+    }
+
     public Boolean supprimerParId(int id){
         contributeurRepository.deleteById(id);
         return true;
