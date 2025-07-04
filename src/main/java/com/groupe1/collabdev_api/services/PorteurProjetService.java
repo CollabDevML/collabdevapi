@@ -6,6 +6,7 @@ import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.PorteurProjetRepository;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,7 @@ import java.util.Optional;
 @Getter
 @Setter
 @Service
+@NoArgsConstructor
 public class PorteurProjetService {
 
     @Autowired
@@ -40,15 +42,21 @@ public class PorteurProjetService {
         return porteurProjetRepository.save(porteurProjet);
     }
 
-    public PorteurProjet modifier(int id, Utilisateur utilisateur ){
+    public PorteurProjet modifier(int id, Utilisateur utilisateur ) {
         utilisateur.setRole(Role.PORTEUR_PROJET);
         PorteurProjet porteurProjet = porteurProjetRepository.findById(id).orElse(null);
-        Utilisateur user = porteurProjet.getUtilisateur();
+        assert porteurProjet != null;
+        int idU = porteurProjet.getUtilisateur().getId();
+        utilisateurRepository.findById(idU).ifPresent(user -> {
+            user.setRole(Role.PORTEUR_PROJET);
+            user.setNom(utilisateur.getNom());
+            user.setPrenom(utilisateur.getPrenom());
+            user.setEmail(utilisateur.getEmail());
+            user.setMotDePasse(utilisateur.getMotDePasse());
+            utilisateurRepository.save(user);
+        });
 
-        porteurProjet.setUtilisateur(user);
-        utilisateurRepository.save(utilisateur);
-
-        return porteurProjetRepository.save(porteurProjet);
+        return porteurProjet;
     }
 
     public Boolean supprimerParId(int id){
