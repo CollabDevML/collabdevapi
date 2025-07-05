@@ -59,7 +59,7 @@ public class GestionAdminUtilisateurController {
     }
 
     //Pour debloquer tout les utilisateurs bloqués :
-    @GetMapping("debloquer")
+    @GetMapping("debloquerTous")
     public List<Utilisateur> debloquerTous(@RequestParam("idAdmin") int idA){
         return gestionAdminUtilisateurService.debloquerTousUtilisateur(idA);
     }
