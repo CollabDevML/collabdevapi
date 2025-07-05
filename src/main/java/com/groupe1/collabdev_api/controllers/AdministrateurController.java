@@ -38,7 +38,7 @@ public class AdministrateurController {
     }
 
     //Methode pour la liste des Administrateurs :
-    @GetMapping
+    @GetMapping("list")
     public List<Administrateur> list(){
        if (administrateurService.chercherTous().isEmpty()){
            return null;
