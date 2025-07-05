@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.entities.Utilisateur;
+import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +30,8 @@ public class UtilisateurService {
         return utilisateurRepository.save(utilisateur);
     }
 
-    public Boolean supprimerParId(int id){
-        utilisateurRepository.deleteById(id);
-        return true;
+    public List<Utilisateur> chercherParRole(Role role) {
+        return utilisateurRepository.findUtilisateursByRole(role);
     }
 }
 

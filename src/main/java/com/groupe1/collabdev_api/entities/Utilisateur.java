@@ -40,6 +40,8 @@ public class Utilisateur {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+    @Column(nullable = false)
+    private boolean etat = true;
 
     @OneToMany(mappedBy = "utilisateur")
     private List<CommentaireProjet> commentairesProjet = new ArrayList<>();
