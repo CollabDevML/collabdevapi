@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/demandes-contribution")
 public class DemandeContributionController {
     public final DemandeContributionService demandeContributionService;
     public DemandeContributionController(DemandeContributionService demandeContributionService)
@@ -13,7 +14,7 @@ public class DemandeContributionController {
         this.demandeContributionService = demandeContributionService;
     }
 
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public DemandeContribution chercherParId(@PathVariable int id)
     {
         return demandeContributionService.chercherParId(id);
@@ -31,7 +32,7 @@ public class DemandeContributionController {
         return demandeContributionService.ajouter(demandeContribution);
     }
 
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public DemandeContribution modifier(
             @PathVariable int id, @RequestBody DemandeContribution demandeContribution
     )
@@ -39,16 +40,43 @@ public class DemandeContributionController {
         demandeContribution.setId(id);
         return demandeContributionService.modifier(id,demandeContribution);
     }
-
-    @PatchMapping
-    public DemandeContribution modifier(@RequestBody DemandeContribution demandeContribution)
-    {
-        return demandeContributionService.modifier(demandeContribution);
-    }
-
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id)
     {
         return demandeContributionService.supprimerParId(id);
+    }
+
+    @PatchMapping("/{id}/accepter")
+    public DemandeContribution accepteDemande(
+            @PathVariable int id
+            )
+    {
+        return demandeContributionService.accepterDemandeContribution(id);
+    }
+    @PatchMapping("/{id}/refuser")
+    public DemandeContribution refuserDemande(@PathVariable int id)
+    {
+        return demandeContributionService.refuserDemandeContribution(id);
+    }
+    @GetMapping("/contributeur/{idContributeur}")
+    public List<DemandeContribution> chercherParContributeur(@PathVariable int idContributeur)
+    {
+        return demandeContributionService.chercherParContributeur(idContributeur);
+    }
+    @GetMapping("/projet/{idProjet}")
+    public List<DemandeContribution> chercherParProjet(@PathVariable int idProjet)
+    {
+        return demandeContributionService.chercherParProjet(idProjet);
+    }
+    //Lister les demandes acceptées ou refusées pour un contributeur dans un projet donné.
+    @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}")
+    public List<DemandeContribution> chercherParEstAccepte(
+            @PathVariable int idContributeur,
+            @PathVariable int idProjet,
+            @RequestParam boolean accepte)
+    {
+        return demandeContributionService.chercherParEstAccepte(
+                idContributeur, idProjet, accepte
+        );
     }
 }

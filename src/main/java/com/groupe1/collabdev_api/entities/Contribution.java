@@ -26,4 +26,6 @@ public class Contribution {
     @ManyToOne
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
+
+
 }

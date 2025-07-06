@@ -63,5 +63,7 @@ public class ContributionService {
     {
         return contributionRepository.findByProjet_Id(idProjet);
     }
+
+    //quitter un projet
 }
 

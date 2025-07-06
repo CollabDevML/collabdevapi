@@ -9,6 +9,7 @@ public interface DemandeContributionRepository extends JpaRepository<DemandeCont
     List<DemandeContribution> findByContributeur_Id(int idContributeur);
     List<DemandeContribution> findByProjet_Id(int idProjet);
     List<DemandeContribution> findByContributeur_IdAndProjet_Id(int idContributeur, int idProjet);
-    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAcceptTrue(int idContributeur, int idProjet);
-    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAcceptFalse(int idContributeur, int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAccepteTrue(int idContributeur, int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAccepteFalse(int idContributeur, int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndEstAccepteTrue(int idContributeur);
 }

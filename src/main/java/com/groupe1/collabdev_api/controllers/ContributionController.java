@@ -50,7 +50,8 @@ public class ContributionController {
     {
         return contributionService.chercherParProjetId(idProjet);
     }
-    @GetMapping("/valides")
+    //contributions/contributeur/{idC}/projet/{idP}/valides?valide=true or false
+    @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}/valides")
     public List<Contribution> chercherContributionValide(
             @PathVariable int idContributeur,
             @PathVariable int idProjet,
