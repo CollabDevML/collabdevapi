@@ -14,7 +14,7 @@ public class ContributionController {
     {
         this.contributionService = contributionService;
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Contribution chercherParId(@PathVariable int id)
     {
         return contributionService.chercherParId(id);
@@ -24,36 +24,38 @@ public class ContributionController {
     {
         return contributionService.chercherTous();
     }
-    @PutMapping("/id")
-    public Contribution modifier(@PathVariable int id, @RequestBody Contribution contribution)
-    {
-        return contributionService.modifier(id, contribution);
-    }
     @PostMapping
     public Contribution ajouter(@RequestBody Contribution contribution)
     {
         return contributionService.ajouter(contribution);
     }
-    @DeleteMapping
+    @PutMapping("/{id}")
+    public Contribution modifier(@PathVariable int id, @RequestBody Contribution contribution)
+    {
+        return contributionService.modifier(id, contribution);
+    }
+
+    @DeleteMapping("/{id}")
     public Boolean supprimerById(@PathVariable int id)
     {
         return contributionService.supprimerParId(id);
     }
-    @GetMapping("/contributeurs")
+    @GetMapping("/contributeur/{idContributeur}")
     public List<Contribution> chercherParContributeurId(@RequestParam int idContributeur)
     {
         return contributionService.chercherParContributeurId(idContributeur);
     }
-    @GetMapping("/projets")
+    @GetMapping("/projet/{idProjet}")
     public List<Contribution> chercherParProjetId(@RequestParam int idProjet)
     {
         return contributionService.chercherParProjetId(idProjet);
     }
     @GetMapping("/valides")
     public List<Contribution> chercherContributionValide(
-            @PathVariable int idContributeur
-            ,@RequestParam boolean valide)
+            @PathVariable int idContributeur,
+            @PathVariable int idProjet,
+            @RequestParam boolean valide)
     {
-        return contributionService.chercherContributionValide(idContributeur, valide);
+        return contributionService.chercherContributionValide(idContributeur,idProjet,valide);
     }
 }

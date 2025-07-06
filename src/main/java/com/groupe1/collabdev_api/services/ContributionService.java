@@ -45,29 +45,16 @@ public class ContributionService {
     {
         return contributionRepository.findByContributeur_Id(idContributeur);
     }
-    //lister toutes les contributions validées ou non validée d'un contributeur
-    public List<Contribution> chercherContributionValide(int idContributeur, Boolean valide)
+    //lister toutes les contributions validées ou non validée d'un contributeur dans un projet
+    public List<Contribution> chercherContributionValide(int idContributeur,int idProjet, Boolean valide)
     {
-        List<Contribution> contributionList = contributionRepository.findByContributeur_Id(idContributeur);
-        List<Contribution> contributionValide = new ArrayList<>();
-        List<Contribution> contributionNonValide = new ArrayList<>();
-        for(Contribution contribution : contributionList)
-        {
-            if(contribution.isEstValide())
-            {
-                contributionValide.add(contribution);
-            }
-            else {
-                contributionNonValide.add(contribution);
-            }
-        }
         if(valide)
         {
-            return contributionValide;
+            return contributionRepository.findByContributeur_IdAndProjet_IdAndEstValideTrue(
+                    idContributeur,idProjet );
         }
-        else
-        {
-            return contributionNonValide;
+        else {
+            return contributionRepository.findByContributeur_IdAndProjet_IdAndEstValideFalse(idContributeur, idProjet);
         }
     }
 

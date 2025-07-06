@@ -8,4 +8,7 @@ import java.util.List;
 public interface DemandeContributionRepository extends JpaRepository<DemandeContribution, Integer> {
     List<DemandeContribution> findByContributeur_Id(int idContributeur);
     List<DemandeContribution> findByProjet_Id(int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndProjet_Id(int idContributeur, int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAcceptTrue(int idContributeur, int idProjet);
+    List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAcceptFalse(int idContributeur, int idProjet);
 }

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contributeurs")
+@RequestMapping("/utilisateurs/contributeurs")
 public class ContributeurController {
     ContributeurService contributeurService;
     //injection de dépendance
@@ -15,7 +15,7 @@ public class ContributeurController {
     {
         this.contributeurService = contributeurService;
     }
-    @GetMapping("/id")
+    @GetMapping("/{id}")
     public Contributeur chercherParId(@PathVariable int id)
     {
         return contributeurService.chercherParId(id);
@@ -30,19 +30,19 @@ public class ContributeurController {
     {
         return contributeurService.ajouter(contributeur);
     }
-    @PutMapping("/id")
+    @PutMapping("/{id}")
     public Contributeur modifier(
             @PathVariable  int id, @RequestBody Contributeur contributeur)
     {
         return contributeurService.modifier(id, contributeur);
     }
-    @DeleteMapping("/id")
+    @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id)
     {
         return contributeurService.supprimerParId(id);
     }
     //modifier un attribut
-    @PatchMapping("/id")
+    @PatchMapping("/{id}")
     public Contributeur modifierAttribut(
             @PathVariable int id, @RequestBody Contributeur contributeur
     )
