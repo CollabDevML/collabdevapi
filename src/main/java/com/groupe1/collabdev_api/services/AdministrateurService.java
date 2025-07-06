@@ -17,6 +17,10 @@ public class AdministrateurService {
         return administrateurRepository.findById(id).orElse(null);
     }
 
+    public Administrateur chercherParEmail(String email) {
+        return administrateurRepository.findByEmail(email).orElse(null);
+    }
+
     public List<Administrateur> chercherTous(){
         return administrateurRepository.findAll();
     }
