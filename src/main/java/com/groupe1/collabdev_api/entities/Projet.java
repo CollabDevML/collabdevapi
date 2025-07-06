@@ -35,6 +35,7 @@ public class Projet {
     @Column(nullable = false)
     private LocalDate dateFin;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Niveau niveauDAcces;
 
