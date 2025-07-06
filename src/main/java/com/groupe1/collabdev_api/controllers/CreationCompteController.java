@@ -1,11 +1,11 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.controllers.request_entities.RequestContributeur;
-import com.groupe1.collabdev_api.controllers.request_entities.RequestGestionnaire;
-import com.groupe1.collabdev_api.controllers.request_entities.RequestPorteurProjet;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponseContributeur;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponseGestionnaire;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponsePorteurProjet;
+import com.groupe1.collabdev_api.entities.request_dto.RequestContributeur;
+import com.groupe1.collabdev_api.entities.request_dto.RequestGestionnaire;
+import com.groupe1.collabdev_api.entities.request_dto.RequestPorteurProjet;
+import com.groupe1.collabdev_api.entities.response_dto.ResponseContributeur;
+import com.groupe1.collabdev_api.entities.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.entities.response_dto.ResponsePorteurProjet;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.PorteurProjet;
