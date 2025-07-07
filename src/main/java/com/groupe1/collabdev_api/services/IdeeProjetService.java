@@ -13,25 +13,33 @@ public class IdeeProjetService {
     @Autowired
     private IdeeProjetRepository ideeProjetRepository;
 
-    public IdeeProjet chercherParId(int id){
+    public IdeeProjet chercherParId(int id) {
         return ideeProjetRepository.findById(id).orElse(null);
     }
 
-    public List<IdeeProjet> chercherTous(){
+    public List<IdeeProjet> chercherTous() {
         return ideeProjetRepository.findAll();
     }
 
-    public IdeeProjet ajouter(IdeeProjet ideeProjet){
+    public IdeeProjet ajouter(IdeeProjet ideeProjet) {
         return ideeProjetRepository.save(ideeProjet);
     }
 
-    public IdeeProjet modifier(IdeeProjet ideeProjet){
+    public IdeeProjet modifier(IdeeProjet ideeProjet) {
         return ideeProjetRepository.save(ideeProjet);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         ideeProjetRepository.deleteById(id);
         return true;
+    }
+
+    public IdeeProjet soutenirIdeeProjet(int id) {
+        IdeeProjet projet = ideeProjetRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Projet introuvable"));
+
+        projet.setNombreDeSoutien(projet.getNombreDeSoutien() + 1);
+        return ideeProjetRepository.save(projet);
     }
 }
 
