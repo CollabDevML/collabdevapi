@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.entities;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.entities.enums.Type;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Table(name = "contributeurs")
