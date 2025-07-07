@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.entities.enums.TypeFichier;
 import com.groupe1.collabdev_api.services.UploadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,9 +22,10 @@ public class UploadController {
     @PostMapping
     public ResponseEntity<?> uploadFile(
             @RequestParam("file") MultipartFile file,
-            @RequestParam("fileName") String fileName
+            @RequestParam("fileName") String fileName,
+            @RequestParam("type") TypeFichier fileType
     ) {
-        String filePath = uploadService.uploadFile(file, fileName);
+        String filePath = uploadService.uploadFile(file, fileName, fileType);
         if (filePath == null) {
             return
                     new ResponseEntity<>(
