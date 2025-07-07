@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.entities.enums.TypeFichier;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -14,8 +15,20 @@ public class DownloadService {
     String desktopPath = userHome + File.separator + "Desktop";
     String uploadDirectoryPath = desktopPath + File.separator + "uploads";
 
-    public byte[] downloadFile(String fileName) throws IOException {
-        String filePath = uploadDirectoryPath + File.separator + fileName + ".pdf";
+    public byte[] downloadFile(String fileName, TypeFichier fileType) throws IOException {
+        String filePath;
+        switch (fileType) {
+            case BADGE -> {
+                filePath  = uploadDirectoryPath + File.separator + "BADGEs" + File.separator + fileName + ".pdf";
+            }
+            case CDC -> {
+                filePath  = uploadDirectoryPath + File.separator + "CDCs" + File.separator + fileName + ".pdf";
+            }
+            case CV -> {
+                filePath  = uploadDirectoryPath + File.separator + "CVs" + File.separator + fileName + ".pdf";
+            }
+            default -> filePath = uploadDirectoryPath + File.separator + fileName + ".pdf";
+        }
         File file = new File(filePath);
 
         if (file.exists() && file.isFile()) {

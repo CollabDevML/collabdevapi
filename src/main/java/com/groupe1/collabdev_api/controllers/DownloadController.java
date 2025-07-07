@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.entities.enums.TypeFichier;
 import com.groupe1.collabdev_api.services.DownloadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,10 +23,13 @@ public class DownloadController {
     @Autowired
     private DownloadService downloadService;
 
-    @GetMapping("/{fileName}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName) {
+    @GetMapping("/{fileType}/{fileName}")
+    public ResponseEntity<Resource> downloadFile(
+            @PathVariable TypeFichier fileType,
+            @PathVariable String fileName
+    ) {
         try {
-            byte[] data = downloadService.downloadFile(fileName);
+            byte[] data = downloadService.downloadFile(fileName, fileType);
             ByteArrayResource resource = new ByteArrayResource(data);
             return ResponseEntity.ok()
                     .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + fileName + ".pdf")

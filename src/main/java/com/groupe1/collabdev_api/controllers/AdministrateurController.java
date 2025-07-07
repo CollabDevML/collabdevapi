@@ -1,81 +1,56 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.entities.Administrateur;
+import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
-@RequestMapping("/administrateurs")
+@RequestMapping("/administrateurs/")
 public class AdministrateurController {
 
     @Autowired
     private AdministrateurService administrateurService;
 
+    //Methode pour la creation des autres Administrateurs :
     @PostMapping
-    public Administrateur ajouterAdministrateur(
-            @RequestBody Administrateur administrateur
-    ) {
-        administrateur.setMotDePasse(
-                BCrypt.hashpw(
-                        administrateur.getMotDePasse(),
-                        BCrypt.gensalt()
-                )
-        );
-        return administrateurService.ajouter(administrateur);
+    public Administrateur add(@RequestBody Administrateur admin){
+        admin.setMotDePasse(BCrypt.hashpw(admin.getMotDePasse(), BCrypt.gensalt()));
+        admin.setRole(Role.ADMIN);
+        return administrateurService.ajouter(admin);
     }
 
-    @GetMapping("/{id}")
-    public Administrateur chercherParId(
-            @PathVariable int id
-    ) {
+    //Methode pour la modification d'un administrateur par id :
+    @PutMapping("{id}")
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Administrateur admin){
+        return administrateurService.updateAdmin(id,admin);
+    }
+
+    //Methode pour la liste des Administrateurs :
+    @GetMapping
+    public List<Administrateur> list(){
+       if (administrateurService.chercherTous().isEmpty()){
+           return null;
+       }
+       return administrateurService.chercherTous();
+    }
+
+    //Methode pour afficher un seul administrateur :
+    @GetMapping("{id}")
+    public Administrateur get(@PathVariable Integer id){
         return administrateurService.chercherParId(id);
     }
-
-    @GetMapping
-    public List<Administrateur> chercherTous() {
-        return administrateurService.chercherTous();
+    //Methode pour la suppression d'un administrateur :
+    @DeleteMapping("{id}")
+    public List<Administrateur> deleteAdmin(@PathVariable Integer id){
+        if (administrateurService.supprimerParId(id)){
+            return administrateurService.chercherTous();
+        }
+        return null;
     }
 
-    @PutMapping
-    public ResponseEntity<?> modifier(
-            @RequestBody Administrateur administrateur
-    ) {
-        if (administrateur.getId() == 0) {
-            return new ResponseEntity<>("Veuillez spécifier l'id", HttpStatus.BAD_REQUEST);
-        }
-        Administrateur oldAdministrateur = administrateurService.chercherParId(administrateur.getId());
-        Administrateur preparedAdministrateur = new Administrateur();
-        preparedAdministrateur.setId(oldAdministrateur.getId());
-        if (administrateur.getEmail() == null) {
-            preparedAdministrateur.setEmail(oldAdministrateur.getEmail());
-        } else {
-            preparedAdministrateur.setEmail(administrateur.getEmail());
-        }
-        if (administrateur.getMotDePasse() == null) {
-            preparedAdministrateur.setMotDePasse(oldAdministrateur.getMotDePasse());
-        } else {
-            preparedAdministrateur.setMotDePasse(
-                    BCrypt.hashpw(administrateur.getMotDePasse(),
-                            BCrypt.gensalt())
-            );
-        }
-        preparedAdministrateur.setRole(oldAdministrateur.getRole());
-        return new ResponseEntity<>(
-                administrateurService.modifier(preparedAdministrateur),
-                HttpStatus.OK
-        );
-    }
-
-    @DeleteMapping("/{id}")
-    public Boolean supprimerParId(
-            @PathVariable int id
-    ) {
-        return administrateurService.supprimerParId(id);
-    }
 }

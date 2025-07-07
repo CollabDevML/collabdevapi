@@ -26,6 +26,9 @@ public class Gestionnaire {
     @Column(nullable = false)
     private String uriCv;
 
+    @Column(nullable = false)
+    private boolean estValide;
+
     @OneToMany
     private List<Projet> projets;
 }

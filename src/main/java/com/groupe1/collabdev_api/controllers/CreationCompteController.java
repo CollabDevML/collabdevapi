@@ -1,11 +1,11 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.controllers.request_entities.RequestContributeur;
-import com.groupe1.collabdev_api.controllers.request_entities.RequestGestionnaire;
-import com.groupe1.collabdev_api.controllers.request_entities.RequestPorteurProjet;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponseContributeur;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponseGestionnaire;
-import com.groupe1.collabdev_api.controllers.response_entities.ResponsePorteurProjet;
+import com.groupe1.collabdev_api.dto.request_dto.RequestContributeur;
+import com.groupe1.collabdev_api.dto.request_dto.RequestGestionnaire;
+import com.groupe1.collabdev_api.dto.request_dto.RequestPorteurProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseContributeur;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.dto.response_dto.ResponsePorteurProjet;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.PorteurProjet;
@@ -55,6 +55,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestContributeur.getMotDePasse(), BCrypt.gensalt()),
                         requestContributeur.getGenre(),
                         Role.CONTRIBUTEUR,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -106,6 +107,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestPorteurProjet.getMotDePasse(), BCrypt.gensalt()),
                         requestPorteurProjet.getGenre(),
                         Role.PORTEUR_PROJET,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -144,6 +146,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestGestionnaire.getMotDePasse(), BCrypt.gensalt()),
                         requestGestionnaire.getGenre(),
                         Role.GESTIONNAIRE,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -154,6 +157,7 @@ public class CreationCompteController {
                         0,
                         utilisateurAjoute,
                         requestGestionnaire.getUriCv(),
+                        false,
                         new ArrayList<>()
                 )
         );
@@ -166,7 +170,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
-                                gestionnaireAjoute.getUriCv()
+                                gestionnaireAjoute.getUriCv(),
+                                gestionnaireAjoute.isEstValide()
                         ),
                         HttpStatus.CREATED
                 );
