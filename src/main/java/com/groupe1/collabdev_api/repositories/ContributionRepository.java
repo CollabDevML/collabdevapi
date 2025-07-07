@@ -15,4 +15,6 @@ public interface ContributionRepository extends JpaRepository<Contribution, Inte
     List<Contribution> findByContributeur_IdAndProjet_IdAndEstValideTrue(
             int idContributeur, int idProjet
     );
+    //quitter un projet
+    List<Contribution> deleteByContributeur_IdAndProjet_Id(int idContributeur, int idProjet);
 }

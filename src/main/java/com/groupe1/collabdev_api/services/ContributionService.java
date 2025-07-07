@@ -65,5 +65,9 @@ public class ContributionService {
     }
 
     //quitter un projet
+    public List<Contribution> quitterUnProjet(int idContributeur, int idProjet)
+    {
+        return contributionRepository.deleteByContributeur_IdAndProjet_Id(idContributeur, idProjet);
+    }
 }
 

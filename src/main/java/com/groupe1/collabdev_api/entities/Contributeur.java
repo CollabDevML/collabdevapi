@@ -17,7 +17,6 @@ import java.util.List;
 @Table(name = "contributeurs")
 public class Contributeur {
 
-    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

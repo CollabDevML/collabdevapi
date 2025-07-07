@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/utilisateurs/contributeurs")
+@RequestMapping("/contributeurs")
 public class ContributeurController {
     ContributeurService contributeurService;
     //injection de dépendance
@@ -18,6 +18,7 @@ public class ContributeurController {
     @GetMapping("/{id}")
     public Contributeur chercherParId(@PathVariable int id)
     {
+        System.out.println("Je suis ici");
         return contributeurService.chercherParId(id);
     }
     @GetMapping

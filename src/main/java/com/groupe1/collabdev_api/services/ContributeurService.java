@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.services;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.repositories.ContributeurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
