@@ -154,6 +154,7 @@ public class CreationCompteController {
                         0,
                         utilisateurAjoute,
                         requestGestionnaire.getUriCv(),
+                        false,
                         new ArrayList<>()
                 )
         );
@@ -166,7 +167,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
-                                gestionnaireAjoute.getUriCv()
+                                gestionnaireAjoute.getUriCv(),
+                                gestionnaireAjoute.isEstValide()
                         ),
                         HttpStatus.CREATED
                 );
