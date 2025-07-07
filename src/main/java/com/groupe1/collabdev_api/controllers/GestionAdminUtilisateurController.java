@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/gestion/utilisateur/")
+@RequestMapping("/administrateurs/gestion/utilisateur/")
 public class GestionAdminUtilisateurController {
     @Autowired
     private GestionAdminUtilisateurService gestionAdminUtilisateurService;
@@ -59,7 +59,7 @@ public class GestionAdminUtilisateurController {
     }
 
     //Pour debloquer tout les utilisateurs bloqués :
-    @GetMapping("debloquer")
+    @GetMapping("debloquerTous")
     public List<Utilisateur> debloquerTous(@RequestParam("idAdmin") int idA){
         return gestionAdminUtilisateurService.debloquerTousUtilisateur(idA);
     }

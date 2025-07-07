@@ -10,18 +10,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/")
+@RequestMapping("/administrateurs/")
 public class AdministrateurController {
 
     @Autowired
     private AdministrateurService administrateurService;
-
-
-    //Methode pour la creation de superAdmin :
-    @GetMapping
-    public void index(){
-        administrateurService.superAdmin();
-    }
 
     //Methode pour la creation des autres Administrateurs :
     @PostMapping
