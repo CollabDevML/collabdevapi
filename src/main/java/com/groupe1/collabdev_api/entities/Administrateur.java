@@ -35,5 +35,4 @@ public class Administrateur {
 
     @OneToMany(mappedBy = "administrateur")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
-
 }

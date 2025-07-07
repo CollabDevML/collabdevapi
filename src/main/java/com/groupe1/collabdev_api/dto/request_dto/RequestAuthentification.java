@@ -1,4 +1,4 @@
-package com.groupe1.collabdev_api.controllers.request_entities;
+package com.groupe1.collabdev_api.dto.request_dto;
 
 import com.groupe1.collabdev_api.entities.enums.Role;
 import lombok.Getter;
