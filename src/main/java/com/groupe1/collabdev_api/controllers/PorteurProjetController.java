@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/porteurs_projet")
+@RequestMapping("/utilisateurs/porteurs-projet")
 public class PorteurProjetController {
     @Autowired
     private PorteurProjetService porteurProjetService;
