@@ -1,7 +1,9 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.services.ContributeurService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,15 +18,14 @@ public class ContributeurController {
         this.contributeurService = contributeurService;
     }
     @GetMapping("/{id}")
-    public Contributeur chercherParId(@PathVariable int id)
+    public ContributeurDto chercherParId(@PathVariable int id)
     {
-        System.out.println("Je suis ici");
-        return contributeurService.chercherParId(id);
+        return contributeurService. chercherContributeurParId(id);
     }
     @GetMapping
-    public List<Contributeur> chercherTous()
+    public List<ContributeurDto> chercherTous()
     {
-        return contributeurService.chercherTous();
+        return contributeurService.chercherTousLesContributeurs();
     }
     @PostMapping
     public Contributeur ajouter(@RequestBody Contributeur contributeur)
@@ -35,7 +36,7 @@ public class ContributeurController {
     public Contributeur modifier(
             @PathVariable  int id, @RequestBody Contributeur contributeur)
     {
-        return contributeurService.modifier(id, contributeur);
+        return contributeurService.modifier(contributeur);
     }
     @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id)
@@ -48,7 +49,7 @@ public class ContributeurController {
             @PathVariable int id, @RequestBody Contributeur contributeur
     )
     {
-        return contributeurService.modifier(id, contributeur);
+        return contributeurService.modifier(contributeur);
     }
 
 }

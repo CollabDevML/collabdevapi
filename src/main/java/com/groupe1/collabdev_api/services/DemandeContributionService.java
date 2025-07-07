@@ -1,11 +1,16 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.repositories.DemandeContributionRepository;
+import com.groupe1.collabdev_api.utilities.MappingContribution;
+import com.groupe1.collabdev_api.utilities.MappingDemandeContribution;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DemandeContributionService {
@@ -13,12 +18,16 @@ public class DemandeContributionService {
     @Autowired
     private DemandeContributionRepository demandeContributionRepository;
 
-    public DemandeContribution chercherParId(int id){
-        return demandeContributionRepository.findById(id).orElse(null);
+    public DemandeContributionDto chercherParId(int id){
+
+        Optional<DemandeContribution> demandeContributionOptional  =  demandeContributionRepository.findById(id);
+        return demandeContributionOptional.map(MappingDemandeContribution::ToDemandeDto).orElse(null);
     }
 
-    public List<DemandeContribution> chercherTous(){
-        return demandeContributionRepository.findAll();
+    public List<DemandeContributionDto> chercherTous(){
+
+        List<DemandeContribution> demandeContributions = demandeContributionRepository.findAll();
+
     }
 
     public DemandeContribution ajouter(DemandeContribution demandeContribution){
@@ -28,7 +37,7 @@ public class DemandeContributionService {
     public DemandeContribution modifier(DemandeContribution demandeContribution){
         return demandeContributionRepository.save(demandeContribution);
     }
-
+    //modifier une demande de contribution
     public DemandeContribution modifier(int id, DemandeContribution demandeContribution)
     {
         demandeContribution.setId(id);

@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.services.ContributionService;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +16,12 @@ public class ContributionController {
         this.contributionService = contributionService;
     }
     @GetMapping("/{id}")
-    public Contribution chercherParId(@PathVariable int id)
+    public ContributionDto chercherParId(@PathVariable int id)
     {
         return contributionService.chercherParId(id);
     }
     @GetMapping
-    public List<Contribution> chercherTous()
+    public List<ContributionDto> chercherTous()
     {
         return contributionService.chercherTous();
     }
@@ -41,18 +42,18 @@ public class ContributionController {
         return contributionService.supprimerParId(id);
     }
     @GetMapping("/contributeur/{idContributeur}")
-    public List<Contribution> chercherParContributeurId(@RequestParam int idContributeur)
+    public List<ContributionDto> chercherParContributeurId(@PathVariable int idContributeur)
     {
         return contributionService.chercherParContributeurId(idContributeur);
     }
     @GetMapping("/projet/{idProjet}")
-    public List<Contribution> chercherParProjetId(@RequestParam int idProjet)
+    public List<ContributionDto> chercherParProjetId(@PathVariable int idProjet)
     {
         return contributionService.chercherParProjetId(idProjet);
     }
     //contributions/contributeur/{idC}/projet/{idP}/valides?valide=true or false
     @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}/valides")
-    public List<Contribution> chercherContributionValide(
+    public List<ContributionDto> chercherContributionValide(
             @PathVariable int idContributeur,
             @PathVariable int idProjet,
             @RequestParam boolean valide)

@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "contributions")
 public class Contribution {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -26,6 +26,5 @@ public class Contribution {
     @ManyToOne
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
-
 
 }

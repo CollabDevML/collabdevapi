@@ -58,18 +58,18 @@ public class DemandeContributionController {
     {
         return demandeContributionService.refuserDemandeContribution(id);
     }
-    @GetMapping("/contributeur/{idContributeur}")
+    @GetMapping("/contributeurs/{idContributeur}")
     public List<DemandeContribution> chercherParContributeur(@PathVariable int idContributeur)
     {
         return demandeContributionService.chercherParContributeur(idContributeur);
     }
-    @GetMapping("/projet/{idProjet}")
+    @GetMapping("/projets/{idProjet}")
     public List<DemandeContribution> chercherParProjet(@PathVariable int idProjet)
     {
         return demandeContributionService.chercherParProjet(idProjet);
     }
     //Lister les demandes acceptées ou refusées pour un contributeur dans un projet donné.
-    @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}")
+    @GetMapping("/contributeurs/{idContributeur}/projets/{idProjet}")
     public List<DemandeContribution> chercherParEstAccepte(
             @PathVariable int idContributeur,
             @PathVariable int idProjet,
