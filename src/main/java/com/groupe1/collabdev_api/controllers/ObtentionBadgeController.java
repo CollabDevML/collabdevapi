@@ -9,27 +9,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/obtention-badges")
+@RequestMapping("/utilisateurs/contributeurs")
 public class ObtentionBadgeController {
 
     @Autowired
     private ObtentionBadgeService obtentionBadgeService;
 
     // Ajouter une obtention de badge
-    @PostMapping
+    @PostMapping("/obtentions-badge")
     public ResponseEntity<ObtentionBadge> ajouter(@RequestBody ObtentionBadge obtentionBadge) {
         ObtentionBadge saved = obtentionBadgeService.ajouter(obtentionBadge);
         return ResponseEntity.ok(saved);
     }
 
     //  Lister toutes les obtentions
-    @GetMapping
+    @GetMapping("/obtentions-badge")
     public ResponseEntity<List<ObtentionBadge>> getAll() {
         return ResponseEntity.ok(obtentionBadgeService.chercherTous());
     }
 
     // Rechercher une obtention par ID
-    @GetMapping("/{id}")
+    @GetMapping("/obtentions-badge/{id}")
     public ResponseEntity<ObtentionBadge> getById(@PathVariable int id) {
         ObtentionBadge existant = obtentionBadgeService.chercherParId(id);
         if (existant == null) {
@@ -39,13 +39,13 @@ public class ObtentionBadgeController {
     }
 
     // Rechercher toutes les obtentions d’un contributeur
-    @GetMapping("/contributeur/{id}")
+    @GetMapping("/{id}/obtentions-badge")
     public ResponseEntity<List<ObtentionBadge>> getByContributeur(@PathVariable int id) {
         return ResponseEntity.ok(obtentionBadgeService.chercherParIdContri(id));
     }
 
     // Rechercher une obtention par badge
-    @GetMapping("/badge/{id}")
+    @GetMapping("/obtentions-badge/badge/{id}")
     public ResponseEntity<ObtentionBadge> getByBadge(@PathVariable int id) {
         ObtentionBadge existant = obtentionBadgeService.chercherParBadge(id);
         if (existant == null) {
@@ -55,7 +55,7 @@ public class ObtentionBadgeController {
     }
 
     // Modifier une obtention
-    @PutMapping("/{id}")
+    @PutMapping("/obtentions-badge/{id}")
     public ResponseEntity<ObtentionBadge> modifier(@PathVariable int id, @RequestBody ObtentionBadge updated) {
         ObtentionBadge existant = obtentionBadgeService.chercherParId(id);
         if (existant == null) {
@@ -67,7 +67,7 @@ public class ObtentionBadgeController {
     }
 
     // Supprimer une obtention
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/obtentions-badge/{id}")
     public ResponseEntity<String> supprimer(@PathVariable int id) {
         ObtentionBadge existant = obtentionBadgeService.chercherParId(id);
         if (existant == null) {
