@@ -2,6 +2,7 @@ package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.entities.enums.Role;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "administrateurs")
+@Data
 public class Administrateur {
 
     @Id
