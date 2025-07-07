@@ -4,6 +4,7 @@ import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.repositories.ContributeurRepository;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -37,11 +38,30 @@ public class ContributeurService {
     }
 
     //modifier un contributeur, ne marche pas
-    public Contributeur modifier(int id, Contributeur contributeur)
-    {
-        Contributeur oldContributeur = contributeurRepository.findById(id).orElse(null);
-       return contributeurRepository.save(contributeur);
+    public Contributeur modifier(int id, ContributeurDto dto) {
+        Contributeur existant = contributeurRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Contributeur non trouvé avec l'id : " + id));
+
+        // Mise à jour uniquement des champs non-nuls
+        if (dto.getNiveau() != null) {
+            existant.setNiveau(dto.getNiveau());
+        }
+        if (dto.getSpecialite() != null) {
+            existant.setSpecialite(dto.getSpecialite());
+        }
+        if (dto.getType() != null) {
+            existant.setType(dto.getType());
+        }
+        if (dto.getPieces() != null) {
+            existant.setPieces(dto.getPieces());
+        }
+        if (dto.getUriCv() != null) {
+            existant.setUriCv(dto.getUriCv());
+        }
+
+        return contributeurRepository.save(existant);
     }
+
 
     public Boolean supprimerParId(int id){
         contributeurRepository.deleteById(id);

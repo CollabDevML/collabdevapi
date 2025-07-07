@@ -2,14 +2,17 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ContributionService {
@@ -48,11 +51,17 @@ public class ContributionService {
         return true;
     }
     //modifier une contribution ne marche pas
-    public Contribution modifier(int id, Contribution contribution)
-    {
-        contribution.setId(id);
-        return contributionRepository.save(contribution);
+    public Contribution modifier(int id, ContributionDto dto) {
+        Contribution existante = contributionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Contribution non trouvée avec l'id : " + id));
+
+        if (dto.getEstValide() != null) {
+            existante.setEstValide(dto.getEstValide());
+        }
+
+        return contributionRepository.save(existante);
     }
+
     //liste toutes les contributions d'un contributeur
     public List<ContributionDto> chercherParContributeurId(int idContributeur)
     {
@@ -80,6 +89,15 @@ public class ContributionService {
         List<Contribution> contributions = contributionRepository.findByProjet_Id(idProjet);
         return MappingContribution.contributionDtoList(contributions);
     }
+    //lister ces projets
+    public List<Projet> listerProjetsDuContributeur(int idContributeur) {
+        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
+        return contributions.stream()
+                .map(Contribution::getProjet)
+                .distinct() // Pour éviter les doublons
+                .collect(Collectors.toList());
+    }
+
 
     //quitter un projet
     public List<ContributionDto> quitterUnProjet(int idContributeur, int idProjet)

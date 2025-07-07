@@ -33,10 +33,12 @@ public class ContributeurController {
         return contributeurService.ajouter(contributeur);
     }
     @PutMapping("/{id}")
-    public Contributeur modifier(
-            @PathVariable  int id, @RequestBody Contributeur contributeur)
+    public ResponseEntity<Contributeur> modifier(
+            @PathVariable  int id, @RequestBody ContributeurDto contributeur)
+
     {
-        return contributeurService.modifier(contributeur);
+        Contributeur contributeur1 = contributeurService.modifier(id,contributeur);
+        return ResponseEntity.ok(contributeur1);
     }
     @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id)

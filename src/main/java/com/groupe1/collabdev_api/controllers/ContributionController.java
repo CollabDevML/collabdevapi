@@ -2,7 +2,9 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ContributionService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,11 +32,14 @@ public class ContributionController {
     {
         return contributionService.ajouter(contribution);
     }
-    @PutMapping("/{id}")
-    public Contribution modifier(@PathVariable int id, @RequestBody Contribution contribution)
-    {
-        return contributionService.modifier(id, contribution);
+    @PutMapping("/contributions/{id}")
+    public ResponseEntity<Contribution> modifierContribution(
+            @PathVariable int id,
+            @RequestBody ContributionDto dto) {
+        Contribution modifiee = contributionService.modifier(id, dto);
+        return ResponseEntity.ok(modifiee);
     }
+
 
     @DeleteMapping("/{id}")
     public Boolean supprimerById(@PathVariable int id)
@@ -51,7 +56,7 @@ public class ContributionController {
     {
         return contributionService.chercherParProjetId(idProjet);
     }
-    //contributions/contributeur/{idC}/projet/{idP}/valides?valide=true or false
+    //contributions/contributeur/{idContributeur}/projet/{idProjet}/valides?valide=true or false
     @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}/valides")
     public List<ContributionDto> chercherContributionValide(
             @PathVariable int idContributeur,
@@ -59,5 +64,13 @@ public class ContributionController {
             @RequestParam boolean valide)
     {
         return contributionService.chercherContributionValide(idContributeur,idProjet,valide);
+    }
+    @GetMapping("/contributeur/{id}/projets")
+    public ResponseEntity<List<Projet>> projetList(
+            @PathVariable int id
+    )
+    {
+        List<Projet> projets = contributionService.listerProjetsDuContributeur(id);
+        return ResponseEntity.ok(projets);
     }
 }
