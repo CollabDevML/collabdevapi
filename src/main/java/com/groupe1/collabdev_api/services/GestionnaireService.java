@@ -1,7 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.entities.Gestionnaire;
-import com.groupe1.collabdev_api.entities.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

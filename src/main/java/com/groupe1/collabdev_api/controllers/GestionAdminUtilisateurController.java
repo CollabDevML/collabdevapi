@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/gestion/utilisateur/")
+@RequestMapping("/administrateurs/gestion/utilisateur/")
 public class GestionAdminUtilisateurController {
     @Autowired
     private GestionAdminUtilisateurService gestionAdminUtilisateurService;

@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/badge/")
+@RequestMapping("/admin/badge")
 public class BadgeController {
 
     @Autowired
@@ -34,7 +34,7 @@ public class BadgeController {
     }
 
     //Pour la modification d'un badge :
-    @PutMapping(value = "{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateBadge(
             @PathVariable("id") int id,
             @RequestParam(value = "titre",required = false) String titre,
@@ -44,7 +44,7 @@ public class BadgeController {
     }
 
     //Pour la suppression de badge :
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBadge(@PathVariable int id){
         return badgeService.deleteBadge(id);
     }
