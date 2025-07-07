@@ -1,0 +1,23 @@
+meta {
+  name: Creer un gestionnaire
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8180/utilisateurs/gestionnaires
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+      "prenom":"Samake",
+      "nom":"Abdoul Ibrahima",
+      "email":"samabdoul03@gmail.com",
+      "motDePasse":"azerty",
+      "genre":"M",
+      "uriCv":"http://vaCherher.com",
+      "estValide":true
+  }
+}

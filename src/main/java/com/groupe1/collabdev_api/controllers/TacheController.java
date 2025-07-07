@@ -24,8 +24,8 @@ public class TacheController {
         return tacheService.chercherTous(projetId);
     }
 
-    @GetMapping
-    public Tache afficherUneTache(@RequestParam int projetId ,@RequestParam int tacheId){
+    @GetMapping("{tacheId}")
+    public Tache afficherUneTache(@RequestParam int projetId ,@PathVariable int tacheId){
         return tacheService.chercherParId(projetId, tacheId);
     }
 

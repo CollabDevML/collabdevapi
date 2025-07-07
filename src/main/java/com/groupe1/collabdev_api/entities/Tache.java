@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +39,7 @@ public class Tache {
     private boolean estFini = false;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
 }
