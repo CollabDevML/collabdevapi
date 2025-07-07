@@ -10,7 +10,6 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AdministrateurService {
@@ -20,9 +19,9 @@ public class AdministrateurService {
 
     //Pour la creation de Super-Admin Par le systeme :
 
-    public  void superAdmin(){
+    public void superAdmin() {
         List<Administrateur> adminList = administrateurRepository.findAll();
-        if(adminList.isEmpty()){
+        if (adminList.isEmpty()) {
             Administrateur admin = new Administrateur();
             String email = "super.admin@collab.dev";
             String password = BCrypt.hashpw("admin1234", BCrypt.gensalt());
@@ -35,7 +34,7 @@ public class AdministrateurService {
 
     //Pour la mise a jour d'un administrateur :
 
-    public ResponseEntity<?>  updateAdmin(int id, Administrateur admin){
+    public ResponseEntity<?> updateAdmin(int id, Administrateur admin) {
 
         if (id == 0)
             return ResponseEntity.badRequest().body("Veuillez spécifier l'id");
@@ -53,7 +52,7 @@ public class AdministrateurService {
         return ResponseEntity.ok(modifie);
     }
 
-    public Administrateur chercherParId(int id){
+    public Administrateur chercherParId(int id) {
         return administrateurRepository.findById(id).orElse(null);
     }
 
@@ -61,22 +60,22 @@ public class AdministrateurService {
         return administrateurRepository.findByEmail(email).orElse(null);
     }
 
-    public List<Administrateur> chercherTous(){
-        if (administrateurRepository.findAll().isEmpty()){
+    public List<Administrateur> chercherTous() {
+        if (administrateurRepository.findAll().isEmpty()) {
             return null;
         }
         return administrateurRepository.findAll();
     }
 
-    public Administrateur ajouter(Administrateur administrateur){
+    public Administrateur ajouter(Administrateur administrateur) {
         return administrateurRepository.save(administrateur);
     }
 
-    public Administrateur modifier(Administrateur administrateur){
+    public Administrateur modifier(Administrateur administrateur) {
         return administrateurRepository.save(administrateur);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         administrateurRepository.deleteById(id);
         return true;
     }

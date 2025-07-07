@@ -55,6 +55,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestContributeur.getMotDePasse(), BCrypt.gensalt()),
                         requestContributeur.getGenre(),
                         Role.CONTRIBUTEUR,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -106,6 +107,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestPorteurProjet.getMotDePasse(), BCrypt.gensalt()),
                         requestPorteurProjet.getGenre(),
                         Role.PORTEUR_PROJET,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -144,6 +146,7 @@ public class CreationCompteController {
                         BCrypt.hashpw(requestGestionnaire.getMotDePasse(), BCrypt.gensalt()),
                         requestGestionnaire.getGenre(),
                         Role.GESTIONNAIRE,
+                        true,
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()

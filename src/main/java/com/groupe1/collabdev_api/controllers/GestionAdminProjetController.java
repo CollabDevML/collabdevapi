@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("admin/gestion/projet/")
+@RequestMapping("/administrateurs/gestion/projets/")
 public class GestionAdminProjetController {
     @Autowired
     private GestionAdminProjetService gestionAdminProjetService;
@@ -20,13 +20,13 @@ public class GestionAdminProjetController {
     }
 
     //Pour activer un Projet :
-    @GetMapping("activer/{id}")
+    @GetMapping("{id}/activer")
     public Projet actviveProjet(@PathVariable int id,@RequestParam("idAdmin")int idA) {
         return gestionAdminProjetService.activerProjet(id,idA);
     }
 
     //Pour desactiver un Projet :
-    @GetMapping("desactiver/{id}")
+    @GetMapping("{id}/desactiver")
     public Projet desactiverProjet(@PathVariable int id,@RequestParam("idAdmin") int idA) {
         return gestionAdminProjetService.desactiverProjet(id,idA);
     }
