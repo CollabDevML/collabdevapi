@@ -13,7 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/administrateurs/gestion/utilisateur/")
 @Tag(name = "ADMIN API",
-        description = "Gestion CRUD de l'administrateurs")
+        description = "Gestion CRUD de l'administrateurs ")
 
 public class GestionAdminUtilisateurController {
     @Autowired
