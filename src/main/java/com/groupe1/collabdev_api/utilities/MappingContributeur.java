@@ -3,7 +3,6 @@ package com.groupe1.collabdev_api.utilities;
 import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Utilisateur;
-import com.groupe1.collabdev_api.entities.response_dto.ResponseContributeur;
 
 public class MappingContributeur {
     public static ContributeurDto contributeurToDto(Contributeur contributeur)

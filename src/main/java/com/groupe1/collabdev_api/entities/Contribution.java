@@ -27,4 +27,8 @@ public class Contribution {
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
 
+    @OneToOne
+    @JoinColumn(name = "id_tache", nullable = false)
+    private Tache tache;
+
 }
