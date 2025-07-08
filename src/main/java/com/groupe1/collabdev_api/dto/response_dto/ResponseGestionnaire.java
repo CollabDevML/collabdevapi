@@ -9,10 +9,12 @@ import lombok.Setter;
 public class ResponseGestionnaire extends ResponseUtilisateur {
     private String uriCv;
     private boolean estValide;
+    private int idGestionnaire;
 
-    public ResponseGestionnaire(int id, String prenom, String nom, String email, String motDePasse, Genre genre, String uriCv, boolean estValide) {
+    public ResponseGestionnaire(int id, String prenom, String nom, String email, String motDePasse, Genre genre, String uriCv, boolean estValide, int idGestionnaire) {
         super(id, prenom, nom, email, motDePasse, genre);
         this.uriCv = uriCv;
         this.estValide = estValide;
+        this.idGestionnaire = idGestionnaire;
     }
 }

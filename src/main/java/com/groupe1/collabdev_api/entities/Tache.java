@@ -1,14 +1,17 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.groupe1.collabdev_api.entities.enums.NiveauTache;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -37,7 +40,16 @@ public class Tache {
     @Column(nullable = false)
     private boolean estFini = false;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private NiveauTache niveau;
+
     @ManyToOne
+    @JoinColumn(name = "id_contributeur")
+    private Contributeur contributeur;
+
+    @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
 

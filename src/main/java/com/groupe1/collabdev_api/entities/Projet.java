@@ -39,11 +39,15 @@ public class Projet {
     @Column(nullable = false)
     private Niveau niveauDAcces;
 
+    @Column(nullable = false)
+    private boolean etat=true;
+
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
     private Gestionnaire gestionnaire;
 
     @OneToMany(mappedBy = "projet", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Tache> taches;
 
     @OneToMany(mappedBy = "projet")
