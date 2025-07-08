@@ -5,6 +5,7 @@ import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ContributionService;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,21 +19,25 @@ public class ContributionController {
     {
         this.contributionService = contributionService;
     }
+
     @GetMapping("/{id}")
-    public ContributionDto chercherParId(@PathVariable int id)
+    public ResponseEntity<?> chercherParId(@PathVariable int id)
     {
         return contributionService.chercherParId(id);
     }
+
     @GetMapping
     public List<ContributionDto> chercherTous()
     {
         return contributionService.chercherTous();
     }
+
     @PostMapping
     public Contribution ajouter(@RequestBody Contribution contribution)
     {
         return contributionService.ajouter(contribution);
     }
+
     @PatchMapping("/{id}")
     public ResponseEntity<ContributionDto> modifierContribution(
             @PathVariable int id,
@@ -48,16 +53,19 @@ public class ContributionController {
     {
         return contributionService.supprimerParId(id);
     }
+
     @GetMapping("/contributeur/{idContributeur}")
     public List<ContributionDto> chercherParContributeurId(@PathVariable int idContributeur)
     {
         return contributionService.chercherParContributeurId(idContributeur);
     }
+
     @GetMapping("/projet/{idProjet}")
     public List<ContributionDto> chercherParProjetId(@PathVariable int idProjet)
     {
         return contributionService.chercherParProjetId(idProjet);
     }
+
     //contributions/contributeur/{idContributeur}/projet/{idProjet}/valides?valide=true or false
     @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}/valides")
     public List<ContributionDto> chercherContributionValide(
@@ -67,6 +75,7 @@ public class ContributionController {
     {
         return contributionService.chercherContributionValide(idContributeur,idProjet,valide);
     }
+
     @GetMapping("/contributeur/{id}/projets")
     public ResponseEntity<List<Projet>> projetList(
             @PathVariable int id

@@ -4,6 +4,7 @@ import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.repositories.ContributeurRepository;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
+import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,9 +20,14 @@ public class ContributeurService {
     @Autowired
     private ContributeurRepository contributeurRepository;
 
-    public Contributeur chercherParId(int id){
-        return contributeurRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Contributeur non trouvé"));
+    public ResponseEntity<?> chercherParId(int id){
+        Contributeur contributeur = contributeurRepository.findById(id).orElse(null);
+        if(contributeur == null)
+        {
+            return ResponseEntity.ok("contributeur non trouvé");
+        }
+        return ResponseEntity.ok(MappingContributeur.contributeurToDto(contributeur));
+
     }
 
     public List<Contributeur> chercherTous(){
@@ -67,12 +73,14 @@ public class ContributeurService {
         contributeurRepository.deleteById(id);
         return true;
     }
+
     public ContributeurDto chercherContributeurParId(int id)
     {
         Optional<Contributeur> optional = contributeurRepository.findById(id);
         return optional.map(MappingContributeur::contributeurToDto)
                 .orElseThrow(()-> new RuntimeException("Contributeur non trouvé"));
     }
+
     public List<ContributeurDto> chercherTousLesContributeurs()
     {
         List<Contributeur> contributeurList = contributeurRepository.findAll();

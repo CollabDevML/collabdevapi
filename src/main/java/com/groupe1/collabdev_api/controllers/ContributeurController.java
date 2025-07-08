@@ -23,16 +23,19 @@ public class ContributeurController {
     {
         return contributeurService.chercherContributeurParId(id);
     }
+
     @GetMapping
     public List<ContributeurDto> chercherTous()
     {
         return contributeurService.chercherTousLesContributeurs();
     }
+
     @PostMapping
     public Contributeur ajouter(@RequestBody Contributeur contributeur)
     {
         return contributeurService.ajouter(contributeur);
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<ContributeurDto> modifier(
             @PathVariable  int id, @RequestBody ContributeurDto contributeur)
@@ -42,6 +45,7 @@ public class ContributeurController {
         ContributeurDto contributeurDto = MappingContributeur.contributeurToDto(contributeur1);
         return ResponseEntity.ok(contributeurDto);
     }
+
     @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id)
     {
