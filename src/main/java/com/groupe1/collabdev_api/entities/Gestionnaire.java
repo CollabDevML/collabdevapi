@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "gestionnaires")
 public class Gestionnaire {
     @Id
@@ -23,6 +25,9 @@ public class Gestionnaire {
 
     @Column(nullable = false)
     private String uriCv;
+
+    @Column(nullable = false)
+    private boolean estValide;
 
     @OneToMany
     private List<Projet> projets;
