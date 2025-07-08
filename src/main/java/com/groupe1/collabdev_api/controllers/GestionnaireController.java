@@ -1,13 +1,9 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.entities.Gestionnaire;
-import com.groupe1.collabdev_api.entities.response_dto.ResponseGestionnaire;
-import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
 import com.groupe1.collabdev_api.services.GestionnaireService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.services;
 
-import com.groupe1.collabdev_api.controllers.request_entities.RequestAuthentification;
+import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
