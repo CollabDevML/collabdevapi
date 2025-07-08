@@ -1,20 +1,24 @@
 package com.groupe1.collabdev_api.dto.request_dto;
 
+import lombok.Setter;
+
 public class EmailRequest {
-    private String to;
+    private String dest;
+    @Setter
     private String subject;
+    @Setter
     private String text;
 
     public EmailRequest() {}
 
     //retourne l'adresse du destinataire
-    public String getTo() {
+    public String getDest() {
 
-        return to;
+        return dest;
     }
     public void setTo(String to) {
 
-        this.to = to;
+        this.dest = dest;
     }
 
     //retourne le sujet
@@ -22,17 +26,10 @@ public class EmailRequest {
 
         return subject;
     }
-    public void setSubject(String subject) {
 
-        this.subject = subject;
-    }
     //le corp du message
     public String getText() {
 
         return text;
-    }
-    public void setText(String text) {
-
-        this.text = text;
     }
 } 
