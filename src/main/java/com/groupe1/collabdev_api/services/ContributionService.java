@@ -1,11 +1,18 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
+import com.groupe1.collabdev_api.utilities.MappingContribution;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ContributionService {
@@ -13,25 +20,84 @@ public class ContributionService {
     @Autowired
     private ContributionRepository contributionRepository;
 
-    public Contribution chercherParId(int id){
-        return contributionRepository.findById(id).orElse(null);
+    public ResponseEntity<?> chercherParId(int id) {
+        Contribution contribtution = contributionRepository.findById(id).orElse(null);
+        if (contribtution == null) {
+            return ResponseEntity.ok("Contribution non trouvée");
+        }
+        return ResponseEntity.ok(MappingContribution.ContributionToDto(contribtution));
     }
 
-    public List<Contribution> chercherTous(){
-        return contributionRepository.findAll();
+    public List<ContributionDto> chercherTous() {
+
+        List<Contribution> contributions = contributionRepository.findAll();
+        return MappingContribution.contributionDtoList(contributions);
     }
 
-    public Contribution ajouter(Contribution contribution){
+    public List<ContributionDto> chercherTousLesContributions() {
+        List<Contribution> contributions = contributionRepository.findAll();
+        return MappingContribution.contributionDtoList(contributions);
+    }
+
+    public Contribution ajouter(Contribution contribution) {
+        return contributionRepository.save(contribution);
+
+    }
+
+    public Contribution modifier(Contribution contribution) {
         return contributionRepository.save(contribution);
     }
 
-    public Contribution modifier(Contribution contribution){
-        return contributionRepository.save(contribution);
-    }
-
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         contributionRepository.deleteById(id);
         return true;
+    }
+
+    public ContributionDto validerContribution(int id) {
+        Contribution existante = contributionRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Contribution non trouvée avec l'id : " + id));
+        existante.setEstValide(true);
+        return contributionRepository.save(existante).toContributeurDto();
+    }
+
+    //liste toutes les contributions d'un contributeur
+    public List<ContributionDto> chercherParContributeurId(int idContributeur) {
+        List<Contribution> contribution = contributionRepository.findByContributeur_Id(idContributeur);
+        return MappingContribution.contributionDtoList(contribution);
+    }
+
+    //lister toutes les contributions validées ou non validée d'un contributeur dans un projet
+    public List<ContributionDto> chercherContributionValide(int idContributeur, int idProjet, Boolean valide) {
+        List<Contribution> contributions;
+        if (valide) {
+            contributions = contributionRepository.findByContributeur_IdAndProjet_IdAndEstValideTrue(
+                    idContributeur, idProjet);
+        } else {
+            contributions = contributionRepository.findByContributeur_IdAndProjet_IdAndEstValideFalse(idContributeur, idProjet);
+        }
+        return Contribution.toContributeurDtoList(contributions);
+    }
+
+    //lister toutes les contributions d'un projet
+    public List<ContributionDto> chercherParProjetId(int idProjet) {
+        List<Contribution> contributions = contributionRepository.findByProjet_Id(idProjet);
+        return MappingContribution.contributionDtoList(contributions);
+    }
+
+    //lister ces projets
+    public List<Projet> listerProjetsDuContributeur(int idContributeur) {
+        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
+        return contributions.stream()
+                .map(Contribution::getProjet)
+                .distinct() // Pour éviter les doublons
+                .collect(Collectors.toList());
+    }
+
+    //quitter un projet
+    public List<ContributionDto> quitterUnProjet(int idContributeur, int idProjet) {
+        List<Contribution> contributions = contributionRepository
+                .deleteByContributeur_IdAndProjet_Id(idContributeur, idProjet);
+        return MappingContribution.contributionDtoList(contributions);
     }
 }
 

@@ -2,18 +2,17 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestTache;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseTache;
-import com.groupe1.collabdev_api.entities.Contributeur;
-import com.groupe1.collabdev_api.entities.Gestionnaire;
-import com.groupe1.collabdev_api.entities.Projet;
-import com.groupe1.collabdev_api.entities.Tache;
+import com.groupe1.collabdev_api.entities.*;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.entities.enums.NiveauTache;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.exceptions.ProjectNotFoundException;
+import com.groupe1.collabdev_api.exceptions.TacheNotFoundException;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import com.groupe1.collabdev_api.repositories.ProjetRepository;
 import com.groupe1.collabdev_api.repositories.TacheRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +29,12 @@ public class TacheService {
     private GestionnaireRepository gestionnaireRepository;
     @Autowired
     private ContributeurService contributeurService;
+
+    @Autowired
+    private ContributionService contributionService;
+
+    @Autowired
+    private ProjetService projetService;
 
     //Rechercher une tache dans un projet
     public Tache chercherParId(int idProjet, int tacheId) {
@@ -166,6 +171,25 @@ public class TacheService {
                 return false;
             }
         }
+        return true;
+    }
+
+    @Transactional
+    public Boolean finirUneTache(int id) throws TacheNotFoundException {
+        Tache tache = tacheRepository.findById(id).orElseThrow(
+                ()-> new TacheNotFoundException("Tâche introuvable!")
+        );
+        tache.setEstFini(true);
+        tacheRepository.save(tache);
+        contributionService.ajouter(
+                new Contribution(
+                       0,
+                       false,
+                        tache.getContributeur(),
+                        tache.getProjet(),
+                        tache
+                )
+        );
         return true;
     }
 }

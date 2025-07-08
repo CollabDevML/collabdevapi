@@ -1,17 +1,14 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.entities.enums.NiveauTache;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.util.NullnessMethodInvocationValidator;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

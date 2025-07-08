@@ -36,6 +36,7 @@ public class Projet {
     @Column(nullable = false)
     private LocalDate dateFin;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Niveau niveauDAcces;
 
@@ -61,5 +62,19 @@ public class Projet {
 
     @OneToMany(mappedBy = "projet")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object ) return true;
+        if(!(object instanceof Projet)) return false;
+        Projet projet = (Projet) object;
+        return id == projet.getId();
+    }
+    @Override
+    public int hashCode()
+    {
+        return Integer.hashCode(id);
+    }
 
 }
