@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.Getter;

@@ -4,15 +4,13 @@ import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ContributionService;
-import com.groupe1.collabdev_api.utilities.MappingContribution;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/contributions")
+@RequestMapping("/utilisateurs/contributeurs")
 public class ContributionController {
     ContributionService contributionService;
     public ContributionController(ContributionService contributionService)
@@ -20,63 +18,55 @@ public class ContributionController {
         this.contributionService = contributionService;
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/contributions/{id}")
     public ResponseEntity<?> chercherParId(@PathVariable int id)
     {
         return contributionService.chercherParId(id);
     }
 
-    @GetMapping
+    @GetMapping("/contributions")
     public List<ContributionDto> chercherTous()
     {
         return contributionService.chercherTous();
     }
 
-    @PostMapping
-    public Contribution ajouter(@RequestBody Contribution contribution)
-    {
-        return contributionService.ajouter(contribution);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<ContributionDto> modifierContribution(
-            @PathVariable int id,
-            @RequestBody ContributionDto dto) {
-        ContributionDto modifieDto = contributionService.modifier(id, dto);
-
+    @PatchMapping("/contributions/{id}/valide")
+    public ResponseEntity<ContributionDto> validerContribution(
+            @PathVariable int id) {
+        ContributionDto modifieDto = contributionService.validerContribution(id);
         return ResponseEntity.ok(modifieDto);
     }
 
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/contributions/{id}")
     public Boolean supprimerById(@PathVariable int id)
     {
         return contributionService.supprimerParId(id);
     }
 
-    @GetMapping("/contributeur/{idContributeur}")
+    @GetMapping("/{idContributeur}/contributions")
     public List<ContributionDto> chercherParContributeurId(@PathVariable int idContributeur)
     {
         return contributionService.chercherParContributeurId(idContributeur);
     }
 
-    @GetMapping("/projet/{idProjet}")
+    @GetMapping("/contributions/projets/{idProjet}")
     public List<ContributionDto> chercherParProjetId(@PathVariable int idProjet)
     {
         return contributionService.chercherParProjetId(idProjet);
     }
 
     //contributions/contributeur/{idContributeur}/projet/{idProjet}/valides?valide=true or false
-    @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}/valides")
+    @GetMapping("/{idContributeur}/projets/{idProjet}/valide/{estValide}")
     public List<ContributionDto> chercherContributionValide(
             @PathVariable int idContributeur,
             @PathVariable int idProjet,
-            @RequestParam boolean valide)
+            @PathVariable boolean estValide)
     {
-        return contributionService.chercherContributionValide(idContributeur,idProjet,valide);
+        return contributionService.chercherContributionValide(idContributeur,idProjet,estValide);
     }
 
-    @GetMapping("/contributeur/{id}/projets")
+    @GetMapping("/{id}/projets")
     public ResponseEntity<List<Projet>> projetList(
             @PathVariable int id
     )

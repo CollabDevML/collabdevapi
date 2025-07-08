@@ -20,14 +20,8 @@ public class ContributeurService {
     @Autowired
     private ContributeurRepository contributeurRepository;
 
-    public ResponseEntity<?> chercherParId(int id){
-        Contributeur contributeur = contributeurRepository.findById(id).orElse(null);
-        if(contributeur == null)
-        {
-            return ResponseEntity.ok("contributeur non trouvé");
-        }
-        return ResponseEntity.ok(MappingContributeur.contributeurToDto(contributeur));
-
+    public Contributeur chercherParId(int id){
+        return contributeurRepository.findById(id).orElse(null);
     }
 
     public List<Contributeur> chercherTous(){

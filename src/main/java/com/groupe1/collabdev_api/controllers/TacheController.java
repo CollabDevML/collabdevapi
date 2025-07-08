@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.request_dto.RequestTache;
 import com.groupe1.collabdev_api.entities.Tache;
 import com.groupe1.collabdev_api.exceptions.ProjectNotFoundException;
+import com.groupe1.collabdev_api.exceptions.TacheNotFoundException;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.TacheService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,9 +55,29 @@ public class TacheController {
         return tacheService.chercherParId(projetId, tacheId);
     }
 
-    @PutMapping
-    public Tache modifierUneTache(@RequestParam int idTache, @RequestBody Tache tache) {
-        return tacheService.modifier(idTache, tache);
+    @PutMapping("/{id}")
+    public ResponseEntity<?> finirUneTache(
+            @PathVariable int id
+    ) {
+        try {
+            return
+                    new ResponseEntity<>(
+                            tacheService.finirUneTache(id),
+                            HttpStatus.CREATED
+                    );
+        } catch (RuntimeException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.INTERNAL_SERVER_ERROR
+                    );
+        } catch (TacheNotFoundException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.NOT_FOUND
+                    );
+        }
     }
 
     @DeleteMapping

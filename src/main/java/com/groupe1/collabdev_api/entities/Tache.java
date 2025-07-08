@@ -52,8 +52,4 @@ public class Tache {
     @JsonBackReference
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
-
-    @OneToOne
-    @JoinColumn(name = "id_contribution", nullable = false)
-    private Contribution contribution;
 }

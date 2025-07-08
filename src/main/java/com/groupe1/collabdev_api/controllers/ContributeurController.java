@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/contributeurs")
+@RequestMapping("/utilisateurs/contributeurs")
 public class ContributeurController {
     ContributeurService contributeurService;
     //injection de dépendance
@@ -28,12 +28,6 @@ public class ContributeurController {
     public List<ContributeurDto> chercherTous()
     {
         return contributeurService.chercherTousLesContributeurs();
-    }
-
-    @PostMapping
-    public Contributeur ajouter(@RequestBody Contributeur contributeur)
-    {
-        return contributeurService.ajouter(contributeur);
     }
 
     @PutMapping("/{id}")
