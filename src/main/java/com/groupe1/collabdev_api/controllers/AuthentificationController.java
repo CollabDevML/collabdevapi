@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.controllers.request_entities.RequestAuthentification;
+import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -13,8 +13,15 @@ public class ObtentionBadgeService {
     @Autowired
     private ObtentionBadgeRepository obtentionBadgeRepository;
 
-    public ObtentionBadge chercherParId(int id){
+    public ObtentionBadge chercherParId(int id) {
         return obtentionBadgeRepository.findById(id).orElse(null);
+    }
+
+    public List<ObtentionBadge> chercherParIdContri(int id){
+        return obtentionBadgeRepository.findByContributeurId( id);
+    }
+    public  ObtentionBadge chercherParBadge (int id){
+        return obtentionBadgeRepository.findByBadgeId(id);
     }
 
     public List<ObtentionBadge> chercherTous(){

@@ -1,4 +1,4 @@
-package com.groupe1.collabdev_api.entities.request_dto;
+package com.groupe1.collabdev_api.dto.request_dto;
 
 import com.groupe1.collabdev_api.entities.enums.Genre;
 

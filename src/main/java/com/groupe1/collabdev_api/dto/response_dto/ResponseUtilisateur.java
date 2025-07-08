@@ -1,4 +1,4 @@
-package com.groupe1.collabdev_api.entities.request_dto;
+package com.groupe1.collabdev_api.dto.response_dto;
 
 import com.groupe1.collabdev_api.entities.enums.Genre;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class RequestUtilisateur {
+public abstract class ResponseUtilisateur {
+    private int id;
     private String prenom;
     private String nom;
     private String email;
