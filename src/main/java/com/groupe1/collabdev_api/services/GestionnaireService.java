@@ -36,7 +36,8 @@ public class GestionnaireService {
                             gestionnaire.getUtilisateur().getMotDePasse(),
                             gestionnaire.getUtilisateur().getGenre(),
                             gestionnaire.getUriCv(),
-                            gestionnaire.isEstValide()
+                            gestionnaire.isEstValide(),
+                            gestionnaire.getId()
                     )
             );
         }

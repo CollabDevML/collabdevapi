@@ -44,6 +44,9 @@ public class Contributeur {
     @Column(nullable = false)
     private String uriCv;
 
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Tache> taches;
+
     @OneToMany(mappedBy = "contributeur")
     private List<Contribution> contributions = new ArrayList<>();
 

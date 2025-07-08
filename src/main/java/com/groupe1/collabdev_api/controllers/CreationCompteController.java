@@ -72,6 +72,7 @@ public class CreationCompteController {
                         requestContributeur.getUriCv(),
                         new ArrayList<>(),
                         new ArrayList<>(),
+                        new ArrayList<>(),
                         new ArrayList<>()
                 )
         );
@@ -88,7 +89,8 @@ public class CreationCompteController {
                                 contributeurAjoute.getSpecialite(),
                                 contributeurAjoute.getType(),
                                 contributeurAjoute.getPieces(),
-                                contributeurAjoute.getUriCv()
+                                contributeurAjoute.getUriCv(),
+                                contributeurAjoute.getId()
                         ),
                         HttpStatus.CREATED
                 );
@@ -171,7 +173,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
                                 gestionnaireAjoute.getUriCv(),
-                                gestionnaireAjoute.isEstValide()
+                                gestionnaireAjoute.isEstValide(),
+                                gestionnaireAjoute.getId()
                         ),
                         HttpStatus.CREATED
                 );
