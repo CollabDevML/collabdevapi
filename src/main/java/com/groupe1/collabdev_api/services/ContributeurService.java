@@ -68,7 +68,6 @@ public class ContributeurService {
         return contributeurRepository.save(existant);
     }
 
-
     public Boolean supprimerParId(int id){
         contributeurRepository.deleteById(id);
         return true;

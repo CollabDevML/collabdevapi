@@ -33,12 +33,7 @@ public class PorteurProjetService {
         return porteurProjetRepository.findAll();
     }
 
-    public PorteurProjet ajouter(Utilisateur utilisateur){
-        utilisateur.setRole(Role.PORTEUR_PROJET);
-        Utilisateur user = utilisateurRepository.save(utilisateur);
-
-        PorteurProjet porteurProjet = new PorteurProjet();
-        porteurProjet.setUtilisateur(user);
+    public PorteurProjet ajouter(PorteurProjet porteurProjet){
         return porteurProjetRepository.save(porteurProjet);
     }
 

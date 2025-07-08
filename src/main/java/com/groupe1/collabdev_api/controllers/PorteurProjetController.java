@@ -16,11 +16,6 @@ public class PorteurProjetController {
     @Autowired
     private PorteurProjetService porteurProjetService;
 
-    @PostMapping
-    public PorteurProjet ajouter(@RequestBody Utilisateur user) {
-        return porteurProjetService.ajouter(user);
-    }
-
     @GetMapping("/{id}")
     public PorteurProjet rechercheParId(@RequestParam int id) {
         return porteurProjetService.chercherParId(id);
