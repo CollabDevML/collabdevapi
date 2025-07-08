@@ -14,6 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class DemandeContributionDto {
     private int id;
-    private boolean estAccepte;
+    private Boolean estAccepte;
     private LocalDate dateEnvoi;
 }

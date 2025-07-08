@@ -25,7 +25,7 @@ public class ContributeurDto {
     private Niveau niveau;
     private String specialite;
     private Type type;
-    private double pieces;
+    private Double pieces;
     private String uriCv;
 
 

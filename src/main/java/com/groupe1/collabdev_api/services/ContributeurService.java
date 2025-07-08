@@ -52,7 +52,7 @@ public class ContributeurService {
         if (dto.getType() != null) {
             existant.setType(dto.getType());
         }
-        if (dto.getPieces() != null) {
+        if (dto.getPieces() != 0) {
             existant.setPieces(dto.getPieces());
         }
         if (dto.getUriCv() != null) {

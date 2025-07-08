@@ -50,16 +50,15 @@ public class ContributionService {
         contributionRepository.deleteById(id);
         return true;
     }
-    //modifier une contribution ne marche pas
-    public Contribution modifier(int id, ContributionDto dto) {
+
+    public ContributionDto modifier(int id, ContributionDto dto) {
         Contribution existante = contributionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Contribution non trouvée avec l'id : " + id));
-
-        if (dto.getEstValide() != null) {
+        if(dto.getEstValide()!=null)
+        {
             existante.setEstValide(dto.getEstValide());
         }
-
-        return contributionRepository.save(existante);
+        return MappingContribution.ContributionToDto(contributionRepository.save(existante));
     }
 
     //liste toutes les contributions d'un contributeur

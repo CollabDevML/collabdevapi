@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ContributionDto {
     private int id;
-    private boolean estValide;
+    private Boolean estValide;
 }

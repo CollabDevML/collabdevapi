@@ -4,6 +4,7 @@ import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ContributionService;
+import com.groupe1.collabdev_api.utilities.MappingContribution;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,12 +33,13 @@ public class ContributionController {
     {
         return contributionService.ajouter(contribution);
     }
-    @PutMapping("/contributions/{id}")
-    public ResponseEntity<Contribution> modifierContribution(
+    @PatchMapping("/{id}")
+    public ResponseEntity<ContributionDto> modifierContribution(
             @PathVariable int id,
             @RequestBody ContributionDto dto) {
-        Contribution modifiee = contributionService.modifier(id, dto);
-        return ResponseEntity.ok(modifiee);
+        ContributionDto modifieDto = contributionService.modifier(id, dto);
+
+        return ResponseEntity.ok(modifieDto);
     }
 
 
@@ -73,4 +75,5 @@ public class ContributionController {
         List<Projet> projets = contributionService.listerProjetsDuContributeur(id);
         return ResponseEntity.ok(projets);
     }
+
 }
