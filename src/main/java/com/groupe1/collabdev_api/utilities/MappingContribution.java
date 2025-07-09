@@ -11,7 +11,10 @@ public class MappingContribution {
     {
         return new ContributionDto(
                 contribution.getId(),
-                contribution.isEstValide()
+                contribution.isEstValide(),
+                contribution.getTache().getId(),
+                contribution.getTache().getDescription(),
+                contribution.getContributeur().getId()
         );
     }
     public static List<ContributionDto> contributionDtoList(List<Contribution> contributionList)

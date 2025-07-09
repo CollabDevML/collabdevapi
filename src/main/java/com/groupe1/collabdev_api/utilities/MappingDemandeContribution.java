@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.utilities;
 
-import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 
@@ -12,7 +11,7 @@ public class MappingDemandeContribution {
     {
         return new DemandeContributionDto(
                 demandeContribution.getId(),
-                demandeContribution.isEstAccepte(),
+                demandeContribution.isEstAcceptee(),
                 demandeContribution.getDateEnvoi()
         );
     }

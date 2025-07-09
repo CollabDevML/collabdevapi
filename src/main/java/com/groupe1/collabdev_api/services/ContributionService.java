@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
@@ -85,13 +86,13 @@ public class ContributionService {
     }
 
     //lister ces projets
-    public List<Projet> listerProjetsDuContributeur(int idContributeur) {
-        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
-        return contributions.stream()
-                .map(Contribution::getProjet)
-                .distinct() // Pour éviter les doublons
-                .collect(Collectors.toList());
-    }
+//    public List<ProjetDto> listerProjetsDuContributeur(int idContributeur) {
+//        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
+//        return contributions.stream()
+//                .map(Contribution::getProjet)
+//                .distinct() // Pour éviter les doublons
+//                .toList();
+//    }
 
     //quitter un projet
     public List<ContributionDto> quitterUnProjet(int idContributeur, int idProjet) {

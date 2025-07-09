@@ -40,7 +40,10 @@ public class Contribution {
     public ContributionDto toContributeurDto() {
         return new ContributionDto(
                 this.getId(),
-                this.estValide
+                this.estValide,
+                this.tache.getId(),
+                this.tache.getDescription(),
+                this.getContributeur().getId()
                 );
     }
 
@@ -52,7 +55,10 @@ public class Contribution {
                 contributionDtoList.add(
                         new ContributionDto(
                                 contribution.id,
-                                contribution.estValide
+                                contribution.estValide,
+                                contribution.tache.getId(),
+                                contribution.tache.getDescription(),
+                                contribution.getContributeur().getId()
                         )
                 )
         );

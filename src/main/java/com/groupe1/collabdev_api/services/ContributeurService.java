@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributeurDto;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.repositories.ContributeurRepository;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ContributeurService {
@@ -91,8 +91,19 @@ public class ContributeurService {
         return contributeurDtoList;
     }
 
+    // Lister ses projets
+    public List<ProjetDto> chercherProjetsParContributeur(int idContributeur) {
+        List<DemandeContribution> demandeContributions = demandeContributionService.chercherParIdContributeurEtc(
+                idContributeur,
+                true
+        );
+        List<ProjetDto> projets = new ArrayList<>();
+        for (DemandeContribution demandeContribution : demandeContributions) {
+            projets.add(demandeContribution.getProjet().toDto());
+        }
+        return projets;
+    }
+
     //quitter un projet
-
-
 
 }
