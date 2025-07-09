@@ -74,8 +74,15 @@ public class ContributionService {
                 .orElseThrow(() -> new EntityNotFoundException("Contribution non trouvée avec l'id : " + id));
         existante.setEstValide(true);
         Contribution contribution = contributionRepository.save(existante);
+        gagnerPiece(contribution);
         attribution(contribution.getContributeur().getId());
         return contribution.toContributeurDto();
+    }
+
+    private void gagnerPiece(Contribution contribution){
+        Contributeur contributeur = contribution.getContributeur();
+        contributeur.setPieces(contributeur.getPieces() + contribution.getTache().getPieceAGagner());
+        contributeurService.modifier(contributeur);
     }
 
     //liste toutes les contributions d'un contributeur
