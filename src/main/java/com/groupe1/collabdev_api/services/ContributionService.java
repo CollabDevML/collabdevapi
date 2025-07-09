@@ -1,17 +1,20 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
-import com.groupe1.collabdev_api.entities.Contribution;
-import com.groupe1.collabdev_api.entities.Projet;
+import com.groupe1.collabdev_api.entities.*;
+import com.groupe1.collabdev_api.repositories.BadgeRepository;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,6 +22,18 @@ public class ContributionService {
 
     @Autowired
     private ContributionRepository contributionRepository;
+
+    @Autowired
+    private ContributeurService contributeurService;
+
+    @Autowired
+    private ObtentionBadgeService obtentionBadgeService;
+
+    @Autowired
+    private BadgeService badgeService;
+
+    @Autowired
+    private BadgeRepository badgeRepository;
 
     public ResponseEntity<?> chercherParId(int id) {
         Contribution contribtution = contributionRepository.findById(id).orElse(null);
@@ -53,11 +68,14 @@ public class ContributionService {
         return true;
     }
 
+    @Transactional
     public ContributionDto validerContribution(int id) {
         Contribution existante = contributionRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Contribution non trouvée avec l'id : " + id));
         existante.setEstValide(true);
-        return contributionRepository.save(existante).toContributeurDto();
+        Contribution contribution = contributionRepository.save(existante);
+        attribution(contribution.getContributeur().getId());
+        return contribution.toContributeurDto();
     }
 
     //liste toutes les contributions d'un contributeur
@@ -99,5 +117,51 @@ public class ContributionService {
                 .deleteByContributeur_IdAndProjet_Id(idContributeur, idProjet);
         return MappingContribution.contributionDtoList(contributions);
     }
+
+
+    @Transactional
+    public void attribution(int idContributeur) {
+        List<ContributionDto> contributions = chercherParContributeurId(idContributeur);
+        AtomicInteger atomicInteger = new AtomicInteger(0);
+        contributions.forEach(contributionDto -> {
+                    if (contributionDto.getEstValide()) {
+                        atomicInteger.getAndIncrement();
+                    }
+                }
+        );
+        Contributeur contributeur = contributeurService.chercherParId(idContributeur);
+        if (contributeur == null) {
+            return;
+        }
+        int nombreValide = atomicInteger.get();
+        if (nombreValide >= 2 && nombreValide < 5) {
+            attribuerBadge(badgeRepository.findAll().getFirst().getTitre(), contributeur);
+        } else if (nombreValide >= 5 && nombreValide < 10) {
+            attribuerBadge(badgeRepository.findAll().get(1).getTitre(), contributeur);
+        } else if (nombreValide >= 10 && nombreValide < 20) {
+            attribuerBadge(badgeRepository.findAll().get(2).getTitre(), contributeur);
+        } else if (nombreValide >= 20 && nombreValide < 50) {
+            attribuerBadge(badgeRepository.findAll().get(3).getTitre(), contributeur);
+        } else if (nombreValide >= 50) {
+            attribuerBadge(badgeRepository.findAll().get(4).getTitre(), contributeur);
+        }
+    }
+
+    private void attribuerBadge (String badgeTitle, Contributeur contributeur) {
+        Badge badge = badgeRepository.findByTitre(
+                badgeTitle
+        );
+        if (obtentionBadgeService.chercherParBadgeIdAndContributeurId(badge.getId(), contributeur.getId()).isEmpty()) {
+            obtentionBadgeService.ajouter(
+                    new ObtentionBadge(
+                            0,
+                            LocalDate.now(),
+                            contributeur,
+                            badge
+                    )
+            );
+        }
+    }
+
 }
 

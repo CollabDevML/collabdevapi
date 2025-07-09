@@ -9,9 +9,12 @@ import java.util.UUID;
 
 @Service
 public class UploadFichier {
+
+    static String userHome = System.getProperty("user.home");
+    static String desktopPath = userHome + File.separator + "Desktop";
+
     public static String upload(MultipartFile fichierTrans, String chemin) throws IOException {
-        String dossierSource = System.getProperty("user.dir");
-        String dossierReception = dossierSource + File.separator + "uploads" + File.separator + chemin + File.separator;
+        String dossierReception = desktopPath + File.separator + "uploads" + File.separator + chemin + File.separator;
 
         // Création du dossier de réception si nécessaire
         File dir = new File(dossierReception);
@@ -25,12 +28,11 @@ public class UploadFichier {
 
         // Vérification de l'extension
         if (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png")) {
-            String nomAlea = UUID.randomUUID() + "_" + nomOriginal;
-            File fichier = new File(dossierReception + nomAlea);
+            File fichier = new File(dossierReception + nomOriginal);
             fichierTrans.transferTo(fichier);
 
             // Retourne un chemin relatif (recommandé pour la BDD)
-            return "uploads/" + chemin + "/" + nomAlea;
+            return "uploads/" + chemin + "/" + nomOriginal;
         }
         return "";
     }
