@@ -29,7 +29,7 @@ public class DemandeContributionService {
         return MappingDemandeContribution.ToDemandeDtoToList(demandeContributions);
     }
 
-    public DemandeContribution ajouter(DemandeContribution demandeContribution) throws RuntimeException{
+    public DemandeContribution ajouter(DemandeContribution demandeContribution) throws RuntimeException {
         if (chercherParContributeurEtParProjet(demandeContribution.getContributeur().getId(),
                 demandeContribution.getProjet().getId()).isEmpty()) {
             return demandeContributionRepository.save(demandeContribution);
@@ -79,12 +79,12 @@ public class DemandeContributionService {
         return MappingDemandeContribution.ToDemandeDtoToList(demandeContributions);
     }
 
-    public Optional<DemandeContribution> modifierEstAcceptee(int idDemandeContribution, boolean estAcceptee) throws RuntimeException{
+    public Optional<DemandeContribution> modifierEstAcceptee(int idDemandeContribution, boolean estAcceptee) throws RuntimeException {
         DemandeContribution demandeContribution = demandeContributionRepository
                 .findById(idDemandeContribution).orElseThrow(
                         () -> new EntityNotFoundException("La demande est introuvable!")
                 );
-        if(demandeContribution.isEstAcceptee()){
+        if (demandeContribution.isEstAcceptee()) {
             throw new RuntimeException("Cette demande a déjà été acceptée!");
         }
         if (estAcceptee) {

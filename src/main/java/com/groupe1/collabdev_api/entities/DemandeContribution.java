@@ -33,7 +33,7 @@ public class DemandeContribution {
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
 
-    public DemandeContributionDto toDto(){
+    public DemandeContributionDto toDto() {
         return new DemandeContributionDto(
                 this.id,
                 this.estAcceptee,

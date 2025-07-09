@@ -42,7 +42,7 @@ public class Projet {
     private Niveau niveauDAcces;
 
     @Column(nullable = false)
-    private boolean etat=true;
+    private boolean etat = true;
 
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
@@ -65,16 +65,14 @@ public class Projet {
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
 
     @Override
-    public boolean equals(Object object)
-    {
-        if(this == object ) return true;
-        if(!(object instanceof Projet)) return false;
-        Projet projet = (Projet) object;
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Projet projet)) return false;
         return id == projet.getId();
     }
+
     @Override
-    public int hashCode()
-    {
+    public int hashCode() {
         return Integer.hashCode(id);
     }
 

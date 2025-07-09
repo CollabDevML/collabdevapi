@@ -3,9 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.services.DemandeContributionService;
-import com.groupe1.collabdev_api.utilities.MappingDemandeContribution;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,13 +46,13 @@ public class DemandeContributionController {
 
     @PostMapping
     public ResponseEntity<?> ajouter(@RequestBody DemandeContribution demandeContribution) {
-        try{
+        try {
             return
                     new ResponseEntity<>(
                             demandeContributionService.ajouter(demandeContribution),
                             HttpStatus.CREATED
                     );
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return
                     new ResponseEntity<>(
                             e.getMessage(),

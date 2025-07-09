@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MappingProjet {
-    public static ProjetDto toProjetDto(Projet projet)
-    {
+    public static ProjetDto toProjetDto(Projet projet) {
         return new ProjetDto(
                 projet.getTitre(),
                 projet.getDescription(),
@@ -20,11 +19,10 @@ public class MappingProjet {
                 projet.getGestionnaire().getId()
         );
     }
-    public static List<ProjetDto> projetDtoList(List<Projet> projets)
-    {
+
+    public static List<ProjetDto> projetDtoList(List<Projet> projets) {
         List<ProjetDto> projetDtoList = new ArrayList<>();
-        for(Projet projet : projets)
-        {
+        for (Projet projet : projets) {
             projetDtoList.add(toProjetDto(projet));
         }
         return projetDtoList;

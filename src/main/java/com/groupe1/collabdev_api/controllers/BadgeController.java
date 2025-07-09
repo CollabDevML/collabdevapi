@@ -20,7 +20,7 @@ public class BadgeController {
 
     //Pour afficher tous les badges :
     @GetMapping
-    public List<Badge> getBadge(){
+    public List<Badge> getBadge() {
         return badgeService.afficheBadge();
     }
 
@@ -30,22 +30,22 @@ public class BadgeController {
             @RequestParam("titre") String titre,
             @RequestParam("fichier") MultipartFile chemin
     ) throws IOException {
-        return  badgeService.ajouteBadge(titre,chemin);
+        return badgeService.ajouteBadge(titre, chemin);
     }
 
     //Pour la modification d'un badge :
-    @PutMapping(value = "/{id}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateBadge(
             @PathVariable("id") int id,
-            @RequestParam(value = "titre",required = false) String titre,
-            @RequestParam(value = "fichier",required = false) MultipartFile chemin
+            @RequestParam(value = "titre", required = false) String titre,
+            @RequestParam(value = "fichier", required = false) MultipartFile chemin
     ) throws IOException {
-        return badgeService.modifieBadge(id,titre,chemin);
+        return badgeService.modifieBadge(id, titre, chemin);
     }
 
     //Pour la suppression de badge :
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBadge(@PathVariable int id){
+    public ResponseEntity<?> deleteBadge(@PathVariable int id) {
         return badgeService.deleteBadge(id);
     }
 

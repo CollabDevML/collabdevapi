@@ -19,19 +19,18 @@ public class BadgeService {
     @Autowired
     private BadgeRepository badgeRepository;
 
-    public Badge chercherParId(int id){
+    public Badge chercherParId(int id) {
         return badgeRepository.findById(id).orElse(null);
     }
 
-    public List<Badge> chercherTous(){
+    public List<Badge> chercherTous() {
         return badgeRepository.findAll();
     }
 
 
-
     //Pour l'ajout des Badges coté admin :
     public ResponseEntity<?> ajouteBadge(String titre, MultipartFile fichier) throws IOException {
-        String chemin = upload(fichier,"badges");
+        String chemin = upload(fichier, "badges");
         if (!chemin.isEmpty()) {
             Badge badge = new Badge();
             badge.setTitre(titre);
@@ -56,7 +55,7 @@ public class BadgeService {
         // On vérifie l'image : pas null et pas vide
         if (fichier != null && !fichier.isEmpty()) {
             //On efface l'ancien fichier sur le disque:
-            String ancienFichier =System.getProperty("user.dir")+ File.separator + badge.getUriImage();
+            String ancienFichier = System.getProperty("user.dir") + File.separator + badge.getUriImage();
             File file = new File(ancienFichier);
             file.delete();
 
@@ -70,13 +69,12 @@ public class BadgeService {
     }
 
 
-
     //Pour La suppression d'un badge coté administrateur :
-    public ResponseEntity<?> deleteBadge(int id){
+    public ResponseEntity<?> deleteBadge(int id) {
         Badge badge = badgeRepository.findById(id).orElse(null);
         if (badge == null) return ResponseEntity.notFound().build();
 
-        String chemin =System.getProperty("user.dir")+File.separator+ badge.getUriImage();
+        String chemin = System.getProperty("user.dir") + File.separator + badge.getUriImage();
         File file = new File(chemin);
         file.delete();
         badgeRepository.delete(badge);
@@ -85,22 +83,22 @@ public class BadgeService {
 
     //Pour affichage des badges :
 
-    public List<Badge> afficheBadge(){
+    public List<Badge> afficheBadge() {
         return badgeRepository.findAll();
     }
 
     //Pour affichage par id de badge :
 
-    public Badge badgeParId(int id){
+    public Badge badgeParId(int id) {
         return badgeRepository.findById(id).orElse(null);
     }
 
 
-    public Badge modifier(Badge badge){
+    public Badge modifier(Badge badge) {
         return badgeRepository.save(badge);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         badgeRepository.deleteById(id);
         return true;
     }

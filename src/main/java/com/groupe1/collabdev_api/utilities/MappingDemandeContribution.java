@@ -7,19 +7,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MappingDemandeContribution {
-    public static DemandeContributionDto ToDemandeDto(DemandeContribution demandeContribution)
-    {
+    public static DemandeContributionDto ToDemandeDto(DemandeContribution demandeContribution) {
         return new DemandeContributionDto(
                 demandeContribution.getId(),
                 demandeContribution.isEstAcceptee(),
                 demandeContribution.getDateEnvoi()
         );
     }
-    public static List<DemandeContributionDto> ToDemandeDtoToList(List<DemandeContribution> demandeContributions)
-    {
+
+    public static List<DemandeContributionDto> ToDemandeDtoToList(List<DemandeContribution> demandeContributions) {
         List<DemandeContributionDto> demandeContributionDtos = new ArrayList<>();
-        for(DemandeContribution demandeContribution: demandeContributions)
-        {
+        for (DemandeContribution demandeContribution : demandeContributions) {
             demandeContributionDtos.add(MappingDemandeContribution.ToDemandeDto(demandeContribution));
         }
         return demandeContributionDtos;

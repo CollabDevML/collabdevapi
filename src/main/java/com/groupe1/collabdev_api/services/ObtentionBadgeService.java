@@ -17,26 +17,27 @@ public class ObtentionBadgeService {
         return obtentionBadgeRepository.findById(id).orElse(null);
     }
 
-    public List<ObtentionBadge> chercherParIdContri(int id){
-        return obtentionBadgeRepository.findByContributeurId( id);
+    public List<ObtentionBadge> chercherParIdContri(int id) {
+        return obtentionBadgeRepository.findByContributeurId(id);
     }
-    public  ObtentionBadge chercherParBadge (int id){
+
+    public ObtentionBadge chercherParBadge(int id) {
         return obtentionBadgeRepository.findByBadgeId(id);
     }
 
-    public List<ObtentionBadge> chercherTous(){
+    public List<ObtentionBadge> chercherTous() {
         return obtentionBadgeRepository.findAll();
     }
 
-    public ObtentionBadge ajouter(ObtentionBadge obtentionBadge){
+    public ObtentionBadge ajouter(ObtentionBadge obtentionBadge) {
         return obtentionBadgeRepository.save(obtentionBadge);
     }
 
-    public ObtentionBadge modifier(ObtentionBadge obtentionBadge){
+    public ObtentionBadge modifier(ObtentionBadge obtentionBadge) {
         return obtentionBadgeRepository.save(obtentionBadge);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         obtentionBadgeRepository.deleteById(id);
         return true;
     }

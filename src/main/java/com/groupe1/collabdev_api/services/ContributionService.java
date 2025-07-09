@@ -1,9 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
-import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contribution;
-import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
@@ -11,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class ContributionService {

@@ -18,25 +18,24 @@ import java.util.Optional;
 public class ContributeurService {
 
     @Autowired
+    DemandeContributionService demandeContributionService;
+    @Autowired
     private ContributeurRepository contributeurRepository;
 
-    @Autowired
-    DemandeContributionService demandeContributionService;
-
-    public Contributeur chercherParId(int id){
+    public Contributeur chercherParId(int id) {
         return contributeurRepository.findById(id).orElse(null);
     }
 
-    public List<Contributeur> chercherTous(){
+    public List<Contributeur> chercherTous() {
         return contributeurRepository.findAll();
     }
 
-    public  Contributeur ajouter(Contributeur contributeur){
+    public Contributeur ajouter(Contributeur contributeur) {
         return contributeurRepository.save(contributeur);
     }
 
     //modifier un contributeur
-    public Contributeur modifier(Contributeur contributeur){
+    public Contributeur modifier(Contributeur contributeur) {
         return contributeurRepository.save(contributeur);
     }
 
@@ -65,27 +64,24 @@ public class ContributeurService {
         return contributeurRepository.save(existant);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         //chercher d'abord par id
         Contributeur contributeur = contributeurRepository.findById(id)
-                .orElseThrow(()-> new EntityNotFoundException("Contributeur non trouvé" + id));
+                .orElseThrow(() -> new EntityNotFoundException("Contributeur non trouvé" + id));
         contributeurRepository.deleteById(id);
         return true;
     }
 
-    public ContributeurDto chercherContributeurParId(int id)
-    {
+    public ContributeurDto chercherContributeurParId(int id) {
         Optional<Contributeur> optional = contributeurRepository.findById(id);
         return optional.map(MappingContributeur::contributeurToDto)
-                .orElseThrow(()-> new EntityNotFoundException("Contributeur non trouvée avec l'id : " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Contributeur non trouvée avec l'id : " + id));
     }
 
-    public List<ContributeurDto> chercherTousLesContributeurs()
-    {
+    public List<ContributeurDto> chercherTousLesContributeurs() {
         List<Contributeur> contributeurList = contributeurRepository.findAll();
         List<ContributeurDto> contributeurDtoList = new ArrayList<>();
-        for(Contributeur contributeur : contributeurList)
-        {
+        for (Contributeur contributeur : contributeurList) {
             contributeurDtoList.add(MappingContributeur.contributeurToDto(contributeur));
         }
         return contributeurDtoList;

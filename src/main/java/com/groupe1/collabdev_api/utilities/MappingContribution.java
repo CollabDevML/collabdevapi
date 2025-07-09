@@ -7,8 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MappingContribution {
-    public static ContributionDto ContributionToDto(Contribution contribution)
-    {
+    public static ContributionDto ContributionToDto(Contribution contribution) {
         return new ContributionDto(
                 contribution.getId(),
                 contribution.isEstValide(),
@@ -17,11 +16,10 @@ public class MappingContribution {
                 contribution.getContributeur().getId()
         );
     }
-    public static List<ContributionDto> contributionDtoList(List<Contribution> contributionList)
-    {
+
+    public static List<ContributionDto> contributionDtoList(List<Contribution> contributionList) {
         List<ContributionDto> contributionDtos = new ArrayList<>();
-        for(Contribution contribution: contributionList)
-        {
+        for (Contribution contribution : contributionList) {
             contributionDtos.add(ContributionToDto(contribution));
         }
         return contributionDtos;
