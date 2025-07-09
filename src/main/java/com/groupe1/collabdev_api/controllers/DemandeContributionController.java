@@ -3,6 +3,9 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.services.DemandeContributionService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -16,9 +19,24 @@ public class DemandeContributionController {
     }
 
     @GetMapping("/{id}")
-    public DemandeContributionDto chercherParId(@PathVariable int id)
+    public ResponseEntity<?> chercherParId(@PathVariable int id)
     {
-        return demandeContributionService.chercherParId(id);
+        try{
+            DemandeContributionDto demandeContributionDto = demandeContributionService.chercherParId(id);
+            return ResponseEntity.ok(demandeContributionDto);
+        } catch (EntityNotFoundException exception)
+        {
+            return new ResponseEntity<>(
+                    exception.getMessage(),
+                    HttpStatus.NOT_FOUND
+            );
+        } catch(RuntimeException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+
     }
 
     @GetMapping

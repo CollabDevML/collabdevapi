@@ -12,4 +12,7 @@ import lombok.Setter;
 public class ContributionDto {
     private int id;
     private Boolean estValide;
+    private int idTache;
+    private String descriptionTache;
+    private int idContributeur;
 }

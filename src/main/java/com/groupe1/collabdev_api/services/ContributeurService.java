@@ -2,23 +2,26 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
+import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.repositories.ContributeurRepository;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
-import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class ContributeurService {
 
     @Autowired
     private ContributeurRepository contributeurRepository;
+
+    @Autowired
+    DemandeContributionService demandeContributionService;
 
     public Contributeur chercherParId(int id){
         return contributeurRepository.findById(id).orElse(null);
@@ -63,6 +66,9 @@ public class ContributeurService {
     }
 
     public Boolean supprimerParId(int id){
+        //chercher d'abord par id
+        Contributeur contributeur = contributeurRepository.findById(id)
+                .orElseThrow(()-> new EntityNotFoundException("Contributeur non trouvé" + id));
         contributeurRepository.deleteById(id);
         return true;
     }
@@ -71,7 +77,7 @@ public class ContributeurService {
     {
         Optional<Contributeur> optional = contributeurRepository.findById(id);
         return optional.map(MappingContributeur::contributeurToDto)
-                .orElseThrow(()-> new RuntimeException("Contributeur non trouvé"));
+                .orElseThrow(()-> new EntityNotFoundException("Contributeur non trouvée avec l'id : " + id));
     }
 
     public List<ContributeurDto> chercherTousLesContributeurs()
@@ -84,5 +90,9 @@ public class ContributeurService {
         }
         return contributeurDtoList;
     }
+
+    //quitter un projet
+
+
 
 }

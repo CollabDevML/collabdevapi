@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ContributionService;
@@ -67,11 +68,11 @@ public class ContributionController {
     }
 
     @GetMapping("/{id}/projets")
-    public ResponseEntity<List<Projet>> projetList(
+    public ResponseEntity<List<ProjetDto>> projetList(
             @PathVariable int id
     )
     {
-        List<Projet> projets = contributionService.listerProjetsDuContributeur(id);
+        List<ProjetDto> projets = contributionService.listerProjetsDuContributeur(id);
         return ResponseEntity.ok(projets);
     }
 
