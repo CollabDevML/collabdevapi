@@ -1,11 +1,13 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseObtentionBadge;
 import com.groupe1.collabdev_api.entities.ObtentionBadge;
 import com.groupe1.collabdev_api.services.ObtentionBadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,14 +42,19 @@ public class ObtentionBadgeController {
 
     // Rechercher toutes les obtentions d’un contributeur
     @GetMapping("/{id}/obtentions-badge")
-    public ResponseEntity<List<ObtentionBadge>> getByContributeur(@PathVariable int id) {
-        return ResponseEntity.ok(obtentionBadgeService.chercherParIdContri(id));
+    public ResponseEntity<List<ResponseObtentionBadge>> getByContributeur(@PathVariable int id) {
+        List<ObtentionBadge> obtentions = obtentionBadgeService.chercherParIdContri(id);
+        List<ResponseObtentionBadge> responseObtentionBadges = new ArrayList<>();
+        for (ObtentionBadge obtention : obtentions) {
+            responseObtentionBadges.add(obtention.toResponse());
+        }
+        return ResponseEntity.ok(responseObtentionBadges);
     }
 
     // Rechercher une obtention par badge
     @GetMapping("/obtentions-badge/badge/{id}")
     public ResponseEntity<ObtentionBadge> getByBadge(@PathVariable int id) {
-        ObtentionBadge existant = obtentionBadgeService.chercherParBadge(id);
+        ObtentionBadge existant = obtentionBadgeService.chercherParBadge(id).orElse(null);
         if (existant == null) {
             return ResponseEntity.notFound().build();
         }
