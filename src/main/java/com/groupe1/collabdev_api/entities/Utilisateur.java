@@ -53,11 +53,4 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
-
-    private boolean bloque;
-
-    public boolean estBloque() {
-        return bloque;
-    }
-
-    }
+}

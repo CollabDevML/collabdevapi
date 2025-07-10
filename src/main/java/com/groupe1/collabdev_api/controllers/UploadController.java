@@ -2,7 +2,6 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.entities.enums.TypeFichier;
 import com.groupe1.collabdev_api.services.UploadService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-@Tag(name = "Upload",
-        description = "Gestion des CV des gestionnaires et du cahier des charges des porteurs de projet technique")
 public class UploadController {
 
     @Autowired

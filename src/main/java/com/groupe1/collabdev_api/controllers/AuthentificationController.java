@@ -3,9 +3,6 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.AuthenticationService;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import io.swagger.v3.oas.annotations.Operation ;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,14 +13,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/authentification")
-@Tag(name = "Authentification API",
-        description = "l'authentification des utilisateurs (admin, utilisateurs, contributeurs)")
-
 public class AuthentificationController {
 
     @Autowired
     private AuthenticationService authenticationService;
-    @Operation(summary = "création de compte d'un utilisateur")
+
     @PostMapping
     public ResponseEntity<?> seConnecter(
             @RequestBody RequestAuthentification user

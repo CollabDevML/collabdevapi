@@ -15,7 +15,6 @@ import com.groupe1.collabdev_api.services.ContributeurService;
 import com.groupe1.collabdev_api.services.GestionnaireService;
 import com.groupe1.collabdev_api.services.PorteurProjetService;
 import com.groupe1.collabdev_api.services.UtilisateurService;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +28,6 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/utilisateurs")
-@Tag(name = "AUTH API",
-        description = "Création de compte des utiisateurs")
-
 public class CreationCompteController {
 
     @Autowired
@@ -76,6 +72,7 @@ public class CreationCompteController {
                         requestContributeur.getUriCv(),
                         new ArrayList<>(),
                         new ArrayList<>(),
+                        new ArrayList<>(),
                         new ArrayList<>()
                 )
         );
@@ -92,7 +89,8 @@ public class CreationCompteController {
                                 contributeurAjoute.getSpecialite(),
                                 contributeurAjoute.getType(),
                                 contributeurAjoute.getPieces(),
-                                contributeurAjoute.getUriCv()
+                                contributeurAjoute.getUriCv(),
+                                contributeurAjoute.getId()
                         ),
                         HttpStatus.CREATED
                 );
@@ -175,7 +173,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
                                 gestionnaireAjoute.getUriCv(),
-                                gestionnaireAjoute.isEstValide()
+                                gestionnaireAjoute.isEstValide(),
+                                gestionnaireAjoute.getId()
                         ),
                         HttpStatus.CREATED
                 );
