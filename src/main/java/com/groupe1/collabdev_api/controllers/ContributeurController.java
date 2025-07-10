@@ -87,5 +87,13 @@ public class ContributeurController {
 
     }
 
+    @DeleteMapping("{idContributeur}/projets/{idProjet}")
+    public Boolean quitterProjet(@PathVariable int idContributeur,
+                                 @PathVariable int idProjet){
+
+        return contributeurService.quitterUnProjet(idContributeur, idProjet);
+
+    }
+
 
 }

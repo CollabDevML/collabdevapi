@@ -101,5 +101,12 @@ public class ContributeurService {
     }
 
     //quitter un projet
+    public Boolean quitterUnProjet(int idContributeur, int idProjet)
+    {
+        return demandeContributionService.supprimerParContributeurEtParProjet(
+                idContributeur, idProjet
+        );
+
+    }
 
 }

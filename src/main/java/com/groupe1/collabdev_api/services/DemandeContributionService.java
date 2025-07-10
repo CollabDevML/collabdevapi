@@ -125,5 +125,12 @@ public class DemandeContributionService {
                 estAcceptee
         );
     }
+
+    public Boolean supprimerParContributeurEtParProjet(
+            int idContributeur, int idProjet
+    ){
+        demandeContributionRepository.deleteByContributeur_IdAndProjet_Id(idContributeur, idProjet);
+        return true;
+    }
 }
 
