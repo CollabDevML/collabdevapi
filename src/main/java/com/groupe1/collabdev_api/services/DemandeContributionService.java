@@ -129,7 +129,7 @@ public class DemandeContributionService {
     public Boolean supprimerParContributeurEtParProjet(
             int idContributeur, int idProjet
     ){
-        demandeContributionRepository.deleteByContributeur_IdAndProjet_Id(idContributeur, idProjet);
+        demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
         return true;
     }
 }
