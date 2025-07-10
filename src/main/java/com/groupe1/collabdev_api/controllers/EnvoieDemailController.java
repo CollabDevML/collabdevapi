@@ -14,7 +14,7 @@ public class EnvoieDemailController {
 
     @PostMapping("/send-email")
     public String sendEmail(@RequestBody EmailRequest request) {
-        envoieDemailService.envoyerEmail(request.getDest(), request.getSubject(), request.getText());
+        envoieDemailService.envoyerEmail(request.dest(), request.subject(), request.text());
         return "Email envoyé avec succès !";
     }
 }

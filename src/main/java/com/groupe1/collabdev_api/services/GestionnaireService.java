@@ -1,7 +1,9 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,12 @@ public class GestionnaireService {
 
     @Autowired
     private GestionnaireRepository gestionnaireRepository;
+
+    @Autowired
+    private EnvoieDemailService emailService;
+
+    @Autowired
+    private AdministrateurService administrateurService;
 
     public Gestionnaire chercherParId(int id){
         return gestionnaireRepository.findById(id).orElse(null);
@@ -45,7 +53,35 @@ public class GestionnaireService {
     }
 
     public Gestionnaire ajouter(Gestionnaire gestionnaire){
-        return gestionnaireRepository.save(gestionnaire);
+        Gestionnaire gestionnaireAjoute = gestionnaireRepository.save(gestionnaire);
+        emailService.envoyerEmail(
+                gestionnaire.getUtilisateur().getEmail(),
+                "Demande de validation de compte",
+                """
+                        Votre demande est en cours de validation.\
+                        Merci de bien vouloir patienter pendant le processus de validation :D
+                        """
+        );
+        List<Administrateur> administrateurs = administrateurService.chercherTous();
+        for (Administrateur administrateur : administrateurs) {
+            if(administrateur.getRole() == Role.ADMIN){
+                emailService.envoyerEmail(
+                        administrateur.getEmail(),
+                        "Demande de validation de compte Gestionnaire",
+                        String.format(
+                                """
+                                Vous avez une demande de validation de compte en attente de Mr/Mme %s %s.\
+                                Veuillez vous connecter pour étudier sa demande.\
+                                Prévisualiser le CV à cet url %s.
+                                """,
+                                gestionnaire.getUtilisateur().getPrenom(),
+                                gestionnaire.getUtilisateur().getNom(),
+                                gestionnaire.getUriCv()
+                        )
+                );
+            }
+        }
+        return gestionnaireAjoute;
     }
 
     public Gestionnaire modifier(Gestionnaire gestionnaire){
