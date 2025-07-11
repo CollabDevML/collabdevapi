@@ -2,6 +2,7 @@ package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.entities.enums.Role;
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,4 +36,9 @@ public class Administrateur {
 
     @OneToMany(mappedBy = "administrateur")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+     public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
 }

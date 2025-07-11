@@ -39,6 +39,7 @@ public class BadgeService {
             Badge badge1 = badgeRepository.save(badge);
             return ResponseEntity.ok(badge1);
         }
+        ResponseEntity.status(404).body("");
         return ResponseEntity.badRequest().body("Veillez Choisir une image du format 'JPN' ou 'jpeg' ou 'jpg' !!!! ");
     }
 
