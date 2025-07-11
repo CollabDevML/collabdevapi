@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.entities;
 
-import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.entities.enums.Type;
 import jakarta.persistence.*;

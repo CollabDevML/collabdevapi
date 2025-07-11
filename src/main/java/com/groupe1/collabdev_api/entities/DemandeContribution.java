@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ public class DemandeContribution {
     private int id;
 
     @Column(nullable = false)
-    private boolean estAccepte = false;
+    private boolean estAcceptee = false;
 
     @Column(nullable = false)
     private LocalDate dateEnvoi = LocalDate.now();
@@ -32,5 +32,13 @@ public class DemandeContribution {
     @ManyToOne
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
+
+    public DemandeContributionDto toDto() {
+        return new DemandeContributionDto(
+                this.id,
+                this.estAcceptee,
+                this.dateEnvoi
+        );
+    }
 
 }
