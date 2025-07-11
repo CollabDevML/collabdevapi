@@ -16,6 +16,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -50,13 +51,14 @@ public class TacheService {
     }
 
     //Chercher tous les taches d'un projet
-    public List<Tache> chercherTous(int projetId) {
+    public List<ResponseTache> chercherTous(int projetId) throws RuntimeException{
         Projet projet = projetRepository.findById(projetId).orElseThrow(() -> new RuntimeException("Projet introuvable"));
-
-        if (!projet.getTaches().isEmpty()) {
-            return tacheRepository.findAll();
+        List<Tache> taches = projet.getTaches();
+        List<ResponseTache> responseTaches = new ArrayList<>();
+        for (Tache tache : taches) {
+            responseTaches.add(tache.toResponse());
         }
-        throw new RuntimeException("Ce ptojet n'as pas de taches");
+        return responseTaches;
     }
 
     public ResponseTache ajouter(RequestTache requestTache) throws UserNotFoundException, ProjectNotFoundException {
