@@ -13,5 +13,4 @@ public class Commentaire {
     private Projet projet;
     private Utilisateur user;
     private IdeeProjet ideeProjet;
-
 }

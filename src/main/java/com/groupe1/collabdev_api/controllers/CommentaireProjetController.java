@@ -1,71 +1,64 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.controllers.response_entities.Commentaire;
+import com.groupe1.collabdev_api.dto.request_dto.RequestCommentaireProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
 import com.groupe1.collabdev_api.entities.CommentaireProjet;
 import com.groupe1.collabdev_api.repositories.CommentaireProjetRepository;
 import com.groupe1.collabdev_api.services.CommentaireProjetService;
-import jakarta.persistence.Id;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/CommentaireProjet")
-
+@RequestMapping("/utilisateurs/commentaires-idees-projet")
+@Tag(name = "projets",
+        description = """
+                Ce contrôleur permet d'ajouter des commentaires de projets, les lister, modifier et supprimer""")
 public class CommentaireProjetController {
     @Autowired
     private CommentaireProjetService commentaireProjetService;
     private CommentaireProjetRepository commentaireProjetRepository;
 
     @PostMapping
-
-    public CommentaireProjet ajoutercommentaire(@RequestBody CommentaireProjet commentaire){
-        return  commentaireProjetService.ajouter(commentaire);
+    public CommentaireProjet ajouterCommentaire(@RequestBody CommentaireProjet commentaire) {
+        return commentaireProjetService.ajouter(commentaire);
     }
 
-    @GetMapping
-    public List<CommentaireProjet> Listecommentaire(){
-        return commentaireProjetService.chercherTous();
+    @GetMapping("/projets/{idProjet}")
+    public ResponseEntity<?> listeCommentaireParIdProjet(
+            @PathVariable int idProjet
+    ) {
+        List<ResponseCommentaireProjet> commentaireProjets = commentaireProjetService.listerParIdeeProjet(idProjet);
+        if (commentaireProjets.isEmpty()) {
+            return ResponseEntity.ok("Pas de commentaire pour ce projet");
+        }
+        return ResponseEntity.ok(commentaireProjets);
     }
-
-
-
 
     @GetMapping("/{id}")
-
-    public CommentaireProjet chercherparid(@PathVariable Integer id ){
-        return commentaireProjetService.chercherParId(id);
+    public ResponseCommentaireProjet chercherParId(@PathVariable Integer id) {
+        return commentaireProjetService.chercherParId(id).toResponse();
     }
 
     @DeleteMapping("/{id}")
-
-    public boolean supprimercommentaire(@PathVariable Integer id){
+    public boolean supprimerCommentaire(@PathVariable int id) {
         return commentaireProjetService.supprimerParId(id);
     }
 
     @PutMapping("/{id}")
-
-    public CommentaireProjet modifier(@PathVariable Integer id,@RequestBody CommentaireProjet commentaireProjet) {
-        CommentaireProjet comexiste = commentaireProjetRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("commentaire introuvable"));
-
-        comexiste.setDateCommentaire(commentaireProjet.getDateCommentaire());
-        comexiste.setProjet(commentaireProjet.getProjet());
-        comexiste.setContenu(commentaireProjet.getContenu());
-        comexiste.setUtilisateur(commentaireProjet.getUtilisateur());
-        return commentaireProjetRepository.save(comexiste);
-
+    public CommentaireProjet modifier(@PathVariable int id, @RequestBody RequestCommentaireProjet requestCommentaireProjet) {
+        CommentaireProjet comExiste = commentaireProjetRepository.findById(id).orElseThrow(
+                () -> new RuntimeException("Commentaire introuvable!"));
+        comExiste.setDateCommentaire(requestCommentaireProjet.getDateCommentaire());
+        comExiste.setContenu(requestCommentaireProjet.getContenu());
+        return commentaireProjetRepository.save(comExiste);
     }
 
     @PatchMapping("/{id}")
-
-    public CommentaireProjet PratModification(@PathVariable Integer id,@RequestBody Commentaire commentaireProjet) {
-        return commentaireProjetService.modifier(id,commentaireProjet);
+    public ResponseCommentaireProjet PratModification(@PathVariable Integer id, @RequestBody RequestCommentaireProjet requestCommentaireProjet) {
+        return commentaireProjetService.modifier(id, requestCommentaireProjet).toResponse();
     }
-
-
-
-
 }

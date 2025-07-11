@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/administrateurs/gestion/utilisateur/")
+@RequestMapping("/administrateurs/gestion/utilisateur")
 public class GestionAdminUtilisateurController {
     @Autowired
     private GestionAdminUtilisateurService gestionAdminUtilisateurService;
@@ -29,7 +29,7 @@ public class GestionAdminUtilisateurController {
 
 
     //Pour bloquer un utilisateur :
-    @GetMapping("bloquer/{id}")
+    @GetMapping("/bloquer/{id}")
     public Utilisateur getgestionAdminUtilisateurService(@PathVariable int id,@RequestParam("idAdmin") int idA) {
         return gestionAdminUtilisateurService.bloquerUtilisateur(id,idA);
     }

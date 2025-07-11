@@ -1,6 +1,8 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.controllers.response_entities.Commentaire;
+import com.groupe1.collabdev_api.dto.request_dto.RequestCommentaireIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.CommentaireProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
@@ -11,6 +13,7 @@ import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,9 +46,9 @@ public class CommentaireIdeeProjetService {
                 }else {
                    System.out.println("Utilisateur non trouvé");
                 }
-        IdeeProjet idéeprjet= ideeProjetRepository.findById(commentaireIdeeProjet.getIdeeProjet().getId()).orElseThrow( () -> new RuntimeException("Idée de projet introuvable"))  ;
+        IdeeProjet ideeProjet= ideeProjetRepository.findById(commentaireIdeeProjet.getIdeeProjet().getId()).orElseThrow( () -> new RuntimeException("Idée de projet introuvable"))  ;
                 CommentaireIdeeProjet commentaire=new CommentaireIdeeProjet();
-                commentaire.setIdeeProjet(idéeprjet);
+                commentaire.setIdeeProjet(ideeProjet);
                 commentaire.setContenu(commentaireIdeeProjet.getContenu());
                 commentaire.setDateCommentaire(commentaireIdeeProjet.getDateCommentaire());
 
@@ -75,5 +78,14 @@ public class CommentaireIdeeProjetService {
     public Boolean supprimerParId(int id){
         commentaireIdeeProjetRepository.deleteById(id);
         return true;
+    }
+
+    public List<ResponseCommentaireIdeeProjet> listerParIdeeProjet(int id){
+        List<CommentaireIdeeProjet> commentaireIdeeProjets = commentaireIdeeProjetRepository.findByIdeeProjetId(id);
+        List<ResponseCommentaireIdeeProjet> responseCommentaireIdeeProjets = new ArrayList<>();
+        for (CommentaireIdeeProjet commentaireIdeeProjet : commentaireIdeeProjets) {
+            responseCommentaireIdeeProjets.add(commentaireIdeeProjet.toResponse());
+        }
+        return responseCommentaireIdeeProjets;
     }
 }
