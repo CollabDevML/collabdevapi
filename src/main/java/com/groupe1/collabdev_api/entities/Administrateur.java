@@ -15,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "administrateurs")
+@Data
 public class Administrateur {
 
     @Id

@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseBadge;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +20,20 @@ public class Badge {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String titre;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String uriImage;
 
     @OneToMany(mappedBy = "badge")
     private List<ObtentionBadge> obtentionBadges = new ArrayList<>();
+
+    public ResponseBadge toResponse(){
+        return new ResponseBadge(
+                this.id,
+                this.titre,
+                this.uriImage
+        );
+    }
 }
