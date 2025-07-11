@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
-
 @Service
 public class GestionAdminUtilisateurService {
 
@@ -25,10 +24,10 @@ public class GestionAdminUtilisateurService {
     @Autowired
     private AdministrateurRepository administrateurRepository;
 
-    public Boolean supprimerParId(int id, int idA) {
+    public Boolean supprimerParId(int id,int idA){
         Administrateur admin = administrateurRepository.findById(idA).orElse(null);
         Utilisateur utilisateur = utilisateurRepository.findById(id).orElse(null);
-        if (admin == null || utilisateur == null) {
+        if (admin == null || utilisateur == null){
             return false;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
@@ -43,10 +42,10 @@ public class GestionAdminUtilisateurService {
     }
 
     //Pour bloquer un utilisateur :
-    public Utilisateur bloquerUtilisateur(int id, int idAdmin) {
+    public Utilisateur bloquerUtilisateur(int id,int idAdmin) {
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
         Utilisateur user = utilisateurRepository.findById(id).orElse(null);
-        if (admin == null || user == null) {
+        if (admin == null || user == null){
             return user;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
@@ -66,16 +65,16 @@ public class GestionAdminUtilisateurService {
     }
 
     //Pour bloquer un groupe d'utilisateur :
-    public boolean bloquerParRole(Role role, int idAdmin) {
+    public boolean bloquerParRole(Role role, int idAdmin){
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
         AtomicBoolean verfier = new AtomicBoolean(false);
-        if (admin == null) {
+        if (admin == null ){
             return false;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
         gestionAdminUtilisateur.setAdministrateur(admin);
         utilisateurRepository.findAll().forEach(utilisateur -> {
-            if (utilisateur.getRole().equals(role)) {
+            if(utilisateur.getRole().equals(role)){
                 utilisateur.setEtat(false);
 
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
@@ -92,11 +91,11 @@ public class GestionAdminUtilisateurService {
 
 
     //Debloquer les utilisateurs en fonction des roles :
-    public boolean debloquerUtilisateurRole(Role role, int idAdmin) {
+    public boolean debloquerUtilisateurRole(Role role,int idAdmin){
         AtomicBoolean verfier = new AtomicBoolean(false);
 
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
-        if (admin == null) {
+        if (admin == null){
             return false;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
@@ -104,7 +103,7 @@ public class GestionAdminUtilisateurService {
 
 
         utilisateurRepository.findAll().forEach(utilisateur -> {
-            if (utilisateur.getRole().equals(role)) {
+            if(utilisateur.getRole().equals(role)){
                 utilisateur.setEtat(true);
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
                 gestionAdminUtilisateur.setDateGestion(LocalDate.now());
@@ -119,10 +118,10 @@ public class GestionAdminUtilisateurService {
     }
 
     //Pour debloquer un utilisateur :
-    public Utilisateur debloquerUtilisateur(int id, int idAdm) {
+    public Utilisateur debloquerUtilisateur(int id,int idAdm) {
         Administrateur admin = administrateurRepository.findById(idAdm).orElse(null);
         Utilisateur user = utilisateurRepository.findById(id).orElse(null);
-        if (admin == null || user == null) {
+        if (admin == null || user == null){
             return user;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
@@ -142,13 +141,13 @@ public class GestionAdminUtilisateurService {
     //Pour debloquer tout les utilisateurs :
     public List<Utilisateur> debloquerTousUtilisateur(int idAdmin) {
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
-        if (admin == null) {
+        if (admin == null){
             return null;
         }
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
         gestionAdminUtilisateur.setAdministrateur(admin);
         utilisateurRepository.findAll().forEach(utilisateur -> {
-            if (!utilisateur.isEtat()) {
+            if (!utilisateur.isEtat()){
                 utilisateur.setEtat(true);
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
                 gestionAdminUtilisateur.setDateGestion(LocalDate.now());
@@ -164,7 +163,7 @@ public class GestionAdminUtilisateurService {
         return utilisateurRepository.findUtilisateursByRole(role);
     }
 
-    public List<Utilisateur> chercherTous() {
+    public List<Utilisateur> chercherTous(){
         return utilisateurRepository.findAll();
     }
 }

@@ -1,7 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -42,7 +41,7 @@ public class Projet {
     private Niveau niveauDAcces;
 
     @Column(nullable = false)
-    private boolean etat = true;
+    private boolean etat=true;
 
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
@@ -65,28 +64,17 @@ public class Projet {
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
 
     @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Projet projet)) return false;
+    public boolean equals(Object object)
+    {
+        if(this == object ) return true;
+        if(!(object instanceof Projet)) return false;
+        Projet projet = (Projet) object;
         return id == projet.getId();
     }
-
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         return Integer.hashCode(id);
-    }
-
-    public ProjetDto toDto() {
-        return new ProjetDto(
-                this.titre,
-                this.description,
-                this.estFini,
-                this.dateDebut,
-                this.dateFin,
-                this.niveauDAcces,
-                this.etat,
-                this.gestionnaire.getId()
-        );
     }
 
 }

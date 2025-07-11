@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -10,8 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Controller pour les administrateurs",
+        description = "Quelque chose")
 @RestController
-@RequestMapping("/administrateurs/")
+@RequestMapping("/administrateurs")
 public class AdministrateurController {
 
     @Autowired
@@ -26,7 +29,7 @@ public class AdministrateurController {
     }
 
     //Methode pour la modification d'un administrateur par id :
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Administrateur admin) {
         return administrateurService.updateAdmin(id, admin);
     }
@@ -41,13 +44,13 @@ public class AdministrateurController {
     }
 
     //Methode pour afficher un seul administrateur :
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Administrateur get(@PathVariable Integer id) {
         return administrateurService.chercherParId(id);
     }
 
     //Methode pour la suppression d'un administrateur :
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public List<Administrateur> deleteAdmin(@PathVariable Integer id) {
         if (administrateurService.supprimerParId(id)) {
             return administrateurService.chercherTous();

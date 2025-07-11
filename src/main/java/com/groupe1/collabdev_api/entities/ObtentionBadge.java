@@ -1,6 +1,9 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseBadge;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseObtentionBadge;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -28,4 +32,15 @@ public class ObtentionBadge {
     @ManyToOne
     @JoinColumn(name = "id_badge", nullable = false)
     private Badge badge;
+
+    public ResponseObtentionBadge toResponse(){
+        return new ResponseObtentionBadge(
+                this.id,
+                this.contributeur.getUtilisateur().getPrenom()
+                + " "
+                + this.contributeur.getUtilisateur().getNom(),
+                this.badge.getTitre(),
+                this.dateObtention
+        );
+    }
 }

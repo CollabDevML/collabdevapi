@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.entities.Badge;
 import com.groupe1.collabdev_api.services.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/badge")
+@RequestMapping("/uploads/badges")
 public class BadgeController {
 
     @Autowired
@@ -29,8 +30,25 @@ public class BadgeController {
     public ResponseEntity<?> addBadge(
             @RequestParam("titre") String titre,
             @RequestParam("fichier") MultipartFile chemin
-    ) throws IOException {
-        return badgeService.ajouteBadge(titre, chemin);
+    ) {
+        try {
+            return new ResponseEntity<>(
+                    badgeService.ajouteBadge(titre, chemin).toResponse(),
+                    HttpStatus.CREATED
+            );
+        } catch (IOException exception) {
+            return new
+                    ResponseEntity<>(
+                    exception.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        } catch (RuntimeException e){
+            return new
+                    ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
     }
 
     //Pour la modification d'un badge :
@@ -39,8 +57,25 @@ public class BadgeController {
             @PathVariable("id") int id,
             @RequestParam(value = "titre", required = false) String titre,
             @RequestParam(value = "fichier", required = false) MultipartFile chemin
-    ) throws IOException {
-        return badgeService.modifieBadge(id, titre, chemin);
+    ) {
+        try {
+            return new ResponseEntity<>(
+                    badgeService.modifieBadge(id, titre, chemin).toResponse(),
+                    HttpStatus.OK
+            );
+        } catch (IOException exception) {
+            return new
+                    ResponseEntity<>(
+                    exception.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        } catch (RuntimeException e){
+            return new
+                    ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.NOT_FOUND
+            );
+        }
     }
 
     //Pour la suppression de badge :

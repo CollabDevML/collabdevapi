@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ObtentionBadgeService {
@@ -17,27 +18,29 @@ public class ObtentionBadgeService {
         return obtentionBadgeRepository.findById(id).orElse(null);
     }
 
-    public List<ObtentionBadge> chercherParIdContri(int id) {
-        return obtentionBadgeRepository.findByContributeurId(id);
+    public List<ObtentionBadge> chercherParIdContri(int id){
+        return obtentionBadgeRepository.findByContributeurId( id);
     }
-
-    public ObtentionBadge chercherParBadge(int id) {
+    public Optional<ObtentionBadge> chercherParBadge (int id){
         return obtentionBadgeRepository.findByBadgeId(id);
     }
 
-    public List<ObtentionBadge> chercherTous() {
+    public Optional<ObtentionBadge> chercherParBadgeIdAndContributeurId(int idBadge, int idContributeur) {
+        return obtentionBadgeRepository.findByBadgeIdAndContributeurId(idBadge, idContributeur);
+    }
+    public List<ObtentionBadge> chercherTous(){
         return obtentionBadgeRepository.findAll();
     }
 
-    public ObtentionBadge ajouter(ObtentionBadge obtentionBadge) {
+    public ObtentionBadge ajouter(ObtentionBadge obtentionBadge){
         return obtentionBadgeRepository.save(obtentionBadge);
     }
 
-    public ObtentionBadge modifier(ObtentionBadge obtentionBadge) {
+    public ObtentionBadge modifier(ObtentionBadge obtentionBadge){
         return obtentionBadgeRepository.save(obtentionBadge);
     }
 
-    public Boolean supprimerParId(int id) {
+    public Boolean supprimerParId(int id){
         obtentionBadgeRepository.deleteById(id);
         return true;
     }

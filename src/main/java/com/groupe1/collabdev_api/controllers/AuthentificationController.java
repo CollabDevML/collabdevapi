@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.AuthenticationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/authentification")
+@Tag(name = "Controller pour les administrateurs",
+        description = "Quelque chose")
 public class AuthentificationController {
 
     @Autowired
@@ -21,10 +24,10 @@ public class AuthentificationController {
     @PostMapping
     public ResponseEntity<?> seConnecter(
             @RequestBody RequestAuthentification user
-    ) {
+            ) {
         try {
             boolean isAuthenticatedUser = authenticationService.authenticate(user);
-            if (isAuthenticatedUser) {
+            if(isAuthenticatedUser){
                 return
                         new ResponseEntity<>(
                                 "Authentification réussie!",
@@ -37,7 +40,7 @@ public class AuthentificationController {
                                 HttpStatus.OK
                         );
             }
-        } catch (UserNotFoundException e) {
+        } catch (UserNotFoundException e){
             return
                     new ResponseEntity<>(
                             e.getMessage(),

@@ -1,7 +1,11 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Badge;
+import com.groupe1.collabdev_api.entities.Contributeur;
+import com.groupe1.collabdev_api.entities.ObtentionBadge;
 import com.groupe1.collabdev_api.repositories.BadgeRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -9,7 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.groupe1.collabdev_api.services.UploadFichier.upload;
 
@@ -29,23 +35,22 @@ public class BadgeService {
 
 
     //Pour l'ajout des Badges coté admin :
-    public ResponseEntity<?> ajouteBadge(String titre, MultipartFile fichier) throws IOException {
+    public Badge ajouteBadge(String titre, MultipartFile fichier) throws IOException {
         String chemin = upload(fichier, "badges");
         if (!chemin.isEmpty()) {
             Badge badge = new Badge();
             badge.setTitre(titre);
             badge.setUriImage(chemin);
-            Badge badge1 = badgeRepository.save(badge);
-            return ResponseEntity.ok(badge1);
+            return badgeRepository.save(badge);
         }
-        return ResponseEntity.badRequest().body("Veillez Choisir une image du format 'JPN' ou 'jpeg' ou 'jpg' !!!! ");
+        throw new RuntimeException("Veillez Choisir une image du format 'png' ou 'jpeg' ou 'jpg' !!!! ");
     }
 
-    public ResponseEntity<?> modifieBadge(int id, String titre, MultipartFile fichier) throws IOException {
+    public Badge modifieBadge(int id, String titre, MultipartFile fichier) throws IOException {
         // On vérifie que le badge existe vraiment sinon
         Badge badge = badgeRepository.findById(id).orElse(null);
         if (badge == null)
-            return ResponseEntity.notFound().build();
+            throw new RuntimeException("Badge introuvable!");
 
         // On vérifie le titre
         if (titre != null && !titre.isEmpty()) {
@@ -64,8 +69,7 @@ public class BadgeService {
             if (!uri.isEmpty()) badge.setUriImage(uri);
         }
 
-        Badge badge1 = badgeRepository.save(badge);
-        return ResponseEntity.ok(badge1);
+        return badgeRepository.save(badge);
     }
 
 
@@ -102,5 +106,6 @@ public class BadgeService {
         badgeRepository.deleteById(id);
         return true;
     }
+
 }
 

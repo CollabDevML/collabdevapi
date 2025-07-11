@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
@@ -14,7 +15,7 @@ public class UtilisateurService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    public Utilisateur chercherParId(int id) {
+    public Utilisateur chercherParId(int id){
         return utilisateurRepository.findById(id).orElse(null);
     }
 
@@ -23,15 +24,15 @@ public class UtilisateurService {
     }
 
 
-    public List<Utilisateur> chercherTous() {
+    public List<Utilisateur> chercherTous(){
         return utilisateurRepository.findAll();
     }
 
-    public Utilisateur ajouter(Utilisateur utilisateur) {
+    public Utilisateur ajouter(Utilisateur utilisateur){
         return utilisateurRepository.save(utilisateur);
     }
 
-    public Utilisateur modifier(Utilisateur utilisateur) {
+    public Utilisateur modifier(Utilisateur utilisateur){
         return utilisateurRepository.save(utilisateur);
     }
 
