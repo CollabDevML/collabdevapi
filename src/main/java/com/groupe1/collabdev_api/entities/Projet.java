@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -77,4 +78,16 @@ public class Projet {
         return Integer.hashCode(id);
     }
 
+    public ProjetDto toDto() {
+        return new ProjetDto(
+                this.titre,
+                this.description,
+                this.isEstFini(),
+                this.getDateDebut(),
+                this.getDateFin(),
+                this.getNiveauDAcces(),
+                this.isEtat(),
+                this.getGestionnaire().getId()
+        );
+    }
 }
