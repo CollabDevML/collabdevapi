@@ -32,7 +32,7 @@ public class CommentaireProjetService {
 
     public CommentaireProjet ajouter(CommentaireProjet commentaireProjet){
         Utilisateur user=utilisateurRepository.findById(commentaireProjet.getUtilisateur().getId()).orElseThrow(
-                () -> new RuntimeException("Ce utilisateur n'exeiste pas")
+                () -> new RuntimeException("Ce utilisateur n'existe pas")
         );
         Projet projet=projetRepository.findById(commentaireProjet.getProjet().getId()).orElseThrow(
                 () ->new RuntimeException("Ce projet n'existe pas")

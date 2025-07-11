@@ -33,7 +33,10 @@ public class CommentaireIdeeProjetService {
         return commentaireIdeeProjetRepository.findAll();
     }
 
-    public CommentaireIdeeProjet ajouter(CommentaireIdeeProjet commentaireIdeeProjet){
+    public CommentaireIdeeProjet ajouter(CommentaireIdeeProjet commentaireIdeeProjet) throws RuntimeException{
+        if(commentaireIdeeProjet.getUtilisateur()==null){
+            throw new RuntimeException("l'utilisateur est vide");
+        }
         Optional<Utilisateur> user=utilisateurRepository.findById(commentaireIdeeProjet.getUtilisateur().getId());
                 if(user.isPresent()){
                     commentaireIdeeProjet.setUtilisateur(user.get());
@@ -47,7 +50,7 @@ public class CommentaireIdeeProjetService {
                 commentaire.setDateCommentaire(commentaireIdeeProjet.getDateCommentaire());
 
 
-        return commentaireIdeeProjetRepository.save(commentaireIdeeProjet);
+        return commentaireIdeeProjetRepository.save(commentaire);
 
 
     }

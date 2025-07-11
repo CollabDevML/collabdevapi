@@ -5,6 +5,9 @@ import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.CommentaireProjet;
 import com.groupe1.collabdev_api.services.CommentaireIdeeProjetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,8 +22,14 @@ public class CommentaireIdeeProjetController {
 
     @PostMapping
 
-    public CommentaireIdeeProjet ajoutercommentaire(@RequestBody CommentaireIdeeProjet commentaire){
-        return commentaireIdeeProjetService.ajouter(commentaire);
+    public ResponseEntity<?> ajoutercommentaire(@RequestBody CommentaireIdeeProjet commentaire){
+        try {
+           CommentaireIdeeProjet commentaireidée=commentaireIdeeProjetService.ajouter(commentaire);
+            return ResponseEntity.status(HttpStatus.CREATED).body(commentaireidée);
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping

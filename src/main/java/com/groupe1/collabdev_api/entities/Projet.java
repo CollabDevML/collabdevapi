@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -51,9 +52,11 @@ public class Projet {
     @OneToMany(mappedBy = "projet")
     private List<Contribution> contributions = new ArrayList<>();
 
+
     @OneToMany(mappedBy = "projet")
     private List<DemandeContribution> demandeContributions = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "projet")
     private List<CommentaireProjet> commentairesProjet = new ArrayList<>();
 

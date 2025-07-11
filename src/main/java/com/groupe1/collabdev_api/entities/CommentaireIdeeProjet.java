@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,12 @@ public class CommentaireIdeeProjet {
     @Column(nullable = false)
     private LocalDate dateCommentaire = LocalDate.now();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_idee_projet", nullable = false)
     private IdeeProjet ideeProjet;
