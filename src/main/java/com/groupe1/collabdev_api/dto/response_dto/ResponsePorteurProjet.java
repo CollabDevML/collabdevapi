@@ -6,8 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResponsePorteurProjet extends ResponseUtilisateur{
+public class ResponsePorteurProjet extends ResponseUtilisateur {
     private int idPorteurProjet;
+
     public ResponsePorteurProjet(int id, String prenom, String nom, String email, String motDePasse, Genre genre) {
         super(id, prenom, nom, email, motDePasse, genre);
     }

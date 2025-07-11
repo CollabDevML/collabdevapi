@@ -13,23 +13,23 @@ public class CommentaireProjetService {
     @Autowired
     private CommentaireProjetRepository commentaireProjetRepository;
 
-    public CommentaireProjet chercherParId(int id){
+    public CommentaireProjet chercherParId(int id) {
         return commentaireProjetRepository.findById(id).orElse(null);
     }
 
-    public List<CommentaireProjet> chercherTous(){
+    public List<CommentaireProjet> chercherTous() {
         return commentaireProjetRepository.findAll();
     }
 
-    public CommentaireProjet ajouter(CommentaireProjet commentaireProjet){
+    public CommentaireProjet ajouter(CommentaireProjet commentaireProjet) {
         return commentaireProjetRepository.save(commentaireProjet);
     }
 
-    public CommentaireProjet modifier(CommentaireProjet commentaireProjet){
+    public CommentaireProjet modifier(CommentaireProjet commentaireProjet) {
         return commentaireProjetRepository.save(commentaireProjet);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         commentaireProjetRepository.deleteById(id);
         return true;
     }

@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ResponseContributeur extends ResponseUtilisateur{
+public class ResponseContributeur extends ResponseUtilisateur {
 
     private Niveau niveau;
     private String specialite;
@@ -16,6 +16,7 @@ public class ResponseContributeur extends ResponseUtilisateur{
     private double pieces;
     private String uriCv;
     private int idContributeur;
+
     public ResponseContributeur(int id, String prenom, String nom, String email, String motDePasse, Genre genre, Niveau niveau, String specialite, Type type, double pieces, String uriCv, int idContributeur) {
         super(id, prenom, nom, email, motDePasse, genre);
         this.niveau = niveau;

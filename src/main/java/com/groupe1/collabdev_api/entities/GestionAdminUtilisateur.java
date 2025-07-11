@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.entities;
 
-import com.groupe1.collabdev_api.entities.enums.TypeGestionProjet;
 import com.groupe1.collabdev_api.entities.enums.TypeGestionUtilisateurs;
 import jakarta.persistence.*;
 import lombok.Getter;

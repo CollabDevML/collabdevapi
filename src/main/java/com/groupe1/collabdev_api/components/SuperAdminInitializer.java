@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.components;
 
-import com.groupe1.collabdev_api.repositories.AdministrateurRepository;
 import com.groupe1.collabdev_api.services.AdministrateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
