@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -20,6 +21,7 @@ public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
     @Column(nullable = false)
     private String titre;
 
@@ -47,11 +49,11 @@ public class Projet {
     private Gestionnaire gestionnaire;
 
     @OneToMany(mappedBy = "projet", cascade = CascadeType.REMOVE)
+    @JsonManagedReference
     private List<Tache> taches;
 
     @OneToMany(mappedBy = "projet")
     private List<Contribution> contributions = new ArrayList<>();
-
 
     @OneToMany(mappedBy = "projet")
     private List<DemandeContribution> demandeContributions = new ArrayList<>();
@@ -62,5 +64,19 @@ public class Projet {
 
     @OneToMany(mappedBy = "projet")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
+
+    @Override
+    public boolean equals(Object object)
+    {
+        if(this == object ) return true;
+        if(!(object instanceof Projet)) return false;
+        Projet projet = (Projet) object;
+        return id == projet.getId();
+    }
+    @Override
+    public int hashCode()
+    {
+        return Integer.hashCode(id);
+    }
 
 }

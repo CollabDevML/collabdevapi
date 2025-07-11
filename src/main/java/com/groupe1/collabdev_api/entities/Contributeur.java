@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.entities.enums.Type;
 import jakarta.persistence.*;
@@ -43,6 +44,9 @@ public class Contributeur {
 
     @Column(nullable = false)
     private String uriCv;
+
+    @OneToMany(cascade = CascadeType.REMOVE)
+    private List<Tache> taches;
 
     @OneToMany(mappedBy = "contributeur")
     private List<Contribution> contributions = new ArrayList<>();

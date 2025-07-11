@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ObtentionBadgeService {
@@ -13,10 +14,20 @@ public class ObtentionBadgeService {
     @Autowired
     private ObtentionBadgeRepository obtentionBadgeRepository;
 
-    public ObtentionBadge chercherParId(int id){
+    public ObtentionBadge chercherParId(int id) {
         return obtentionBadgeRepository.findById(id).orElse(null);
     }
 
+    public List<ObtentionBadge> chercherParIdContri(int id){
+        return obtentionBadgeRepository.findByContributeurId( id);
+    }
+    public Optional<ObtentionBadge> chercherParBadge (int id){
+        return obtentionBadgeRepository.findByBadgeId(id);
+    }
+
+    public Optional<ObtentionBadge> chercherParBadgeIdAndContributeurId(int idBadge, int idContributeur) {
+        return obtentionBadgeRepository.findByBadgeIdAndContributeurId(idBadge, idContributeur);
+    }
     public List<ObtentionBadge> chercherTous(){
         return obtentionBadgeRepository.findAll();
     }

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public abstract class ResponseUtilisateur {
-    private int id;
+    private int idUtilisateur;
     private String prenom;
     private String nom;
     private String email;

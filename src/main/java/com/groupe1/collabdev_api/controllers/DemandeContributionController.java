@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.services.DemandeContributionService;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,13 @@ public class DemandeContributionController {
     }
 
     @GetMapping("/{id}")
-    public DemandeContribution chercherParId(@PathVariable int id)
+    public DemandeContributionDto chercherParId(@PathVariable int id)
     {
         return demandeContributionService.chercherParId(id);
     }
 
     @GetMapping
-    public List<DemandeContribution> chercherTous()
+    public List<DemandeContributionDto> chercherTous()
     {
         return demandeContributionService.chercherTous();
     }
@@ -58,19 +59,19 @@ public class DemandeContributionController {
     {
         return demandeContributionService.refuserDemandeContribution(id);
     }
-    @GetMapping("/contributeur/{idContributeur}")
-    public List<DemandeContribution> chercherParContributeur(@PathVariable int idContributeur)
+    @GetMapping("/contributeurs/{idContributeur}")
+    public List<DemandeContributionDto> chercherParContributeur(@PathVariable int idContributeur)
     {
         return demandeContributionService.chercherParContributeur(idContributeur);
     }
-    @GetMapping("/projet/{idProjet}")
-    public List<DemandeContribution> chercherParProjet(@PathVariable int idProjet)
+    @GetMapping("/projets/{idProjet}")
+    public List<DemandeContributionDto> chercherParProjet(@PathVariable int idProjet)
     {
         return demandeContributionService.chercherParProjet(idProjet);
     }
     //Lister les demandes acceptées ou refusées pour un contributeur dans un projet donné.
-    @GetMapping("/contributeur/{idContributeur}/projet/{idProjet}")
-    public List<DemandeContribution> chercherParEstAccepte(
+    @GetMapping("/contributeurs/{idContributeur}/projets/{idProjet}")
+    public List<DemandeContributionDto> chercherParEstAccepte(
             @PathVariable int idContributeur,
             @PathVariable int idProjet,
             @RequestParam boolean accepte)
