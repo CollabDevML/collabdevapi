@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.ContributeurDto;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.services.ContributeurService;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
@@ -86,8 +87,13 @@ public class ContributeurController {
         }
 
     }
+    @GetMapping("/projets/{idContributeur}")
+    public  List<ProjetDto> chercherProjetsParContributeur(@PathVariable int idContributeur)
+    {
+        return contributeurService.chercherProjetsParContributeur(idContributeur);
+    }
 
-    @DeleteMapping("{idContributeur}/projets/{idProjet}")
+    @DeleteMapping("/{idContributeur}/projets/{idProjet}")
     public Boolean quitterProjet(@PathVariable int idContributeur,
                                  @PathVariable int idProjet){
 
