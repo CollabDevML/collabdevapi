@@ -14,5 +14,5 @@ public interface DemandeContributionRepository extends JpaRepository<DemandeCont
     List<DemandeContribution> findByContributeurIdAndEstAcceptee(int contributeur, boolean estAcceptee);
     List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAccepteeFalse(int idContributeur, int idProjet);
     List<DemandeContribution> findByContributeur_IdAndEstAccepteeTrue(int idContributeur);
-    DemandeContribution deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(int idContributeur, int idProjet);
+    int deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(int idContributeur, int idProjet);
 }
