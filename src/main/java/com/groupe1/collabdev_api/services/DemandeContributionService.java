@@ -128,11 +128,10 @@ public class DemandeContributionService {
     }
 
     @Transactional
-    public Boolean supprimerParContributeurEtParProjet(
+    public int supprimerParContributeurEtParProjet(
             int idContributeur, int idProjet
     ){
-        demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
-        return true;
+        return demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
     }
 }
 

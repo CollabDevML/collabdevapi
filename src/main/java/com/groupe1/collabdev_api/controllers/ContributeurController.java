@@ -94,10 +94,14 @@ public class ContributeurController {
     }
 
     @DeleteMapping("/{idContributeur}/projets/{idProjet}")
-    public Boolean quitterProjet(@PathVariable int idContributeur,
+    public ResponseEntity<?> quitterProjet(@PathVariable int idContributeur,
                                  @PathVariable int idProjet){
 
-        return contributeurService.quitterUnProjet(idContributeur, idProjet);
+        int i = contributeurService.quitterUnProjet(idContributeur, idProjet);
+       return  i>=1 ? ResponseEntity.ok("Suppression effectuée") : new ResponseEntity<>(
+               "id contributeur ou id projet invalide",
+               HttpStatus.NOT_FOUND
+       );
 
     }
 
