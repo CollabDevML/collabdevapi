@@ -13,23 +13,23 @@ public class CommentaireIdeeProjetService {
     @Autowired
     private CommentaireIdeeProjetRepository commentaireIdeeProjetRepository;
 
-    public CommentaireIdeeProjet chercherParId(int id){
+    public CommentaireIdeeProjet chercherParId(int id) {
         return commentaireIdeeProjetRepository.findById(id).orElse(null);
     }
 
-    public List<CommentaireIdeeProjet> chercherTous(){
+    public List<CommentaireIdeeProjet> chercherTous() {
         return commentaireIdeeProjetRepository.findAll();
     }
 
-    public CommentaireIdeeProjet ajouter(CommentaireIdeeProjet commentaireIdeeProjet){
+    public CommentaireIdeeProjet ajouter(CommentaireIdeeProjet commentaireIdeeProjet) {
         return commentaireIdeeProjetRepository.save(commentaireIdeeProjet);
     }
 
-    public CommentaireIdeeProjet modifier(CommentaireIdeeProjet commentaireIdeeProjet){
+    public CommentaireIdeeProjet modifier(CommentaireIdeeProjet commentaireIdeeProjet) {
         return commentaireIdeeProjetRepository.save(commentaireIdeeProjet);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         commentaireIdeeProjetRepository.deleteById(id);
         return true;
     }

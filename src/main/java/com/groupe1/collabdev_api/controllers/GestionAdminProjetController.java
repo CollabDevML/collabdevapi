@@ -21,14 +21,14 @@ public class GestionAdminProjetController {
 
     //Pour activer un Projet :
     @GetMapping("{id}/activer")
-    public Projet actviveProjet(@PathVariable int id,@RequestParam("idAdmin")int idA) {
-        return gestionAdminProjetService.activerProjet(id,idA);
+    public Projet actviveProjet(@PathVariable int id, @RequestParam("idAdmin") int idA) {
+        return gestionAdminProjetService.activerProjet(id, idA);
     }
 
     //Pour desactiver un Projet :
     @GetMapping("{id}/desactiver")
-    public Projet desactiverProjet(@PathVariable int id,@RequestParam("idAdmin") int idA) {
-        return gestionAdminProjetService.desactiverProjet(id,idA);
+    public Projet desactiverProjet(@PathVariable int id, @RequestParam("idAdmin") int idA) {
+        return gestionAdminProjetService.desactiverProjet(id, idA);
     }
 
     //Pour supprimer un projet :

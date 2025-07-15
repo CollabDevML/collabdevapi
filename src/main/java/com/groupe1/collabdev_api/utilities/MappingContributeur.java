@@ -5,10 +5,9 @@ import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 
 public class MappingContributeur {
-    public static ContributeurDto contributeurToDto(Contributeur contributeur)
-    {
+    public static ContributeurDto contributeurToDto(Contributeur contributeur) {
         Utilisateur utilisateur = contributeur.getUtilisateur();
-        return  new ContributeurDto(
+        return new ContributeurDto(
                 utilisateur.getPrenom(),
                 utilisateur.getNom(),
                 utilisateur.getEmail(),
@@ -18,10 +17,9 @@ public class MappingContributeur {
                 contributeur.getSpecialite(),
                 contributeur.getType(),
                 contributeur.getPieces(),
-               contributeur.getUriCv()
+                contributeur.getUriCv()
         );
     }
-
 
 
 }

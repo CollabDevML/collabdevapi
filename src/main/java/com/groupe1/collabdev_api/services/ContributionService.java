@@ -6,10 +6,10 @@ import com.groupe1.collabdev_api.repositories.BadgeRepository;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -110,13 +110,13 @@ public class ContributionService {
     }
 
     //lister ces projets
-    public List<Projet> listerProjetsDuContributeur(int idContributeur) {
-        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
-        return contributions.stream()
-                .map(Contribution::getProjet)
-                .distinct() // Pour éviter les doublons
-                .collect(Collectors.toList());
-    }
+//    public List<ProjetDto> listerProjetsDuContributeur(int idContributeur) {
+//        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
+//        return contributions.stream()
+//                .map(Contribution::getProjet)
+//                .distinct() // Pour éviter les doublons
+//                .toList();
+//    }
 
     //quitter un projet
     public List<ContributionDto> quitterUnProjet(int idContributeur, int idProjet) {
