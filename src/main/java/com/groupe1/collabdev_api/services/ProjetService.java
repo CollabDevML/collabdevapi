@@ -1,12 +1,16 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import com.groupe1.collabdev_api.repositories.ProjetRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -25,10 +29,25 @@ public class ProjetService {
         return projetRepository.findAll();
     }
 
-    public Projet ajouter(int id, Projet projet) {
-        Gestionnaire gestionnaire = gestionnaireRepository.findById(id)
+    public Projet ajouter(ProjetDto projetDto) {
+        Gestionnaire gestionnaire = gestionnaireRepository.findById(projetDto.getIdGestionnaire())
                 .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
-        projet.setGestionnaire(gestionnaire);
+        Projet projet = new Projet(
+                9,
+                projetDto.getTitre(),
+                projetDto.getDescription(),
+                projetDto.isEstFini(),
+                projetDto.getDateDebut(),
+                projetDto.getDateFin(),
+                projetDto.getNiveauDAcces(),
+                projetDto.isEtat(),
+                gestionnaire,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>(),
+                new ArrayList<>()
+        );
         return projetRepository.save(projet);
     }
 
@@ -48,11 +67,21 @@ public class ProjetService {
                 .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
     }
 
-    public Projet modifier(int id, Projet projet) {
-        if (projet.getGestionnaire().getId() == id) {
+    public Projet modifier(int idProjet, int idGestionnaire, ProjetDto projetDto) throws BadRequestException, EntityNotFoundException{
+        Projet projet = projetRepository.findById(idProjet).orElseThrow(
+                () -> new EntityNotFoundException("Projet introuvable avec l'id "+idProjet)
+        );
+        if (projet.getGestionnaire().getId() == idGestionnaire) {
+            projet.setTitre(projetDto.getTitre());
+            projet.setDescription(projetDto.getDescription());
+            projet.setDateDebut(projetDto.getDateDebut());
+            projet.setDateFin(projetDto.getDateFin());
+            projet.setNiveauDAcces(projetDto.getNiveauDAcces());
+            projet.setEstFini(projetDto.isEstFini());
+            projet.setEtat(projetDto.isEtat());
             return projetRepository.save(projet);
         } else {
-            return null;
+            throw new BadRequestException("Ce gestionnaire n'est pas autorisé a modifié ce projet");
         }
 
     }

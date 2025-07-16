@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public abstract class ResponseUtilisateur {
+public class ResponseUtilisateur {
     private int idUtilisateur;
     private String prenom;
     private String nom;

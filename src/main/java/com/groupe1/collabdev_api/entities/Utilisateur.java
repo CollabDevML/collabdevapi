@@ -1,6 +1,8 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.groupe1.collabdev_api.dto.response_dto.ResponsePorteurProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUtilisateur;
 import com.groupe1.collabdev_api.entities.enums.Genre;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import jakarta.persistence.*;
@@ -8,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.tomcat.util.http.ResponseUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,4 +60,15 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
+
+    public ResponseUtilisateur toResponse() {
+        return new ResponsePorteurProjet(
+                id,
+                prenom,
+                nom,
+                email,
+                motDePasse,
+                genre
+        );
+    }
 }
