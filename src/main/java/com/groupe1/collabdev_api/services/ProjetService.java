@@ -20,6 +20,8 @@ public class ProjetService {
     private ProjetRepository projetRepository;
     @Autowired
     private GestionnaireRepository gestionnaireRepository;
+    @Autowired
+    private EnvoieDemailService emailService;
 
     public Projet chercherParId(int id) {
         return projetRepository.findById(id).orElse(null);
@@ -48,7 +50,18 @@ public class ProjetService {
                 new ArrayList<>(),
                 new ArrayList<>()
         );
-        return projetRepository.save(projet);
+        Projet projetToResponse = projetRepository.save(projet);
+        emailService.envoyerEmail(
+                gestionnaire.getUtilisateur().getEmail(),
+                "Création de projet",
+                String.format("""
+                        Bonjour %s %s. \n
+                        Votre projet %s a été créé avec succès, place à le gérer :)"""
+                ,gestionnaire.getUtilisateur().getPrenom(),
+                        gestionnaire.getUtilisateur().getNom(),
+                        projetToResponse.getTitre())
+        );
+        return projetToResponse;
     }
 
     //Lister les projet d'un gestionnaire
