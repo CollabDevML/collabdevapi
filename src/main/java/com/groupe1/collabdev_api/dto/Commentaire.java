@@ -1,4 +1,4 @@
-package com.groupe1.collabdev_api.controllers.response_entities;
+package com.groupe1.collabdev_api.dto;
 
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Projet;

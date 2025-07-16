@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.services;
 
-import com.groupe1.collabdev_api.controllers.response_entities.Commentaire;
+import com.groupe1.collabdev_api.dto.Commentaire;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
