@@ -1,18 +1,23 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.request_dto.RequestAdministrateur;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseAdministrateur;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name = "Controller pour les administrateurs",
-        description = "Quelque chose")
+@Tag(name="Utilisateurs Api",
+     description="CRUD pour l'administrateur")
 @RestController
 @RequestMapping("/administrateurs")
 public class AdministrateurController {
@@ -20,42 +25,43 @@ public class AdministrateurController {
     @Autowired
     private AdministrateurService administrateurService;
 
-    //Methode pour la creation des autres Administrateurs :
+    @Operation(summary = "méthodes pour la création des administrateurs")
     @PostMapping
-    public Administrateur add(@RequestBody Administrateur admin) {
+    public ResponseAdministrateur add(@RequestBody RequestAdministrateur admin) {
         admin.setMotDePasse(BCrypt.hashpw(admin.getMotDePasse(), BCrypt.gensalt()));
-        admin.setRole(Role.ADMIN);
-        return administrateurService.ajouter(admin);
+        return administrateurService.ajouter(new Administrateur(0, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>())).toResponse();
     }
 
-    //Methode pour la modification d'un administrateur par id :
+    @Operation(summary = "pour la modification d'un administrateur par son id")
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Administrateur admin) {
-        return administrateurService.updateAdmin(id, admin);
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody RequestAdministrateur admin) {
+        return administrateurService.updateAdmin(id, new Administrateur(id, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>()));
     }
 
-    //Methode pour la liste des Administrateurs :
+    @Operation(summary = "pour récuperer la liste des admins")
     @GetMapping
-    public List<Administrateur> list() {
-        if (administrateurService.chercherTous().isEmpty()) {
-            return null;
+    public ResponseEntity<?> list() {
+        List<Administrateur> administrateurs = administrateurService.chercherTous();
+        if (administrateurs.isEmpty()) {
+            return new ResponseEntity<>("Aucun administrateur dans le système!", HttpStatus.OK);
         }
-        return administrateurService.chercherTous();
+        List<ResponseAdministrateur> administrateurList = new ArrayList<>();
+        for (Administrateur administrateur : administrateurs) {
+            administrateurList.add(administrateur.toResponse());
+        }
+        return new ResponseEntity<>(administrateurList, HttpStatus.OK);
     }
 
-    //Methode pour afficher un seul administrateur :
+    @Operation(summary = "pour l'affichage d'un seul admin")
     @GetMapping("/{id}")
-    public Administrateur get(@PathVariable Integer id) {
-        return administrateurService.chercherParId(id);
+    public ResponseAdministrateur get(@PathVariable Integer id) {
+        return administrateurService.chercherParId(id).toResponse();
     }
 
-    //Methode pour la suppression d'un administrateur :
+    @Operation(summary = "pour la suppression d'un admis")
     @DeleteMapping("/{id}")
-    public List<Administrateur> deleteAdmin(@PathVariable Integer id) {
-        if (administrateurService.supprimerParId(id)) {
-            return administrateurService.chercherTous();
-        }
-        return null;
+    public Boolean deleteAdmin(@PathVariable Integer id) {
+        return administrateurService.supprimerParId(id);
     }
 
 }

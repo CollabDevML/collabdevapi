@@ -5,6 +5,8 @@ import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.services.ContributeurService;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/contributeurs")
+@Tag(name="Utilisateurs Api",
+        description="gestion du contributeur")
 public class ContributeurController {
     ContributeurService contributeurService;
 
@@ -21,7 +25,7 @@ public class ContributeurController {
     public ContributeurController(ContributeurService contributeurService) {
         this.contributeurService = contributeurService;
     }
-
+    @Operation(summary = "pour avoir un contributeur par son id")
     @GetMapping("/{id}")
     public ResponseEntity<?> chercherParId(@PathVariable int id) {
         try {
@@ -40,12 +44,13 @@ public class ContributeurController {
         }
 
     }
-
+    @Operation(summary = "pour chercher tous les contributeurs")
     @GetMapping
     public List<ContributeurDto> chercherTous() {
         return contributeurService.chercherTousLesContributeurs();
     }
 
+    @Operation(summary = "pour modifier un contributeur")
     @PutMapping("/{id}")
     public ResponseEntity<?> modifier(
             @PathVariable int id, @RequestBody ContributeurDto contributeur) {
@@ -67,6 +72,7 @@ public class ContributeurController {
 
     }
 
+    @Operation(summary = "pour supprimer un contributeur")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> supprimerParId(@PathVariable int id) {
         try {
@@ -93,9 +99,10 @@ public class ContributeurController {
         return contributeurService.chercherProjetsParContributeur(idContributeur);
     }
 
-    @DeleteMapping("/{idContributeur}/projets/{idProjet}")
+    @Operation(summary = "pour qu'un contributeur quitte le projet")
+    @DeleteMapping("{idContributeur}/projets/{idProjet}")
     public ResponseEntity<?> quitterProjet(@PathVariable int idContributeur,
-                                 @PathVariable int idProjet){
+                                                @PathVariable int idProjet){
 
         int i = contributeurService.quitterUnProjet(idContributeur, idProjet);
        return  i>=1 ? ResponseEntity.ok("Suppression effectuée") : new ResponseEntity<>(
