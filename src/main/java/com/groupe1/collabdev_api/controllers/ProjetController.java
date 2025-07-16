@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gestionnaires")
-@Tag(name="Projet Api",
-        description="Gestion du projet")
+@Tag(name = "Projet Api",
+        description = "Gestion du projet")
 public class ProjetController {
 
     @Autowired
@@ -70,8 +70,8 @@ public class ProjetController {
             @PathVariable int idProjet,
             @RequestBody ProjetDto projetDto,
             @RequestParam int idGestionnaire
-            ) {
-        try{
+    ) {
+        try {
             return new ResponseEntity<>(
                     projetService.modifier(idProjet, idGestionnaire, projetDto).toDto(),
                     HttpStatus.OK
@@ -81,7 +81,7 @@ public class ProjetController {
                     e.getMessage(),
                     HttpStatus.FORBIDDEN
             );
-        } catch (EntityNotFoundException e){
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(
                     e.getMessage(),
                     HttpStatus.BAD_REQUEST

@@ -37,7 +37,7 @@ public class AuthenticationService {
         if (utilisateur == null) {
             throw new UserNotFoundException(role);
         }
-        if(!utilisateur.isEtat()){
+        if (!utilisateur.isEtat()) {
             throw new RuntimeException("Votre compte est bloqué, impossible de se connecter!");
         }
         return BCrypt.checkpw(

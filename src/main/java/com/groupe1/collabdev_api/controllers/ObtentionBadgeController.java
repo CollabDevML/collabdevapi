@@ -14,8 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/contributeurs")
-@Tag(name="Badge Api",
-        description="Gestion du badge")
+@Tag(name = "Badge Api",
+        description = "Gestion du badge")
 public class ObtentionBadgeController {
 
     @Autowired

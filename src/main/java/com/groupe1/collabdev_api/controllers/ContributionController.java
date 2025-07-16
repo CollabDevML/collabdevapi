@@ -14,8 +14,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/contributeurs")
-@Tag(name="contribution Api",
-        description="pour la gestion des contributions")
+@Tag(name = "contribution Api",
+        description = "pour la gestion des contributions")
 public class ContributionController {
 
     @Autowired

@@ -8,11 +8,18 @@ import java.util.Optional;
 
 public interface DemandeContributionRepository extends JpaRepository<DemandeContribution, Integer> {
     List<DemandeContribution> findByContributeur_Id(int idContributeur);
+
     List<DemandeContribution> findByProjet_Id(int idProjet);
+
     Optional<DemandeContribution> findByContributeur_IdAndProjet_Id(int idContributeur, int idProjet);
+
     List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAccepteeTrue(int idContributeur, int idProjet);
+
     List<DemandeContribution> findByContributeurIdAndEstAcceptee(int contributeur, boolean estAcceptee);
+
     List<DemandeContribution> findByContributeur_IdAndProjet_IdAndEstAccepteeFalse(int idContributeur, int idProjet);
+
     List<DemandeContribution> findByContributeur_IdAndEstAccepteeTrue(int idContributeur);
+
     int deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(int idContributeur, int idProjet);
 }

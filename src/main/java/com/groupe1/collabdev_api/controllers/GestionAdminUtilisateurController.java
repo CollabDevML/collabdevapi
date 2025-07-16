@@ -12,8 +12,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administrateurs/gestion/utilisateur/")
-@Tag(name="Admin Api",
-        description="Autorisation de l'admin")
+@Tag(name = "Admin Api",
+        description = "Autorisation de l'admin")
 public class GestionAdminUtilisateurController {
     @Autowired
     private GestionAdminUtilisateurService gestionAdminUtilisateurService;

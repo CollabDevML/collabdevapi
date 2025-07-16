@@ -29,7 +29,7 @@ public class Badge {
     @OneToMany(mappedBy = "badge")
     private List<ObtentionBadge> obtentionBadges = new ArrayList<>();
 
-    public ResponseBadge toResponse(){
+    public ResponseBadge toResponse() {
         return new ResponseBadge(
                 this.id,
                 this.titre,

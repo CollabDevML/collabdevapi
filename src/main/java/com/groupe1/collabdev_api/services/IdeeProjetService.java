@@ -1,10 +1,8 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
-import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Utilisateur;
-import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +40,7 @@ public class IdeeProjetService {
     public IdeeProjet ajouter(RequestIdeeProjet ideeProjet) throws EntityNotFoundException {
         Utilisateur utilisateur = utilisateurRepository.findById(ideeProjet.getIdUtilisateur())
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Utilisateur introuvable avec l'id : "+ideeProjet.getIdUtilisateur())
+                        () -> new EntityNotFoundException("Utilisateur introuvable avec l'id : " + ideeProjet.getIdUtilisateur())
                 );
         return ideeProjetRepository.save(new IdeeProjet(
                 0,

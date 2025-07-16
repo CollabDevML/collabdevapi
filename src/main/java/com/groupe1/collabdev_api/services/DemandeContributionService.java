@@ -130,7 +130,7 @@ public class DemandeContributionService {
     @Transactional
     public int supprimerParContributeurEtParProjet(
             int idContributeur, int idProjet
-    ){
+    ) {
         return demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
     }
 }

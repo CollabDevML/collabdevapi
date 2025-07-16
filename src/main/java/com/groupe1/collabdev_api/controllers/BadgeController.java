@@ -16,8 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/uploads/badges")
-@Tag(name="Badge Api",
-        description="la gestion CRUD pour les badges")
+@Tag(name = "Badge Api",
+        description = "la gestion CRUD pour les badges")
 public class BadgeController {
 
     @Autowired
@@ -46,7 +46,7 @@ public class BadgeController {
                     exception.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return new
                     ResponseEntity<>(
                     e.getMessage(),
@@ -73,7 +73,7 @@ public class BadgeController {
                     exception.getMessage(),
                     HttpStatus.INTERNAL_SERVER_ERROR
             );
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return new
                     ResponseEntity<>(
                     e.getMessage(),

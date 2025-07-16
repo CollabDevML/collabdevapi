@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/gestionnaires/projets/taches")
-@Tag(name="Tache Api",
-        description="CRUD pour les taches")
+@Tag(name = "Tache Api",
+        description = "CRUD pour les taches")
 public class TacheController {
 
     @Autowired
