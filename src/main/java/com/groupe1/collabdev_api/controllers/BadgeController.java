@@ -2,6 +2,8 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.entities.Badge;
 import com.groupe1.collabdev_api.services.BadgeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,18 +16,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/uploads/badges")
+@Tag(name="Badge Api",
+        description="la gestion CRUD pour les badges")
 public class BadgeController {
 
     @Autowired
     private BadgeService badgeService;
 
-    //Pour afficher tous les badges :
+    @Operation(summary = "pour afficher toutes les badges")
     @GetMapping
     public List<Badge> getBadge() {
         return badgeService.afficheBadge();
     }
 
-    //Pour l'ajout des badges dans le systemes :
+    @Operation(summary = "pour ajouter les badges dans le système")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> addBadge(
             @RequestParam("titre") String titre,
@@ -51,7 +55,7 @@ public class BadgeController {
         }
     }
 
-    //Pour la modification d'un badge :
+    @Operation(summary = "pour la modification d'un badge")
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> updateBadge(
             @PathVariable("id") int id,
@@ -78,7 +82,7 @@ public class BadgeController {
         }
     }
 
-    //Pour la suppression de badge :
+    @Operation(summary = "pour la suppression d'un badge")
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteBadge(@PathVariable int id) {
         return badgeService.deleteBadge(id);

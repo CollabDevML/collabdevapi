@@ -6,6 +6,8 @@ import com.groupe1.collabdev_api.exceptions.ProjectNotFoundException;
 import com.groupe1.collabdev_api.exceptions.TacheNotFoundException;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.TacheService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,11 +17,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/gestionnaires/projets/taches")
+@Tag(name="Tache Api",
+        description="CRUD pour les taches")
 public class TacheController {
 
     @Autowired
     private TacheService tacheService;
 
+    @Operation(summary = "pour l'ajout d'une tache")
     @PostMapping
     public ResponseEntity<?> ajouterUneTache(
             @RequestBody RequestTache requestTache
@@ -45,6 +50,7 @@ public class TacheController {
         }
     }
 
+    @Operation(summary = "pour l'affichage de tous les taches")
     @GetMapping
     public List<Tache> afficherTousLesTache(@RequestParam int projetId) {
         return tacheService.chercherTous(projetId);
@@ -55,6 +61,7 @@ public class TacheController {
         return tacheService.chercherParId(projetId, tacheId);
     }
 
+    @Operation(summary = "finition d'une tache")
     @PutMapping("/{id}")
     public ResponseEntity<?> finirUneTache(
             @PathVariable int id
@@ -80,6 +87,7 @@ public class TacheController {
         }
     }
 
+    @Operation(summary = "pour la suppression d'une tache")
     @DeleteMapping
     public boolean supprimerUneTache(@RequestParam int idTache, @RequestParam int idGestionnaire) {
         return tacheService.supprimerParId(idTache, idGestionnaire);

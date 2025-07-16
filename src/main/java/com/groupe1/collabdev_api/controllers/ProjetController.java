@@ -3,6 +3,8 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ProjetService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +17,20 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/gestionnaires")
+@Tag(name="Projet Api",
+        description="Gestion du projet")
 public class ProjetController {
 
     @Autowired
     private ProjetService projetService;
 
+    @Operation(summary = "pour l'ajout d'un projet'")
     @PostMapping("/projets")
     public ProjetDto ajouterProjet(@RequestBody ProjetDto projetDto) {
         return projetService.ajouter(projetDto).toDto();
     }
 
+    @Operation(summary = "pour afficher tous les projets")
     @GetMapping("/projets")
     public List<ProjetDto> afficherToutLesProjet() {
         List<Projet> projets = projetService.chercherTous();
@@ -35,11 +41,13 @@ public class ProjetController {
         return projetDtos;
     }
 
+    @Operation(summary = "pour l'affichage d'un seul projet'")
     @GetMapping("/projets/{id}")
     public ProjetDto afficherUnProjet(@PathVariable int id) {
         return projetService.chercherParId(id).toDto();
     }
 
+    @Operation(summary = "pour l'affichage de tous les projets d'un gestionnaire'")
     @GetMapping("/{id}/projets")
     public List<ProjetDto> afficherTousLesProjetDuGestionnaire(@PathVariable int id) {
         List<ProjetDto> projetDtos = new ArrayList<>();
@@ -50,11 +58,13 @@ public class ProjetController {
         return projetDtos;
     }
 
+    @Operation(summary = "pour l'affichage d'un projets des gestionnaire'")
     @GetMapping("/{id}/{id_projet}")
     public ProjetDto afficherUnProjetDuGestionnaire(@PathVariable int id, @PathVariable int id_projet) {
         return projetService.chercherUnProjetDuGestionnaire(id, id_projet).toDto();
     }
 
+    @Operation(summary = "pour la modification du projet'")
     @PutMapping("/projets/{id}")
     public ResponseEntity<?> modifierUnProjet(
             @PathVariable int idProjet,
@@ -79,6 +89,7 @@ public class ProjetController {
         }
     }
 
+    @Operation(summary = "pour la suppression d'un projet'")
     @DeleteMapping("/projets/{id}/{idprojet}")
     public boolean supprimerUnProjet(@PathVariable int id, @PathVariable int idprojet) {
         return projetService.supprimerParId(id, idprojet);

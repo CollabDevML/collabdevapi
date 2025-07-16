@@ -5,6 +5,7 @@ import com.groupe1.collabdev_api.dto.response_dto.ResponseAdministrateur;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name = "administrateur", description = """
-        Ce contrôleur permet d'ajouter des administrateurs, les lister, les modifier et les supprimer""")
+@Tag(name="Utilisateurs Api",
+     description="CRUD pour l'administrateur")
 @RestController
 @RequestMapping("/administrateurs")
 public class AdministrateurController {
@@ -24,20 +25,20 @@ public class AdministrateurController {
     @Autowired
     private AdministrateurService administrateurService;
 
-    //Methode pour la creation des autres Administrateurs :
+    @Operation(summary = "méthodes pour la création des administrateurs")
     @PostMapping
     public ResponseAdministrateur add(@RequestBody RequestAdministrateur admin) {
         admin.setMotDePasse(BCrypt.hashpw(admin.getMotDePasse(), BCrypt.gensalt()));
         return administrateurService.ajouter(new Administrateur(0, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>())).toResponse();
     }
 
-    //Methode pour la modification d'un administrateur par id :
+    @Operation(summary = "pour la modification d'un administrateur par son id")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody RequestAdministrateur admin) {
         return administrateurService.updateAdmin(id, new Administrateur(id, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>()));
     }
 
-    //Methode pour la liste des Administrateurs :
+    @Operation(summary = "pour récuperer la liste des admins")
     @GetMapping
     public ResponseEntity<?> list() {
         List<Administrateur> administrateurs = administrateurService.chercherTous();
@@ -51,13 +52,13 @@ public class AdministrateurController {
         return new ResponseEntity<>(administrateurList, HttpStatus.OK);
     }
 
-    //Methode pour afficher un seul administrateur :
+    @Operation(summary = "pour l'affichage d'un seul admin")
     @GetMapping("/{id}")
     public ResponseAdministrateur get(@PathVariable Integer id) {
         return administrateurService.chercherParId(id).toResponse();
     }
 
-    //Methode pour la suppression d'un administrateur :
+    @Operation(summary = "pour la suppression d'un admis")
     @DeleteMapping("/{id}")
     public Boolean deleteAdmin(@PathVariable Integer id) {
         return administrateurService.supprimerParId(id);
