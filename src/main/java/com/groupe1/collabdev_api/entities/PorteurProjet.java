@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponsePorteurProjet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,5 +22,16 @@ public class PorteurProjet {
     @OneToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
     private Utilisateur utilisateur;
+
+    public ResponsePorteurProjet toResponse() {
+        return new ResponsePorteurProjet(
+                id,
+                utilisateur.getPrenom(),
+                utilisateur.getNom(),
+                utilisateur.getEmail(),
+                utilisateur.getMotDePasse(),
+                utilisateur.getGenre()
+        );
+    }
 
 }
