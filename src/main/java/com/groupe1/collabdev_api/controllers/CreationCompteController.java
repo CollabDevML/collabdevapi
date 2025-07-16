@@ -30,8 +30,8 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/utilisateurs")
-@Tag(name="Authentification Api",
-        description="pour la création du compte des utilisateurs")
+@Tag(name = "Authentification Api",
+        description = "pour la création du compte des utilisateurs")
 public class CreationCompteController {
 
     @Autowired

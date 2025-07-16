@@ -15,7 +15,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/gestionnaires/projets/demandes-contribution")
-@Tag(name="Contribution Api")
+@Tag(name = "Contribution Api")
 public class DemandeContributionController {
     public final DemandeContributionService demandeContributionService;
 
@@ -41,6 +41,7 @@ public class DemandeContributionController {
         }
 
     }
+
     @Operation(summary = "pour chercher les demandes de contribution")
     @GetMapping
     public List<DemandeContributionDto> chercherTous() {

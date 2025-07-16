@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Tag(name="Utilisateurs Api",
-     description="CRUD pour l'administrateur")
+@Tag(name = "Utilisateurs Api",
+        description = "CRUD pour l'administrateur")
 @RestController
 @RequestMapping("/administrateurs")
 public class AdministrateurController {

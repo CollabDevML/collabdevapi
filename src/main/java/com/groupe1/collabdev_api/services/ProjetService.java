@@ -67,9 +67,9 @@ public class ProjetService {
                 .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
     }
 
-    public Projet modifier(int idProjet, int idGestionnaire, ProjetDto projetDto) throws BadRequestException, EntityNotFoundException{
+    public Projet modifier(int idProjet, int idGestionnaire, ProjetDto projetDto) throws BadRequestException, EntityNotFoundException {
         Projet projet = projetRepository.findById(idProjet).orElseThrow(
-                () -> new EntityNotFoundException("Projet introuvable avec l'id "+idProjet)
+                () -> new EntityNotFoundException("Projet introuvable avec l'id " + idProjet)
         );
         if (projet.getGestionnaire().getId() == idGestionnaire) {
             projet.setTitre(projetDto.getTitre());

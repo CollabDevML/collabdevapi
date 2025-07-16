@@ -7,8 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProjetRepository extends JpaRepository<Projet, Integer>
-{
+public interface ProjetRepository extends JpaRepository<Projet, Integer> {
     List<Projet> findByGestionnaireId(int gestionnaireId);
+
     Optional<Projet> findByIdAndGestionnaireId(Integer id, Integer gestionnaireId);
 }

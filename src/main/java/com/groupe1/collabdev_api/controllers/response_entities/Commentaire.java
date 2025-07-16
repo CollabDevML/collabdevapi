@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Commentaire {
-    private String  contenu;
+    private String contenu;
     private Projet projet;
     private Utilisateur user;
     private IdeeProjet ideeProjet;

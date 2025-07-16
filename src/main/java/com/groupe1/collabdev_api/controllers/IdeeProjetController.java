@@ -17,8 +17,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/idees-projet")
-@Tag(name="Projet Api",
-        description="CRUD pour l'idée de projet")
+@Tag(name = "Projet Api",
+        description = "CRUD pour l'idée de projet")
 public class IdeeProjetController {
     @Autowired
     private IdeeProjetService ideeProjetService;

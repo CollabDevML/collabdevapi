@@ -5,6 +5,7 @@ import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.repositories.DemandeContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingDemandeContribution;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,11 +127,11 @@ public class DemandeContributionService {
         );
     }
 
-    public Boolean supprimerParContributeurEtParProjet(
+    @Transactional
+    public int supprimerParContributeurEtParProjet(
             int idContributeur, int idProjet
-    ){
-        demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
-        return true;
+    ) {
+        return demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
     }
 }
 

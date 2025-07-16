@@ -15,8 +15,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/porteurs-projet")
-@Tag(name="Utilisateurs Api",
-        description="Porteur de projet")
+@Tag(name = "Utilisateurs Api",
+        description = "Porteur de projet")
 public class PorteurProjetController {
     @Autowired
     private PorteurProjetService porteurProjetService;

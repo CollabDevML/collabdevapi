@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.entities;
 
-import com.groupe1.collabdev_api.dto.response_dto.ResponseBadge;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseObtentionBadge;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,12 +32,12 @@ public class ObtentionBadge {
     @JoinColumn(name = "id_badge", nullable = false)
     private Badge badge;
 
-    public ResponseObtentionBadge toResponse(){
+    public ResponseObtentionBadge toResponse() {
         return new ResponseObtentionBadge(
                 this.id,
                 this.contributeur.getUtilisateur().getPrenom()
-                + " "
-                + this.contributeur.getUtilisateur().getNom(),
+                        + " "
+                        + this.contributeur.getUtilisateur().getNom(),
                 this.badge.getTitre(),
                 this.dateObtention
         );

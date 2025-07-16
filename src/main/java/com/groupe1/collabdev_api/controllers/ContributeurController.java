@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.ContributeurDto;
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.services.ContributeurService;
 import com.groupe1.collabdev_api.utilities.MappingContributeur;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/utilisateurs/contributeurs")
-@Tag(name="Utilisateurs Api",
-        description="gestion du contributeur")
+@Tag(name = "Utilisateurs Api",
+        description = "gestion du contributeur")
 public class ContributeurController {
     ContributeurService contributeurService;
 
@@ -24,6 +25,7 @@ public class ContributeurController {
     public ContributeurController(ContributeurService contributeurService) {
         this.contributeurService = contributeurService;
     }
+
     @Operation(summary = "pour avoir un contributeur par son id")
     @GetMapping("/{id}")
     public ResponseEntity<?> chercherParId(@PathVariable int id) {
@@ -43,6 +45,7 @@ public class ContributeurController {
         }
 
     }
+
     @Operation(summary = "pour chercher tous les contributeurs")
     @GetMapping
     public List<ContributeurDto> chercherTous() {
@@ -93,12 +96,21 @@ public class ContributeurController {
 
     }
 
+    @GetMapping("/projets/{idContributeur}")
+    public List<ProjetDto> chercherProjetsParContributeur(@PathVariable int idContributeur) {
+        return contributeurService.chercherProjetsParContributeur(idContributeur);
+    }
+
     @Operation(summary = "pour qu'un contributeur quitte le projet")
     @DeleteMapping("{idContributeur}/projets/{idProjet}")
-    public Boolean quitterProjet(@PathVariable int idContributeur,
-                                 @PathVariable int idProjet){
+    public ResponseEntity<?> quitterProjet(@PathVariable int idContributeur,
+                                           @PathVariable int idProjet) {
 
-        return contributeurService.quitterUnProjet(idContributeur, idProjet);
+        int i = contributeurService.quitterUnProjet(idContributeur, idProjet);
+        return i >= 1 ? ResponseEntity.ok("Suppression effectuée") : new ResponseEntity<>(
+                "id contributeur ou id projet invalide",
+                HttpStatus.NOT_FOUND
+        );
 
     }
 

@@ -20,12 +20,13 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/download")
-@Tag(name="Fichier Api",
-        description="l'enregistrement des fichiers")
+@Tag(name = "Fichier Api",
+        description = "l'enregistrement des fichiers")
 public class DownloadController {
 
     @Autowired
     private DownloadService downloadService;
+
     @Operation(summary = "pour le téléchargement des fichiers .pdf ")
     @GetMapping("/{fileType}/{fileName}")
     public ResponseEntity<Resource> downloadFile(

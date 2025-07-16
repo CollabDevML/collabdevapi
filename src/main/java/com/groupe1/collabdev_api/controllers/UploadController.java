@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-@Tag(name="Fichier Api",
-        description="Gestion des fichiers")
+@Tag(name = "Fichier Api",
+        description = "Gestion des fichiers")
 public class UploadController {
 
     @Autowired

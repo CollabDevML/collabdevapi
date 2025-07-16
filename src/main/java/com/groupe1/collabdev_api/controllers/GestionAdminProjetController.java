@@ -13,8 +13,8 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/administrateurs/gestion/projets/")
-@Tag(name="Admin Api",
-        description="Autorisation du gestionnaire")
+@Tag(name = "Admin Api",
+        description = "Autorisation du gestionnaire")
 public class GestionAdminProjetController {
     @Autowired
     private GestionAdminProjetService gestionAdminProjetService;

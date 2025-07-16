@@ -17,7 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("admin/utilisateur/")
-@Tag(name="Utilisateurs Api")
+@Tag(name = "Utilisateurs Api")
 public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
