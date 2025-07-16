@@ -55,9 +55,6 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour modifier une idée de projet")
-    @PutMapping
-    public IdeeProjet modifierIdeeProjet(@RequestBody IdeeProjet ideeProjet) {
-        return ideeProjetService.modifier(ideeProjet);
     @PutMapping("/{id}")
     public ResponseEntity<?> modifierIdeeProjet(
             @PathVariable int id,
