@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestTache;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseTache;
 import com.groupe1.collabdev_api.entities.Tache;
 import com.groupe1.collabdev_api.exceptions.ProjectNotFoundException;
 import com.groupe1.collabdev_api.exceptions.TacheNotFoundException;
@@ -9,6 +10,7 @@ import com.groupe1.collabdev_api.services.TacheService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,8 +54,25 @@ public class TacheController {
 
     @Operation(summary = "pour l'affichage de tous les taches")
     @GetMapping
-    public List<Tache> afficherTousLesTache(@RequestParam int projetId) {
-        return tacheService.chercherTous(projetId);
+    public ResponseEntity<?> afficherTousLesTache(@RequestParam int projetId) {
+        try {
+            List<ResponseTache> taches = tacheService.chercherTous(projetId);
+            if(taches.isEmpty()){
+                return new ResponseEntity<>(
+                        "Aucune tache dans ce projet",
+                        HttpStatus.OK
+                );
+            }
+            return new ResponseEntity<>(
+                    taches,
+                    HttpStatus.OK
+            );
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
     }
 
     @GetMapping("{tacheId}")
