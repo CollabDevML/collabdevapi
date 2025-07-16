@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 @Getter
 @Setter
 @Service
@@ -25,19 +25,19 @@ public class PorteurProjetService {
     @Autowired
     private UtilisateurRepository utilisateurRepository;
 
-    public PorteurProjet chercherParId(int id){
+    public PorteurProjet chercherParId(int id) {
         return porteurProjetRepository.findById(id).orElse(null);
     }
 
-    public List<PorteurProjet> chercherTous(){
+    public List<PorteurProjet> chercherTous() {
         return porteurProjetRepository.findAll();
     }
 
-    public PorteurProjet ajouter(PorteurProjet porteurProjet){
+    public PorteurProjet ajouter(PorteurProjet porteurProjet) {
         return porteurProjetRepository.save(porteurProjet);
     }
 
-    public PorteurProjet modifier(int id, Utilisateur utilisateur ) {
+    public PorteurProjet modifier(int id, Utilisateur utilisateur) {
         utilisateur.setRole(Role.PORTEUR_PROJET);
         PorteurProjet porteurProjet = porteurProjetRepository.findById(id).orElse(null);
         assert porteurProjet != null;
@@ -54,7 +54,7 @@ public class PorteurProjetService {
         return porteurProjet;
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id) {
         porteurProjetRepository.deleteById(id);
         return true;
     }

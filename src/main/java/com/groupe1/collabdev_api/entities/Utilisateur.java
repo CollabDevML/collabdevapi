@@ -1,5 +1,8 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.groupe1.collabdev_api.dto.response_dto.ResponsePorteurProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUtilisateur;
 import com.groupe1.collabdev_api.entities.enums.Genre;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import jakarta.persistence.*;
@@ -45,12 +48,26 @@ public class Utilisateur {
     @Column(nullable = false)
     private boolean etat = true;
 
+
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<CommentaireProjet> commentairesProjet = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "utilisateur")
     private List<CommentaireIdeeProjet> commentairesIdeeProjet = new ArrayList<>();
 
     @OneToMany(mappedBy = "utilisateur")
     private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
+
+    public ResponseUtilisateur toResponse() {
+        return new ResponsePorteurProjet(
+                id,
+                prenom,
+                nom,
+                email,
+                motDePasse,
+                genre
+        );
+    }
 }

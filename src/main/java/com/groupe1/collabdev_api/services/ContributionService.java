@@ -1,21 +1,22 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
-import com.groupe1.collabdev_api.entities.*;
+import com.groupe1.collabdev_api.entities.Badge;
+import com.groupe1.collabdev_api.entities.Contributeur;
+import com.groupe1.collabdev_api.entities.Contribution;
+import com.groupe1.collabdev_api.entities.ObtentionBadge;
 import com.groupe1.collabdev_api.repositories.BadgeRepository;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 public class ContributionService {
@@ -79,7 +80,7 @@ public class ContributionService {
         return contribution.toContributeurDto();
     }
 
-    private void gagnerPiece(Contribution contribution){
+    private void gagnerPiece(Contribution contribution) {
         Contributeur contributeur = contribution.getContributeur();
         contributeur.setPieces(contributeur.getPieces() + contribution.getTache().getPieceAGagner());
         contributeurService.modifier(contributeur);
@@ -110,13 +111,13 @@ public class ContributionService {
     }
 
     //lister ces projets
-    public List<Projet> listerProjetsDuContributeur(int idContributeur) {
-        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
-        return contributions.stream()
-                .map(Contribution::getProjet)
-                .distinct() // Pour éviter les doublons
-                .collect(Collectors.toList());
-    }
+//    public List<ProjetDto> listerProjetsDuContributeur(int idContributeur) {
+//        List<Contribution> contributions = contributionRepository.findByContributeur_Id(idContributeur);
+//        return contributions.stream()
+//                .map(Contribution::getProjet)
+//                .distinct() // Pour éviter les doublons
+//                .toList();
+//    }
 
     //quitter un projet
     public List<ContributionDto> quitterUnProjet(int idContributeur, int idProjet) {
@@ -154,7 +155,7 @@ public class ContributionService {
         }
     }
 
-    private void attribuerBadge (String badgeTitle, Contributeur contributeur) {
+    private void attribuerBadge(String badgeTitle, Contributeur contributeur) {
         Badge badge = badgeRepository.findByTitre(
                 badgeTitle
         );

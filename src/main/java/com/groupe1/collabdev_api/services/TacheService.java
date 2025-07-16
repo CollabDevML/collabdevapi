@@ -62,7 +62,7 @@ public class TacheService {
     }
 
     public ResponseTache ajouter(RequestTache requestTache) throws UserNotFoundException, ProjectNotFoundException {
-        if(!isInRange(requestTache.getPiecesAGagner(), requestTache.getNiveau())){
+        if (!isInRange(requestTache.getPiecesAGagner(), requestTache.getNiveau())) {
             throw new RuntimeException("Le nombre de pièce fourni n'est pas la plage");
         }
         Contributeur contributeur;
@@ -142,30 +142,30 @@ public class TacheService {
         }
     }
 
-    private boolean isInRange(int piece, NiveauTache niveauTache){
+    private boolean isInRange(int piece, NiveauTache niveauTache) {
         switch (niveauTache) {
             case SIMPLE -> {
-                if(!(piece >= 1 && piece <= 10)){
+                if (!(piece >= 1 && piece <= 10)) {
                     return false;
                 }
             }
             case NOVICE -> {
-                if(!(piece >= 11 && piece <= 20)){
+                if (!(piece >= 11 && piece <= 20)) {
                     return false;
                 }
             }
             case INTERMEDIAIRE -> {
-                if(!(piece >= 21 && piece <= 30)){
+                if (!(piece >= 21 && piece <= 30)) {
                     return false;
                 }
             }
             case DIFFICILE -> {
-                if(!(piece >= 31 && piece <= 40)){
+                if (!(piece >= 31 && piece <= 40)) {
                     return false;
                 }
             }
             case COMPLEXE -> {
-                if(!(piece >= 41 && piece <= 50)){
+                if (!(piece >= 41 && piece <= 50)) {
                     return false;
                 }
             }
@@ -179,14 +179,14 @@ public class TacheService {
     @Transactional
     public Boolean finirUneTache(int id) throws TacheNotFoundException {
         Tache tache = tacheRepository.findById(id).orElseThrow(
-                ()-> new TacheNotFoundException("Tâche introuvable!")
+                () -> new TacheNotFoundException("Tâche introuvable!")
         );
         tache.setEstFini(true);
         tacheRepository.save(tache);
         contributionService.ajouter(
                 new Contribution(
-                       0,
-                       false,
+                        0,
+                        false,
                         tache.getContributeur(),
                         tache.getProjet(),
                         tache

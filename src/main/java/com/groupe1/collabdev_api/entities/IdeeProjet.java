@@ -1,6 +1,8 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "idees_projet")
 public class IdeeProjet {
 
@@ -43,4 +46,17 @@ public class IdeeProjet {
 
     @OneToMany(mappedBy = "ideeProjet")
     private List<CommentaireIdeeProjet> commentairesIdeeProjet = new ArrayList<>();
+
+    public ResponseIdeeProjet toResponse() {
+        return new ResponseIdeeProjet(
+                id,
+                titre,
+                description,
+                domaine,
+                uriCDC,
+                nombreDeSoutien,
+                datePublication,
+                utilisateur.getId()
+        );
+    }
 }

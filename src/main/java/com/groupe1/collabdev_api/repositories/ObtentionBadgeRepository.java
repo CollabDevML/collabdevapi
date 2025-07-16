@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public interface ObtentionBadgeRepository extends JpaRepository<ObtentionBadge, Integer> {
     List<ObtentionBadge> findByContributeurId(int idContributeur);
+
     Optional<ObtentionBadge> findByBadgeId(int idBadge);
+
     Optional<ObtentionBadge> findByBadgeIdAndContributeurId(int idBadge, int idContributeur);
 }

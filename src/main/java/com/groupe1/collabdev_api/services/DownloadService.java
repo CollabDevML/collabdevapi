@@ -19,13 +19,13 @@ public class DownloadService {
         String filePath;
         switch (fileType) {
             case BADGE -> {
-                filePath  = uploadDirectoryPath + File.separator + "BADGEs" + File.separator + fileName + ".pdf";
+                filePath = uploadDirectoryPath + File.separator + "BADGEs" + File.separator + fileName + ".pdf";
             }
             case CDC -> {
-                filePath  = uploadDirectoryPath + File.separator + "CDCs" + File.separator + fileName + ".pdf";
+                filePath = uploadDirectoryPath + File.separator + "CDCs" + File.separator + fileName + ".pdf";
             }
             case CV -> {
-                filePath  = uploadDirectoryPath + File.separator + "CVs" + File.separator + fileName + ".pdf";
+                filePath = uploadDirectoryPath + File.separator + "CVs" + File.separator + fileName + ".pdf";
             }
             default -> filePath = uploadDirectoryPath + File.separator + fileName + ".pdf";
         }
