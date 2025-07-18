@@ -10,7 +10,6 @@ import com.groupe1.collabdev_api.services.TacheService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +56,7 @@ public class TacheController {
     public ResponseEntity<?> afficherTousLesTache(@RequestParam int projetId) {
         try {
             List<ResponseTache> taches = tacheService.chercherTous(projetId);
-            if(taches.isEmpty()){
+            if (taches.isEmpty()) {
                 return new ResponseEntity<>(
                         "Aucune tache dans ce projet",
                         HttpStatus.OK

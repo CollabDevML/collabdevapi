@@ -46,6 +46,9 @@ public class Projet {
     @Column(nullable = false)
     private boolean etat = true;
 
+    @Column(nullable = false)
+    private int piecesDAcces;
+
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
     private Gestionnaire gestionnaire;
@@ -87,7 +90,8 @@ public class Projet {
                 this.getDateFin(),
                 this.getNiveauDAcces(),
                 this.isEtat(),
-                this.getGestionnaire().getId()
+                this.getGestionnaire().getId(),
+                this.piecesDAcces
         );
     }
 }

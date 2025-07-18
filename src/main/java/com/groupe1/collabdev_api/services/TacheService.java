@@ -51,7 +51,7 @@ public class TacheService {
     }
 
     //Chercher tous les taches d'un projet
-    public List<ResponseTache> chercherTous(int projetId) throws RuntimeException{
+    public List<ResponseTache> chercherTous(int projetId) throws RuntimeException {
         Projet projet = projetRepository.findById(projetId).orElseThrow(() -> new RuntimeException("Projet introuvable"));
         List<Tache> taches = projet.getTaches();
         List<ResponseTache> responseTaches = new ArrayList<>();

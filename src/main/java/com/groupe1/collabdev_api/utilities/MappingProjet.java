@@ -16,7 +16,8 @@ public class MappingProjet {
                 projet.getDateFin(),
                 projet.getNiveauDAcces(),
                 projet.isEtat(),
-                projet.getGestionnaire().getId()
+                projet.getGestionnaire().getId(),
+                projet.getPiecesDAcces()
         );
     }
 

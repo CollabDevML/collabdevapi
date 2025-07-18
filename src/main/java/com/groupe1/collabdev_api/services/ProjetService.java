@@ -31,11 +31,11 @@ public class ProjetService {
         return projetRepository.findAll();
     }
 
-    public Projet ajouter(ProjetDto projetDto) {
+    public Projet ajouter(ProjetDto projetDto) throws RuntimeException {
         Gestionnaire gestionnaire = gestionnaireRepository.findById(projetDto.getIdGestionnaire())
                 .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
         Projet projet = new Projet(
-                9,
+                0,
                 projetDto.getTitre(),
                 projetDto.getDescription(),
                 projetDto.isEstFini(),
@@ -43,6 +43,7 @@ public class ProjetService {
                 projetDto.getDateFin(),
                 projetDto.getNiveauDAcces(),
                 projetDto.isEtat(),
+                projetDto.getPiecesDAcces(),
                 gestionnaire,
                 new ArrayList<>(),
                 new ArrayList<>(),
@@ -55,9 +56,9 @@ public class ProjetService {
                 gestionnaire.getUtilisateur().getEmail(),
                 "Création de projet",
                 String.format("""
-                        Bonjour %s %s. \n
-                        Votre projet %s a été créé avec succès, place à le gérer :)"""
-                ,gestionnaire.getUtilisateur().getPrenom(),
+                                Bonjour %s %s. \n
+                                Votre projet %s a été créé avec succès, place à le gérer :)"""
+                        , gestionnaire.getUtilisateur().getPrenom(),
                         gestionnaire.getUtilisateur().getNom(),
                         projetToResponse.getTitre())
         );
