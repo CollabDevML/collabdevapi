@@ -53,10 +53,10 @@ public class Tache {
     @JsonBackReference
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
-    
+
     public ResponseTache toResponse() {
         return new ResponseTache(
-                 this.id,
+                this.id,
                 this.titre,
                 this.description,
                 this.dateDebut,

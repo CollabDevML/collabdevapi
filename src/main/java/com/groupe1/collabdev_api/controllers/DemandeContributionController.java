@@ -1,10 +1,13 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.dto.request_dto.RequestDemandeContribution;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
+import com.groupe1.collabdev_api.exceptions.NotHaveEnoughLevelException;
 import com.groupe1.collabdev_api.services.DemandeContributionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,23 +52,35 @@ public class DemandeContributionController {
     }
 
     @PostMapping
-    public ResponseEntity<?> ajouter(@RequestBody DemandeContribution demandeContribution) {
+    public ResponseEntity<?> ajouter(@RequestBody RequestDemandeContribution requestDemandeContribution) {
         try {
             return
                     new ResponseEntity<>(
-                            demandeContributionService.ajouter(demandeContribution),
+                            demandeContributionService.ajouter(requestDemandeContribution).toDto(),
                             HttpStatus.CREATED
                     );
-        } catch (RuntimeException e) {
+        } catch (EntityExistsException e) {
             return
                     new ResponseEntity<>(
                             e.getMessage(),
                             HttpStatus.CONFLICT
                     );
+        } catch (NotHaveEnoughLevelException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.UNAUTHORIZED
+                    );
+        } catch (EntityNotFoundException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.BAD_REQUEST
+                    );
         }
     }
 
-    @Operation(summary = "modification d'un e demande de contribution")
+    @Operation(summary = "modification d'une demande de contribution")
     @PutMapping("/{id}")
     public DemandeContribution modifier(
             @PathVariable int id, @RequestBody DemandeContribution demandeContribution

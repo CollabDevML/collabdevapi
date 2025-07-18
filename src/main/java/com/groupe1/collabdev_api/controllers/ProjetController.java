@@ -26,8 +26,15 @@ public class ProjetController {
 
     @Operation(summary = "pour l'ajout d'un projet'")
     @PostMapping("/projets")
-    public ProjetDto ajouterProjet(@RequestBody ProjetDto projetDto) {
-        return projetService.ajouter(projetDto).toDto();
+    public ResponseEntity<?> ajouterProjet(@RequestBody ProjetDto projetDto) {
+        try {
+            return ResponseEntity.ok(projetService.ajouter(projetDto).toDto());
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
     }
 
     @Operation(summary = "pour afficher tous les projets")

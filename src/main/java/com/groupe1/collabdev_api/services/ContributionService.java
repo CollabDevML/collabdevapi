@@ -5,6 +5,7 @@ import com.groupe1.collabdev_api.entities.Badge;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.Contribution;
 import com.groupe1.collabdev_api.entities.ObtentionBadge;
+import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.repositories.BadgeRepository;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
@@ -147,10 +148,16 @@ public class ContributionService {
         } else if (nombreValide >= 5 && nombreValide < 10) {
             attribuerBadge(badgeRepository.findAll().get(1).getTitre(), contributeur);
         } else if (nombreValide >= 10 && nombreValide < 20) {
+            if (contributeur.getNiveau() == Niveau.DEBUTANT) {
+                attribuerNiveau(contributeur, Niveau.INTERMEDIAIRE);
+            }
             attribuerBadge(badgeRepository.findAll().get(2).getTitre(), contributeur);
         } else if (nombreValide >= 20 && nombreValide < 50) {
             attribuerBadge(badgeRepository.findAll().get(3).getTitre(), contributeur);
         } else if (nombreValide >= 50) {
+            if (contributeur.getNiveau() == Niveau.INTERMEDIAIRE) {
+                attribuerNiveau(contributeur, Niveau.AVANCER);
+            }
             attribuerBadge(badgeRepository.findAll().get(4).getTitre(), contributeur);
         }
     }
@@ -169,6 +176,11 @@ public class ContributionService {
                     )
             );
         }
+    }
+
+    private void attribuerNiveau(Contributeur contributeur, Niveau niveau) {
+        contributeur.setNiveau(niveau);
+        contributeurService.modifier(contributeur);
     }
 
 }
