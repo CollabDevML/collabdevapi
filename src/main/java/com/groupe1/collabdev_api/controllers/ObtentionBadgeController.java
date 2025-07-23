@@ -21,18 +21,24 @@ public class ObtentionBadgeController {
     @Autowired
     private ObtentionBadgeService obtentionBadgeService;
 
+    /* Cette partie est à omettre, car l'attribution des badges est automatique
+
     @Operation(summary = "pour l'ajout d'un badge")
     @PostMapping("/obtentions-badge")
     public ResponseEntity<ObtentionBadge> ajouter(@RequestBody ObtentionBadge obtentionBadge) {
         ObtentionBadge saved = obtentionBadgeService.ajouter(obtentionBadge);
         return ResponseEntity.ok(saved);
     }
+    */
+
+    /* Cette partie est trop gourmande dans un large système
 
     @Operation(summary = "pour lister tous les obtentions")
     @GetMapping("/obtentions-badge")
     public ResponseEntity<List<ObtentionBadge>> getAll() {
         return ResponseEntity.ok(obtentionBadgeService.chercherTous());
     }
+    */
 
     @Operation(summary = "pour avoir une obtention par id")
     @GetMapping("/obtentions-badge/{id}")
@@ -65,6 +71,8 @@ public class ObtentionBadgeController {
         return ResponseEntity.ok(existant);
     }
 
+    /* Cette partie est à omettre, car une fois qu'on obtient un badge automatiquement, on peut plus le changer
+
     @Operation(summary = "pour modifier une obtention")
     @PutMapping("/obtentions-badge/{id}")
     public ResponseEntity<ObtentionBadge> modifier(@PathVariable int id, @RequestBody ObtentionBadge updated) {
@@ -76,6 +84,7 @@ public class ObtentionBadgeController {
         updated.setId(id);
         return ResponseEntity.ok(obtentionBadgeService.modifier(updated));
     }
+    */
 
     @Operation(summary = "pour la suppression d'une obtention")
     @DeleteMapping("/obtentions-badge/{id}")
