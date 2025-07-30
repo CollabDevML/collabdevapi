@@ -29,6 +29,7 @@ import java.util.ArrayList;
 @RequestMapping("/utilisateurs")
 @Tag(name = "Authentification Api",
         description = "pour la création du compte des utilisateurs")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CreationCompteController {
 
     @Autowired

@@ -59,10 +59,6 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
-<<<<<<< HEAD
-    
-=======
-
     public ResponseUtilisateur toResponse() {
         return new ResponsePorteurProjet(
                 id,
@@ -73,5 +69,4 @@ public class Utilisateur {
                 genre
         );
     }
->>>>>>> bcc4989f77bc4ba6558112c72cd66737c33e07dd
 }

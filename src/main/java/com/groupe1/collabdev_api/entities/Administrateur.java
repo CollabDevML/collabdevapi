@@ -39,12 +39,6 @@ public class Administrateur {
     @OneToMany(mappedBy = "administrateur")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
 
-<<<<<<< HEAD
-    public void setEmail(String email) {
-        this.email = email;
-    }
-     public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
-=======
     public ResponseAdministrateur toResponse() {
         return
                 new ResponseAdministrateur(
@@ -54,5 +48,4 @@ public class Administrateur {
                         this.role
                 );
     }
->>>>>>> bcc4989f77bc4ba6558112c72cd66737c33e07dd
 }
