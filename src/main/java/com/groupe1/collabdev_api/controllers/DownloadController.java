@@ -2,6 +2,8 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.entities.enums.TypeFichier;
 import com.groupe1.collabdev_api.services.DownloadService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -18,11 +20,14 @@ import java.io.IOException;
 
 @RestController
 @RequestMapping("/download")
+@Tag(name = "Fichier Api",
+        description = "l'enregistrement des fichiers")
 public class DownloadController {
 
     @Autowired
     private DownloadService downloadService;
 
+    @Operation(summary = "pour le téléchargement des fichiers .pdf ")
     @GetMapping("/{fileType}/{fileName}")
     public ResponseEntity<Resource> downloadFile(
             @PathVariable TypeFichier fileType,

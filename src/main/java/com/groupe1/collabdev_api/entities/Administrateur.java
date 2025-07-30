@@ -1,8 +1,9 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseAdministrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "administrateurs")
-@Data
+@AllArgsConstructor
 public class Administrateur {
 
     @Id
@@ -38,8 +39,20 @@ public class Administrateur {
     @OneToMany(mappedBy = "administrateur")
     private List<GestionAdminProjet> gestionsAdminProjet = new ArrayList<>();
 
+<<<<<<< HEAD
     public void setEmail(String email) {
         this.email = email;
     }
      public void setMotDePasse(String motDePasse) { this.motDePasse = motDePasse; }
+=======
+    public ResponseAdministrateur toResponse() {
+        return
+                new ResponseAdministrateur(
+                        this.id,
+                        this.email,
+                        this.motDePasse,
+                        this.role
+                );
+    }
+>>>>>>> bcc4989f77bc4ba6558112c72cd66737c33e07dd
 }

@@ -1,7 +1,11 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.ContributionDto;
-import com.groupe1.collabdev_api.entities.*;
+import com.groupe1.collabdev_api.entities.Badge;
+import com.groupe1.collabdev_api.entities.Contributeur;
+import com.groupe1.collabdev_api.entities.Contribution;
+import com.groupe1.collabdev_api.entities.ObtentionBadge;
+import com.groupe1.collabdev_api.entities.enums.Niveau;
 import com.groupe1.collabdev_api.repositories.BadgeRepository;
 import com.groupe1.collabdev_api.repositories.ContributionRepository;
 import com.groupe1.collabdev_api.utilities.MappingContribution;
@@ -12,10 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 @Service
 public class ContributionService {
@@ -79,7 +81,7 @@ public class ContributionService {
         return contribution.toContributeurDto();
     }
 
-    private void gagnerPiece(Contribution contribution){
+    private void gagnerPiece(Contribution contribution) {
         Contributeur contributeur = contribution.getContributeur();
         contributeur.setPieces(contributeur.getPieces() + contribution.getTache().getPieceAGagner());
         contributeurService.modifier(contributeur);
@@ -146,15 +148,21 @@ public class ContributionService {
         } else if (nombreValide >= 5 && nombreValide < 10) {
             attribuerBadge(badgeRepository.findAll().get(1).getTitre(), contributeur);
         } else if (nombreValide >= 10 && nombreValide < 20) {
+            if (contributeur.getNiveau() == Niveau.DEBUTANT) {
+                attribuerNiveau(contributeur, Niveau.INTERMEDIAIRE);
+            }
             attribuerBadge(badgeRepository.findAll().get(2).getTitre(), contributeur);
         } else if (nombreValide >= 20 && nombreValide < 50) {
             attribuerBadge(badgeRepository.findAll().get(3).getTitre(), contributeur);
         } else if (nombreValide >= 50) {
+            if (contributeur.getNiveau() == Niveau.INTERMEDIAIRE) {
+                attribuerNiveau(contributeur, Niveau.AVANCER);
+            }
             attribuerBadge(badgeRepository.findAll().get(4).getTitre(), contributeur);
         }
     }
 
-    private void attribuerBadge (String badgeTitle, Contributeur contributeur) {
+    private void attribuerBadge(String badgeTitle, Contributeur contributeur) {
         Badge badge = badgeRepository.findByTitre(
                 badgeTitle
         );
@@ -168,6 +176,11 @@ public class ContributionService {
                     )
             );
         }
+    }
+
+    private void attribuerNiveau(Contributeur contributeur, Niveau niveau) {
+        contributeur.setNiveau(niveau);
+        contributeurService.modifier(contributeur);
     }
 
 }

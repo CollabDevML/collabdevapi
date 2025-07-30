@@ -1,10 +1,10 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.services.GestionnaireService;
-import jakarta.persistence.EntityNotFoundException;
-import org.apache.coyote.Response;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,21 +15,26 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/utilisateurs/gestionnaires")
+@Tag(name = "Utilisateurs Api",
+        description = "Gestionnaire")
 public class GestionnaireController {
 
     @Autowired
     private GestionnaireService gestionnaireService;
 
+    @Operation(summary = "pour l'affichage de tous les gestionnaires'")
     @GetMapping
-    public List<Gestionnaire> afficherLesGestionnaire(){
+    public List<Gestionnaire> afficherLesGestionnaire() {
         return gestionnaireService.chercherTous();
     }
 
+    @Operation(summary = "pour afficher un gestionnaire par son id")
     @GetMapping("/{id}")
-    public Gestionnaire afficherUnGestionnaire(@PathVariable int id){
-         return gestionnaireService.chercherParId(id);
+    public Gestionnaire afficherUnGestionnaire(@PathVariable int id) {
+        return gestionnaireService.chercherParId(id);
     }
 
+    @Operation(summary = "pour la suppression d'un admis")
     @GetMapping("/est-valide/{estValide}")
     public List<ResponseGestionnaire> chercherTousParEstValide(
             @PathVariable boolean estValide
@@ -37,6 +42,7 @@ public class GestionnaireController {
         return gestionnaireService.chercherTousParEstValide(estValide);
     }
 
+    @Operation(summary = "pour la validation ou le refus du compte gestionnaire ")
     @PostMapping("/{id}/est-valide/{estValide}")
     public ResponseEntity<?> validerCompteGestionnaire(
             @PathVariable int id,
@@ -45,7 +51,7 @@ public class GestionnaireController {
     ) {
         try {
             Optional<ResponseGestionnaire> gestionnaire = gestionnaireService.validerCompteGestionnaire(id, estValide, cause);
-            if(gestionnaire.isEmpty()) {
+            if (gestionnaire.isEmpty()) {
                 return
                         new ResponseEntity<>(
                                 "La demande de création du compte gestionnaire a été réfusé!",
@@ -57,7 +63,7 @@ public class GestionnaireController {
                             gestionnaire.get(),
                             HttpStatus.OK
                     );
-        } catch (RuntimeException e){
+        } catch (RuntimeException e) {
             return
                     new ResponseEntity<>(
                             e.getMessage(),

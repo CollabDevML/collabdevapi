@@ -1,13 +1,23 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.dto.request_dto.RequestDemandeContribution;
+import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
+import com.groupe1.collabdev_api.entities.Projet;
+import com.groupe1.collabdev_api.entities.enums.Niveau;
+import com.groupe1.collabdev_api.exceptions.NotHaveEnoughLevelException;
+import com.groupe1.collabdev_api.repositories.ContributeurRepository;
 import com.groupe1.collabdev_api.repositories.DemandeContributionRepository;
+import com.groupe1.collabdev_api.repositories.ProjetRepository;
 import com.groupe1.collabdev_api.utilities.MappingDemandeContribution;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +26,29 @@ public class DemandeContributionService {
 
     @Autowired
     private DemandeContributionRepository demandeContributionRepository;
+
+    @Autowired
+    private ProjetRepository projetRepository;
+
+    @Autowired
+    private ContributeurRepository contributeurRepository;
+
+    public static int getIntValueOfNiveau(Niveau niveau) {
+        switch (niveau) {
+            case DEBUTANT -> {
+                return 1;
+            }
+            case INTERMEDIAIRE -> {
+                return 2;
+            }
+            case AVANCER -> {
+                return 3;
+            }
+            default -> {
+                return 0;
+            }
+        }
+    }
 
     public DemandeContributionDto chercherParId(int id) {
 
@@ -29,12 +62,35 @@ public class DemandeContributionService {
         return MappingDemandeContribution.ToDemandeDtoToList(demandeContributions);
     }
 
-    public DemandeContribution ajouter(DemandeContribution demandeContribution) throws RuntimeException {
-        if (chercherParContributeurEtParProjet(demandeContribution.getContributeur().getId(),
-                demandeContribution.getProjet().getId()).isEmpty()) {
-            return demandeContributionRepository.save(demandeContribution);
+    public DemandeContribution ajouter(RequestDemandeContribution requestDemandeContribution) throws NotHaveEnoughLevelException, EntityNotFoundException, EntityExistsException {
+        Contributeur contributeur = contributeurRepository.findById(requestDemandeContribution.getIdContributeur())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Ce contributeur n'existe pas!")
+                );
+        Projet projet = projetRepository.findById(requestDemandeContribution.getIdProjet())
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Ce projet n'existe pas!")
+                );
+        DemandeContribution demandeContribution = new DemandeContribution(
+                0,
+                false,
+                LocalDate.now(),
+                contributeur,
+                projet
+        );
+        if (chercherParContributeurEtParProjet(contributeur.getId(),
+                projet.getId()).isEmpty()) {
+            if (
+                    getIntValueOfNiveau(demandeContribution.getContributeur().getNiveau())
+                            >=
+                            getIntValueOfNiveau(demandeContribution.getProjet().getNiveauDAcces())
+            ) {
+                return demandeContributionRepository.save(demandeContribution);
+            } else {
+                throw new NotHaveEnoughLevelException("Ce contributeur n'a pas le niveau réquis!");
+            }
         }
-        throw new RuntimeException("La demande existe déjà!");
+        throw new EntityExistsException("La demande existe déjà!");
     }
 
     public DemandeContribution modifier(DemandeContribution demandeContribution) {
@@ -79,6 +135,7 @@ public class DemandeContributionService {
         return MappingDemandeContribution.ToDemandeDtoToList(demandeContributions);
     }
 
+    @Transactional
     public Optional<DemandeContribution> modifierEstAcceptee(int idDemandeContribution, boolean estAcceptee) throws RuntimeException {
         DemandeContribution demandeContribution = demandeContributionRepository
                 .findById(idDemandeContribution).orElseThrow(
@@ -87,7 +144,13 @@ public class DemandeContributionService {
         if (demandeContribution.isEstAcceptee()) {
             throw new RuntimeException("Cette demande a déjà été acceptée!");
         }
+        if (demandeContribution.getContributeur().getPieces() < demandeContribution.getProjet().getPiecesDAcces()) {
+            throw new RuntimeException("Le contributeur n'a pas assez de pièces pour contribuer à ce projet!");
+        }
         if (estAcceptee) {
+            Contributeur contributeur = demandeContribution.getContributeur();
+            contributeur.setPieces(contributeur.getPieces() - demandeContribution.getProjet().getPiecesDAcces());
+            contributeurRepository.save(contributeur);
             demandeContribution.setEstAcceptee(true);
             return Optional.of(demandeContributionRepository.save(demandeContribution));
         }
@@ -126,11 +189,11 @@ public class DemandeContributionService {
         );
     }
 
-    public Boolean supprimerParContributeurEtParProjet(
+    @Transactional
+    public int supprimerParContributeurEtParProjet(
             int idContributeur, int idProjet
-    ){
-        demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
-        return true;
+    ) {
+        return demandeContributionRepository.deleteByContributeur_IdAndProjet_IdAndEstAccepteeTrue(idContributeur, idProjet);
     }
 }
 

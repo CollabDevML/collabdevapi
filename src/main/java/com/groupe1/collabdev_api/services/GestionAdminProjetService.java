@@ -7,6 +7,7 @@ import com.groupe1.collabdev_api.entities.enums.TypeGestionProjet;
 import com.groupe1.collabdev_api.repositories.AdministrateurRepository;
 import com.groupe1.collabdev_api.repositories.GestionAdminProjetRepository;
 import com.groupe1.collabdev_api.repositories.ProjetRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,37 +24,53 @@ public class GestionAdminProjetService {
     @Autowired
     private AdministrateurRepository administrateurRepository;
 
-    public GestionAdminProjet chercherParId(int id){
+    public GestionAdminProjet chercherParId(int id) {
         return gestionAdminProjetRepository.findById(id).orElse(null);
     }
 
-    public List<GestionAdminProjet> chercherTous(){
+    public List<GestionAdminProjet> chercherTous() {
         return gestionAdminProjetRepository.findAll();
     }
 
-    public GestionAdminProjet ajouter(GestionAdminProjet gestionAdminProjet){
+    public GestionAdminProjet ajouter(GestionAdminProjet gestionAdminProjet) {
         return gestionAdminProjetRepository.save(gestionAdminProjet);
     }
 
-    public GestionAdminProjet modifier(GestionAdminProjet gestionAdminProjet){
+    public GestionAdminProjet modifier(GestionAdminProjet gestionAdminProjet) {
         return gestionAdminProjetRepository.save(gestionAdminProjet);
     }
 
-    public Boolean supprimerParId(int id){
+    public Boolean supprimerParId(int id, int idAdmin) {
+        Administrateur administrateur = administrateurRepository.findById(idAdmin).orElseThrow(
+                () -> new EntityNotFoundException("Administrateur introuvable!")
+        );
+        Projet projet = projetRepository.findById(id)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Projet introuvable!")
+                );
         projetRepository.deleteById(id);
+        gestionAdminProjetRepository.save(
+                new GestionAdminProjet(
+                        0,
+                        TypeGestionProjet.SUPPRIMER,
+                        LocalDate.now(),
+                        administrateur,
+                        projet
+                )
+        );
         return true;
     }
 
     //Pour recuperer les projet qui sont dans le systeme en fin de les manupiler :
     public List<Projet> afficherListeProjet() {
-        return  projetRepository.findAll();
+        return projetRepository.findAll();
     }
 
     //Pour activer un projet :
-    public Projet activerProjet(int id,int idAdmin) {
+    public Projet activerProjet(int id, int idAdmin) {
         Projet projet = projetRepository.findById(id).orElse(null);
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
-        if(projet == null || admin == null){
+        if (projet == null || admin == null) {
             return null;
         }
         GestionAdminProjet gProjet = new GestionAdminProjet();
@@ -73,10 +90,10 @@ public class GestionAdminProjetService {
     }
 
     //Pour desactiver un projet :
-    public Projet desactiverProjet(int id,int idAdmin) {
+    public Projet desactiverProjet(int id, int idAdmin) {
         Projet projet = projetRepository.findById(id).orElse(null);
         Administrateur admin = administrateurRepository.findById(idAdmin).orElse(null);
-        if(projet == null || admin == null){
+        if (projet == null || admin == null) {
             return null;
         }
         GestionAdminProjet gProjet = new GestionAdminProjet();

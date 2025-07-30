@@ -33,7 +33,7 @@ public class Gestionnaire {
     @OneToMany
     private List<Projet> projets;
 
-    public ResponseGestionnaire toResponse(){
+    public ResponseGestionnaire toResponse() {
         return new ResponseGestionnaire(
                 this.utilisateur.getId(),
                 this.utilisateur.getPrenom(),

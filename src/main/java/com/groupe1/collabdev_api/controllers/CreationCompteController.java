@@ -15,6 +15,8 @@ import com.groupe1.collabdev_api.services.ContributeurService;
 import com.groupe1.collabdev_api.services.GestionnaireService;
 import com.groupe1.collabdev_api.services.PorteurProjetService;
 import com.groupe1.collabdev_api.services.UtilisateurService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +27,8 @@ import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/utilisateurs")
+@Tag(name = "Authentification Api",
+        description = "pour la création du compte des utilisateurs")
 public class CreationCompteController {
 
     @Autowired
@@ -39,6 +43,7 @@ public class CreationCompteController {
     @Autowired
     private UtilisateurService utilisateurService;
 
+    @Operation(summary = "pour la création du compte d'un contributeur ")
     @PostMapping("/contributeurs")
     public ResponseEntity<ResponseContributeur> ajouterContributeur(
             @RequestBody RequestContributeur requestContributeur
@@ -93,6 +98,7 @@ public class CreationCompteController {
                 );
     }
 
+    @Operation(summary = "pour la création du compte d'un porteur de projet")
     @PostMapping("/porteurs-projet")
     public ResponseEntity<ResponsePorteurProjet> ajouterPorteurProjet(
             @RequestBody RequestPorteurProjet requestPorteurProjet
@@ -132,6 +138,7 @@ public class CreationCompteController {
                 );
     }
 
+    @Operation(summary = "pour la création de compte d'un gestionnaire")
     @PostMapping("/gestionnaires")
     public ResponseEntity<ResponseGestionnaire> ajouterGestionnaire(
             @RequestBody RequestGestionnaire requestGestionnaire

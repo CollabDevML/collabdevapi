@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseTache;
 import com.groupe1.collabdev_api.entities.enums.NiveauTache;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -52,4 +53,16 @@ public class Tache {
     @JsonBackReference
     @JoinColumn(name = "id_projet", nullable = false)
     private Projet projet;
+
+    public ResponseTache toResponse() {
+        return new ResponseTache(
+                this.id,
+                this.titre,
+                this.description,
+                this.dateDebut,
+                this.dateFin,
+                this.pieceAGagner,
+                this.niveau
+        );
+    }
 }

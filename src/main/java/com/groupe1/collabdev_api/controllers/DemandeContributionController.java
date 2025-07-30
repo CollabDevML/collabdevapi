@@ -1,8 +1,13 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.dto.request_dto.RequestDemandeContribution;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
+import com.groupe1.collabdev_api.exceptions.NotHaveEnoughLevelException;
 import com.groupe1.collabdev_api.services.DemandeContributionService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +18,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/gestionnaires/projets/demandes-contribution")
+@Tag(name = "Contribution Api")
 public class DemandeContributionController {
     public final DemandeContributionService demandeContributionService;
 
@@ -39,28 +45,42 @@ public class DemandeContributionController {
 
     }
 
+    @Operation(summary = "pour chercher les demandes de contribution")
     @GetMapping
     public List<DemandeContributionDto> chercherTous() {
         return demandeContributionService.chercherTous();
     }
 
     @PostMapping
-    public ResponseEntity<?> ajouter(@RequestBody DemandeContribution demandeContribution) {
+    public ResponseEntity<?> ajouter(@RequestBody RequestDemandeContribution requestDemandeContribution) {
         try {
             return
                     new ResponseEntity<>(
-                            demandeContributionService.ajouter(demandeContribution),
+                            demandeContributionService.ajouter(requestDemandeContribution).toDto(),
                             HttpStatus.CREATED
                     );
-        } catch (RuntimeException e) {
+        } catch (EntityExistsException e) {
             return
                     new ResponseEntity<>(
                             e.getMessage(),
                             HttpStatus.CONFLICT
                     );
+        } catch (NotHaveEnoughLevelException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.UNAUTHORIZED
+                    );
+        } catch (EntityNotFoundException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.BAD_REQUEST
+                    );
         }
     }
 
+    @Operation(summary = "modification d'une demande de contribution")
     @PutMapping("/{id}")
     public DemandeContribution modifier(
             @PathVariable int id, @RequestBody DemandeContribution demandeContribution
@@ -69,11 +89,13 @@ public class DemandeContributionController {
         return demandeContributionService.modifier(id, demandeContribution);
     }
 
+    @Operation(summary = "pour supprimer une demande de contribution par id")
     @DeleteMapping("/{id}")
     public Boolean supprimerParId(@PathVariable int id) {
         return demandeContributionService.supprimerParId(id);
     }
 
+    @Operation(summary = "pour accepter une demande de contribution")
     @PatchMapping("/{id}/estAcceptee/{value}")
     public ResponseEntity<?> accepteDemande(
             @PathVariable int id,
@@ -104,17 +126,19 @@ public class DemandeContributionController {
         }
     }
 
+    @Operation(summary = "pour chercher la demande par contributeur")
     @GetMapping("/contributeurs/{idContributeur}")
     public List<DemandeContributionDto> chercherParContributeur(@PathVariable int idContributeur) {
         return demandeContributionService.chercherParContributeur(idContributeur);
     }
 
+    @Operation(summary = "pour chercher la demande par projet")
     @GetMapping("/projets/{idProjet}")
     public List<DemandeContributionDto> chercherParProjet(@PathVariable int idProjet) {
         return demandeContributionService.chercherParProjet(idProjet);
     }
 
-    //Lister les demandes acceptées ou refusées pour un contributeur dans un projet donné.
+    @Operation(summary = "pour la Liste des demandes acceptés ou refusées pour un contributeur dans un projet donné")
     @GetMapping("/contributeurs/{idContributeur}/projets/{idProjet}")
     public List<DemandeContributionDto> chercherParEstAccepte(
             @PathVariable int idContributeur,

@@ -19,4 +19,5 @@ public class ProjetDto {
     private Niveau niveauDAcces;
     private boolean etat;
     private int idGestionnaire;
+    private int piecesDAcces;
 }
