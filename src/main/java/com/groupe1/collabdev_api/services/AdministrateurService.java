@@ -23,7 +23,7 @@ public class AdministrateurService {
         List<Administrateur> adminList = administrateurRepository.findAll();
         if (adminList.isEmpty()) {
             Administrateur admin = new Administrateur();
-            String email = "super.admin@collab.dev";
+            String email = "collabdev.ml@gmail.com";
             String password = BCrypt.hashpw("admin1234", BCrypt.gensalt());
             admin.setEmail(email);
             admin.setMotDePasse(password);

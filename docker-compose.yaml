@@ -1,0 +1,24 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:9.3.0
+    container_name: mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+      MYSQL_DATABASE: collabdevapi
+    ports:
+      - "3306:3306"
+
+  api:
+    build: .
+    container_name: collabdev-api
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/collabdevapi
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EMAIL: "collabdev.ml@gmail.com"
+      PASSWORD: "wlgqxuzlrnxvlurv"
+    ports:
+      - "8180:8180"
