@@ -30,7 +30,8 @@ public class PorteurProjet {
                 utilisateur.getNom(),
                 utilisateur.getEmail(),
                 utilisateur.getMotDePasse(),
-                utilisateur.getGenre()
+                utilisateur.getGenre(),
+                utilisateur.getPreferences()
         );
     }
 
