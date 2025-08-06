@@ -75,6 +75,7 @@ public class DemandeContributionService {
                 0,
                 false,
                 LocalDate.now(),
+                requestDemandeContribution.getProfileContributeur(),
                 contributeur,
                 projet
         );
