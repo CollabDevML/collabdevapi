@@ -59,6 +59,7 @@ public class CreationCompteController {
                         requestContributeur.getGenre(),
                         Role.CONTRIBUTEUR,
                         true,
+                        requestContributeur.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -88,6 +89,7 @@ public class CreationCompteController {
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences(),
                                 contributeurAjoute.getNiveau(),
                                 contributeurAjoute.getSpecialite(),
                                 contributeurAjoute.getType(),
@@ -114,6 +116,7 @@ public class CreationCompteController {
                         requestPorteurProjet.getGenre(),
                         Role.PORTEUR_PROJET,
                         true,
+                        requestPorteurProjet.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -133,7 +136,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
-                                utilisateurAjoute.getGenre()
+                                utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences()
                         ),
                         HttpStatus.CREATED
                 );
@@ -154,6 +158,7 @@ public class CreationCompteController {
                         requestGestionnaire.getGenre(),
                         Role.GESTIONNAIRE,
                         true,
+                        requestGestionnaire.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -177,6 +182,7 @@ public class CreationCompteController {
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences(),
                                 gestionnaireAjoute.getUriCv(),
                                 gestionnaireAjoute.isEstValide(),
                                 gestionnaireAjoute.getId()

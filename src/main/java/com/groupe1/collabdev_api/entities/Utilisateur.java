@@ -45,8 +45,13 @@ public class Utilisateur {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column(nullable = false)
     private boolean etat = true;
+
+    @ElementCollection
+    @CollectionTable(name = "preferences_utilisateurs")
+    private List<String> preferences;
 
 
     @JsonIgnore
@@ -66,7 +71,8 @@ public class Utilisateur {
                 nom,
                 email,
                 motDePasse,
-                genre
+                genre,
+                preferences
         );
     }
 }
