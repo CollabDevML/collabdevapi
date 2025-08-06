@@ -1,6 +1,8 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
+import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,7 +32,10 @@ public class IdeeProjet {
     private String description;
 
     @Column(nullable = false)
-    private String domaine;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    @CollectionTable(name = "domaines_idees_projet")
+    private List<DomaineIdeeProjet> domaine;
 
     private String uriCDC;
 
@@ -57,6 +62,20 @@ public class IdeeProjet {
                 nombreDeSoutien,
                 datePublication,
                 utilisateur.getId()
+        );
+    }
+
+    public ResponseIdeeProjet2 toResponse2() {
+        return new ResponseIdeeProjet2(
+                id,
+                titre,
+                description,
+                domaine,
+                uriCDC,
+                nombreDeSoutien,
+                datePublication,
+                utilisateur.getId(),
+                commentairesIdeeProjet
         );
     }
 }

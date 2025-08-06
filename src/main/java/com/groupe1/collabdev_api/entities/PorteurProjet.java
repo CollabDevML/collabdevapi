@@ -25,13 +25,14 @@ public class PorteurProjet {
 
     public ResponsePorteurProjet toResponse() {
         return new ResponsePorteurProjet(
-                id,
+                utilisateur.getId(),
                 utilisateur.getPrenom(),
                 utilisateur.getNom(),
                 utilisateur.getEmail(),
                 utilisateur.getMotDePasse(),
                 utilisateur.getGenre(),
-                utilisateur.getPreferences()
+                utilisateur.getPreferences(),
+                id
         );
     }
 

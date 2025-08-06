@@ -2,6 +2,7 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.services.IdeeProjetService;
 import com.groupe1.collabdev_api.services.SoutienService;
@@ -89,6 +90,12 @@ public class IdeeProjetController {
     @GetMapping("/idees-projet/{id}")
     public ResponseIdeeProjet chercherParId(@RequestParam int id) {
         return ideeProjetService.chercherParId(id).toResponse();
+    }
+
+    @Operation(summary = "pour avoir les idées de projet par id")
+    @GetMapping("/idees-projet/v2/{id}")
+    public ResponseIdeeProjet2 chercherParIdV2(@PathVariable int id) {
+        return ideeProjetService.chercherParId(id).toResponse2();
     }
 
     @Operation(summary = "pour soutenir une idée de projet")

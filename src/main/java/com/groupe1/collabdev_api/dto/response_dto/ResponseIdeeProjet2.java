@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
-import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
 import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import lombok.AllArgsConstructor;
@@ -13,7 +12,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseIdeeProjet {
+public class ResponseIdeeProjet2 {
     private int id;
     private String titre;
     private String description;
@@ -22,4 +21,5 @@ public class ResponseIdeeProjet {
     private int nombreSoutien;
     private LocalDate datePublication;
     private int idUtilisateur;
+    private List<CommentaireIdeeProjet> commentaireIdeeProjets;
 }
