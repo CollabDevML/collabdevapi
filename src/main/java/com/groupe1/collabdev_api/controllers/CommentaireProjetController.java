@@ -17,6 +17,7 @@ import java.util.List;
 @Tag(name = "projets",
         description = """
                 Ce contrôleur permet d'ajouter des commentaires de projets, les lister, modifier et supprimer""")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentaireProjetController {
     @Autowired
     private CommentaireProjetService commentaireProjetService;

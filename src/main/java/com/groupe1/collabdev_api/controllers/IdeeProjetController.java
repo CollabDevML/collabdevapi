@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/utilisateurs/idees-projet")
 @Tag(name = "Projet Api",
         description = "CRUD pour l'idée de projet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class IdeeProjetController {
     @Autowired
     private IdeeProjetService ideeProjetService;

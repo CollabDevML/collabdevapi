@@ -20,6 +20,7 @@ import java.util.List;
         description = "CRUD pour l'administrateur")
 @RestController
 @RequestMapping("/administrateurs")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AdministrateurController {
 
     @Autowired

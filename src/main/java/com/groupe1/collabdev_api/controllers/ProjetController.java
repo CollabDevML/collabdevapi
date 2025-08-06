@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/gestionnaires")
 @Tag(name = "Projet Api",
         description = "Gestion du projet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProjetController {
 
     @Autowired
