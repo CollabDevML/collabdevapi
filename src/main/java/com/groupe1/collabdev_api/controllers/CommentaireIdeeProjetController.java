@@ -17,6 +17,7 @@ import java.util.List;
         description = """
                 Ce contrôleur permet d'ajouter des commentaires de projets, les lister, modifier et supprimer""")
 @RequestMapping("/utilisateurs/commentaires-projets")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentaireIdeeProjetController {
     @Autowired
     private CommentaireIdeeProjetService commentaireIdeeProjetService;

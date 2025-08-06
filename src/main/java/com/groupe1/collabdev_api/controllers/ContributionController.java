@@ -16,6 +16,7 @@ import java.util.List;
 @RequestMapping("/utilisateurs/contributeurs")
 @Tag(name = "contribution Api",
         description = "pour la gestion des contributions")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ContributionController {
 
     @Autowired

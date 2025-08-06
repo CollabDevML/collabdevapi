@@ -17,6 +17,7 @@ import java.util.Optional;
 @RequestMapping("/utilisateurs/gestionnaires")
 @Tag(name = "Utilisateurs Api",
         description = "Gestionnaire")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GestionnaireController {
 
     @Autowired

@@ -20,6 +20,7 @@ import java.util.List;
 @RequestMapping("/utilisateurs/gestionnaires/projets/taches")
 @Tag(name = "Tache Api",
         description = "CRUD pour les taches")
+@CrossOrigin(origins = "http://localhost:4200")
 public class TacheController {
 
     @Autowired
