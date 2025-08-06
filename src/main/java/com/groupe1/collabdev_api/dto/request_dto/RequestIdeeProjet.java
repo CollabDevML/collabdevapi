@@ -12,7 +12,4 @@ public class RequestIdeeProjet {
     private String description;
     private String domaine;
     private String uriCDC;
-    private int nombreSoutien;
-    private LocalDate datePublication;
-    private int idUtilisateur;
 }

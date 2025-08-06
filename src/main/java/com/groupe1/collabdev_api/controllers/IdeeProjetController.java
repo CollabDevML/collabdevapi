@@ -4,9 +4,12 @@ import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.services.IdeeProjetService;
+import com.groupe1.collabdev_api.services.SoutienService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/utilisateurs/idees-projet")
+@RequestMapping("/utilisateurs")
 @Tag(name = "Projet Api",
         description = "CRUD pour l'idée de projet")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -24,16 +27,18 @@ public class IdeeProjetController {
     @Autowired
     private IdeeProjetService ideeProjetService;
 
+    @Autowired
+    private SoutienService soutienService;
+
     @Operation(summary = "pour ajouter une idée de projet")
-    @PostMapping
+    @PostMapping("/{idPorteur}/idees-projet")
     public ResponseEntity<?> ajouterIdeeProjet(
-            @RequestParam int idPorteur,
+            @PathVariable int idPorteur,
             @RequestBody RequestIdeeProjet ideeProjet
     ) {
-        ideeProjet.setNombreSoutien(0);
         try {
             return new ResponseEntity<>(
-                    ideeProjetService.ajouter(ideeProjet).toResponse(),
+                    ideeProjetService.ajouter(ideeProjet, idPorteur).toResponse(),
                     HttpStatus.CREATED
             );
         } catch (EntityNotFoundException e) {
@@ -45,7 +50,7 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour lister les idées de projet")
-    @GetMapping
+    @GetMapping("/idees-projet")
     public List<ResponseIdeeProjet> listeIdeeProjet() {
         List<IdeeProjet> ideeProjets = ideeProjetService.chercherTous();
         List<ResponseIdeeProjet> responseIdeeProjets = new ArrayList<>();
@@ -56,7 +61,7 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour modifier une idée de projet")
-    @PutMapping("/{id}")
+    @PutMapping("/idees-projet/{id}")
     public ResponseEntity<?> modifierIdeeProjet(
             @PathVariable int id,
             @RequestBody RequestIdeeProjet requestIdeeProjet
@@ -75,20 +80,56 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour la suppression d'une idée de projet")
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/idees-projet/{id}")
     public Boolean supprimerIdeeProjet(@PathVariable int id) {
         return ideeProjetService.supprimerParId(id);
     }
 
     @Operation(summary = "pour avoir les idées de projet par id")
-    @GetMapping("/{id}")
+    @GetMapping("/idees-projet/{id}")
     public ResponseIdeeProjet chercherParId(@RequestParam int id) {
         return ideeProjetService.chercherParId(id).toResponse();
     }
 
     @Operation(summary = "pour soutenir une idée de projet")
-    @PutMapping("/nombre-soutien/{id}")
-    public ResponseIdeeProjet soutenir(@PathVariable int id) {
-        return ideeProjetService.soutenirIdeeProjet(id).toResponse();
+    @PostMapping("/idees-projet/{idIdeeProjet}/nombre-soutien")
+    public ResponseEntity<?> soutenir(
+            @RequestParam int idUtilisateur,
+            @PathVariable int idIdeeProjet
+    ) {
+        try {
+            return
+                    new ResponseEntity<>(
+                            soutienService.ajouter(idIdeeProjet, idUtilisateur),
+                            HttpStatus.CREATED
+                    );
+        } catch (BadRequestException | EntityExistsException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.BAD_REQUEST
+                    );
+        }
+    }
+
+    @Operation(summary = "pour soutenir une idée de projet")
+    @DeleteMapping("/idees-projet/{idIdeeProjet}/nombre-soutien")
+    public ResponseEntity<?> enleverSoutien(
+            @RequestParam int idUtilisateur,
+            @PathVariable int idIdeeProjet
+    ) {
+        try {
+            return
+                    new ResponseEntity<>(
+                            soutienService.supprimer(idIdeeProjet, idUtilisateur),
+                            HttpStatus.OK
+                    );
+        } catch (BadRequestException | EntityNotFoundException e) {
+            return
+                    new ResponseEntity<>(
+                            e.getMessage(),
+                            HttpStatus.BAD_REQUEST
+                    );
+        }
     }
 }
