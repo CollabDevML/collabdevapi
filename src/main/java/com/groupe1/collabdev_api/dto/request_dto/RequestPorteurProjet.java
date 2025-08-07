@@ -5,10 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class RequestPorteurProjet extends RequestUtilisateur {
-    public RequestPorteurProjet(String prenom, String nom, String email, String motDePasse, Genre genre) {
-        super(prenom, nom, email, motDePasse, genre);
+    public RequestPorteurProjet(String prenom, String nom, String email, String motDePasse, Genre genre, List<String> preferences) {
+        super(prenom, nom, email, motDePasse, genre, preferences);
     }
 }

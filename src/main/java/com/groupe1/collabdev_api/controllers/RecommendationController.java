@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.controllers;
 
-import com.groupe1.collabdev_api.services.UtilisateurService;
+import com.groupe1.collabdev_api.services.RecommendationService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
@@ -9,27 +9,24 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/utilisateurs")
+@RequestMapping("/recommandations")
 @Tag(name = "Utilisateurs Api",
-        description = "Gestion des utilisateurs")
+        description = "Recommandations de projets et d'idées de projet pour les utilisateurs")
 @CrossOrigin(origins = "http://localhost:4200")
-public class UtilisateurController {
+public class RecommendationController {
 
     @Autowired
-    private UtilisateurService utilisateurService;
+    private RecommendationService recommendationService;
 
-    @Operation(summary = "Modifier les préférences de l'utilisateur")
-    @PutMapping("/{idUtilisateur}")
-    public ResponseEntity<?> modifierLesPreferences(
-            @PathVariable int idUtilisateur,
-            @RequestBody List<String> preferences
+    @Operation(summary = "pour obtention les récommandations d'idées de projet d'un utilisateur")
+    @GetMapping("/idees-projet/{idUtilisateur}")
+    public ResponseEntity<?> getRecommendedIdeas(
+            @PathVariable int idUtilisateur
     ) {
         try {
             return new ResponseEntity<>(
-                    utilisateurService.modifierLesPreferences(idUtilisateur, preferences),
+                    recommendationService.getRecommendedIdea(idUtilisateur),
                     HttpStatus.OK
             );
         } catch (EntityNotFoundException e) {
@@ -39,5 +36,4 @@ public class UtilisateurController {
             );
         }
     }
-
 }

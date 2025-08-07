@@ -3,6 +3,7 @@ package com.groupe1.collabdev_api.services;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +38,16 @@ public class UtilisateurService {
 
     public List<Utilisateur> chercherParRole(Role role) {
         return utilisateurRepository.findUtilisateursByRole(role);
+    }
+
+    public List<String> modifierLesPreferences(int idUtilisateur, List<String> preferences) throws EntityNotFoundException {
+        Utilisateur utilisateur = utilisateurRepository.findById(idUtilisateur)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Utilisateur introuvable!")
+                );
+        utilisateur.setPreferences(preferences);
+        utilisateur = utilisateurRepository.save(utilisateur);
+        return utilisateur.getPreferences();
     }
 }
 

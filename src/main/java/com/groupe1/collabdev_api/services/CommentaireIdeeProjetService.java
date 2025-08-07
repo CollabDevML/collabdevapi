@@ -8,6 +8,7 @@ import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.CommentaireIdeeProjetRepository;
 import com.groupe1.collabdev_api.repositories.IdeeProjetRepository;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,18 +40,15 @@ public class CommentaireIdeeProjetService {
             throw new RuntimeException("l'utilisateur est vide");
         }
         Optional<Utilisateur> user = utilisateurRepository.findById(commentaireIdeeProjet.getUtilisateur().getId());
-        if (user.isPresent()) {
-            commentaireIdeeProjet.setUtilisateur(user.get());
-        } else {
-            System.out.println("Utilisateur non trouvé");
+        if (user.isEmpty()){
+            throw new EntityNotFoundException("Utilisateur non trouvable!");
         }
         IdeeProjet ideeProjet = ideeProjetRepository.findById(commentaireIdeeProjet.getIdeeProjet().getId()).orElseThrow(() -> new RuntimeException("Idée de projet introuvable"));
         CommentaireIdeeProjet commentaire = new CommentaireIdeeProjet();
         commentaire.setIdeeProjet(ideeProjet);
+        commentaire.setUtilisateur(user.get());
         commentaire.setContenu(commentaireIdeeProjet.getContenu());
         commentaire.setDateCommentaire(commentaireIdeeProjet.getDateCommentaire());
-
-
         return commentaireIdeeProjetRepository.save(commentaire);
 
 
