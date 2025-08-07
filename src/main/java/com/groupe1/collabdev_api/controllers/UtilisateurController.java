@@ -1,5 +1,16 @@
 package com.groupe1.collabdev_api.controllers;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseContributeur;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.dto.response_dto.ResponsePorteurProjet;
+import com.groupe1.collabdev_api.entities.Contributeur;
+import com.groupe1.collabdev_api.entities.Gestionnaire;
+import com.groupe1.collabdev_api.entities.PorteurProjet;
+import com.groupe1.collabdev_api.entities.Utilisateur;
+import com.groupe1.collabdev_api.entities.enums.Role;
+import com.groupe1.collabdev_api.services.ContributeurService;
+import com.groupe1.collabdev_api.services.GestionnaireService;
+import com.groupe1.collabdev_api.services.PorteurProjetService;
 import com.groupe1.collabdev_api.services.UtilisateurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,6 +32,15 @@ public class UtilisateurController {
     @Autowired
     private UtilisateurService utilisateurService;
 
+    @Autowired
+    private ContributeurService contributeurService;
+
+    @Autowired
+    private GestionnaireService gestionnaireService;
+
+    @Autowired
+    private PorteurProjetService porteurProjetService;
+
     @Operation(summary = "Modifier les préférences de l'utilisateur")
     @PutMapping("/{idUtilisateur}")
     public ResponseEntity<?> modifierLesPreferences(
@@ -37,6 +57,87 @@ public class UtilisateurController {
                     e.getMessage(),
                     HttpStatus.BAD_REQUEST
             );
+        }
+    }
+
+    @Operation(summary = "Avoir les données de l'utilisateur")
+    @GetMapping("/{idUtilisateur}")
+    public ResponseEntity<?> chercherParId(
+            @PathVariable int idUtilisateur,
+            @RequestParam Role role
+    ) {
+        Utilisateur utilisateur = utilisateurService.chercherParId(idUtilisateur);
+        if (utilisateur == null) {
+            return ResponseEntity.badRequest().body("Utilisateur introuvable avec cet id!");
+        }
+        switch (role) {
+            case CONTRIBUTEUR -> {
+                try {
+                    Contributeur contributeur = contributeurService.chercherIdUtilisateur(idUtilisateur);
+                    return ResponseEntity.ok(
+                            new ResponseContributeur(
+                                    utilisateur.getId(),
+                                    utilisateur.getPrenom(),
+                                    utilisateur.getNom(),
+                                    utilisateur.getEmail(),
+                                    utilisateur.getMotDePasse(),
+                                    utilisateur.getGenre(),
+                                    utilisateur.getPreferences(),
+                                    contributeur.getNiveau(),
+                                    contributeur.getSpecialite(),
+                                    contributeur.getType(),
+                                    contributeur.getPieces(),
+                                    contributeur.getUriCv(),
+                                    contributeur.getId()
+                            )
+                    );
+                } catch (EntityNotFoundException e) {
+                    return ResponseEntity.internalServerError().body(e.getMessage());
+                }
+            }
+            case GESTIONNAIRE -> {
+                try {
+                    Gestionnaire gestionnaire = gestionnaireService.chercherParIdUtilisateur(idUtilisateur);
+                    return ResponseEntity.ok(
+                            new ResponseGestionnaire(
+                                    utilisateur.getId(),
+                                    utilisateur.getPrenom(),
+                                    utilisateur.getNom(),
+                                    utilisateur.getEmail(),
+                                    utilisateur.getMotDePasse(),
+                                    utilisateur.getGenre(),
+                                    utilisateur.getPreferences(),
+                                    gestionnaire.getUriCv(),
+                                    gestionnaire.isEstValide(),
+                                    gestionnaire.getId()
+                            )
+                    );
+                } catch (EntityNotFoundException e) {
+                    return ResponseEntity.internalServerError().body(e);
+                }
+            }
+            case PORTEUR_PROJET -> {
+                try {
+                    PorteurProjet porteurProjet = porteurProjetService.chercherIdUtilisateur(idUtilisateur);
+                    return ResponseEntity.ok(
+                            new ResponsePorteurProjet(
+                                    utilisateur.getId(),
+                                    utilisateur.getPrenom(),
+                                    utilisateur.getNom(),
+                                    utilisateur.getEmail(),
+                                    utilisateur.getMotDePasse(),
+                                    utilisateur.getGenre(),
+                                    utilisateur.getPreferences(),
+                                    porteurProjet.getId()
+                            )
+                    );
+                } catch (EntityNotFoundException e) {
+                    return ResponseEntity.internalServerError().body(e);
+                }
+            }
+            default -> {
+                return ResponseEntity.badRequest().body("Non prise en charge");
+            }
         }
     }
 
