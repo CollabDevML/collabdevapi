@@ -9,7 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ResponseAuthentification {
-    private String email;
-    private String motDePasse;
+    private int id;
     private Role role;
 }

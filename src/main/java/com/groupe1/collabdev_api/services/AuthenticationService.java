@@ -67,8 +67,7 @@ public class AuthenticationService {
                 utilisateur.getMotDePasse()
         )) {
             return new ResponseAuthentification(
-                    email,
-                    motDePasse,
+                    utilisateur.getId(),
                     utilisateur.getRole()
             );
         }
@@ -85,8 +84,7 @@ public class AuthenticationService {
                 administrateur.getMotDePasse()
         )) {
             return new ResponseAuthentification(
-                    email,
-                    motDePasse,
+                    administrateur.getId(),
                     administrateur.getRole()
             );
         }
