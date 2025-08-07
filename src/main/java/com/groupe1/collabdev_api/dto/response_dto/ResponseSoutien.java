@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class SoutienResponse {
+public class ResponseSoutien {
     private int idIdeeProjet;
     private int idUtilisateur;
     private LocalDate dateSoutien;

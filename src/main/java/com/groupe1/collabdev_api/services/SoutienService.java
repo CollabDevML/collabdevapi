@@ -1,6 +1,6 @@
 package com.groupe1.collabdev_api.services;
 
-import com.groupe1.collabdev_api.dto.response_dto.SoutienResponse;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseSoutien;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Soutien;
 import com.groupe1.collabdev_api.entities.ids.SoutienId;
@@ -29,7 +29,7 @@ public class SoutienService {
     private UtilisateurRepository utilisateurRepository;
 
     @Transactional
-    public SoutienResponse ajouter(int idIdeeProjet, int idUtilisateur) throws EntityExistsException, BadRequestException {
+    public ResponseSoutien ajouter(int idIdeeProjet, int idUtilisateur) throws EntityExistsException, BadRequestException {
         if (!areExistUserAndIdea(idUtilisateur, idIdeeProjet)) {
             throw new BadRequestException("Vérifiez les ids fournis!");
         }
