@@ -61,6 +61,11 @@ public class RecommendationService {
         for (IdeeProjet recommendedIdea : recommendedIdeas) {
             recommendedIdeasResponse.add(recommendedIdea.toResponse());
         }
+        if(recommendedIdeasResponse.isEmpty()) {
+            for (IdeeProjet ideeProjet : ideeProjets) {
+                recommendedIdeasResponse.add(ideeProjet.toResponse());
+            }
+        }
         return recommendedIdeasResponse;
     }
 }

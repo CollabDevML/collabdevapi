@@ -1,28 +1,29 @@
 package com.groupe1.collabdev_api.entities.enums;
 
 public enum DomaineIdeeProjet {
-    INTELLIGENCE_ARTIFICIELLE,
-    DEVELOPPEMENT_WEB,
-    DEVELOPPEMENT_MOBILE,
-    CYBERSECURITE,
-    BASES_DE_DONNEES,
-    DEVOPS,
-    CLOUD_COMPUTING,
-    INTERNET_DES_OBJETS,
-    REALITE_VIRTUELLE,
-    REALITE_AUGMENTEE,
-    JEUX_VIDEO,
-    AUTOMATISATION,
-    BLOCKCHAIN,
-    SYSTEMES_EMBARQUES,
-    BIG_DATA,
-    ANALYSE_DE_DONNEES,
-    RESEAUX,
-    SYSTEMES_D_INFORMATION,
-    INFORMATIQUE_DECISIONNELLE,
-    ACCESSIBILITE_NUMERIQUE,
-    SANTE_NUMERIQUE,
-    EDUCATION_NUMERIQUE,
-    ROBOTIQUE,
-    GREEN_IT
+    FINTECH, // Finance + Technology
+    EDTECH, // Education + Technology
+    HEALTHTECH, // Health / Medical + Technology
+    AGRITECH, // Agriculture + Technology
+    LEGALTECH, // Legal + Technology
+    GOVTECH, // Government + Technology
+    GREENTECH, // Green / Clean Technology
+    PROPTECH, // Property (Real Estate) + Technology
+    INSURTECH, // Insurance + Technology
+    HRTECH, // Human Resources + Technology
+    RETAILTECH, // Commerce + Technology
+    TRAVELTECH, // Tourisme + Technology
+    SPORTTECH, // Sport + Technology
+    ADTECH, // Advertising + Technology
+    MARTECH, // Marketing + Technology
+    MUSICTECH, // Music + Technology
+    FASHIONTECH, // Fashion + Technology
+    FOODTECH, // Food + Technology
+
+    CYBERSECURITY, // Sécurité informatique
+    AI_ML, // Intelligence Artificielle / Machine Learning
+    IOT, // Internet des Objets
+    BIG_DATA, // Analyse de données massives
+    CLOUD_COMPUTING,// Services Cloud
+    BLOCKCHAIN // Technologies décentralisées
 }
