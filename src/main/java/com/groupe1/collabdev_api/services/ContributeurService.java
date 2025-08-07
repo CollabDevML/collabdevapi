@@ -26,6 +26,13 @@ public class ContributeurService {
         return contributeurRepository.findById(id).orElse(null);
     }
 
+    public Contributeur chercherIdUtilisateur(int idUtilisateur) throws EntityNotFoundException {
+        return contributeurRepository.findByUtilisateurId(idUtilisateur)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Erreur lors du chargement des données de l'utilisateur")
+                );
+    }
+
     public List<Contributeur> chercherTous() {
         return contributeurRepository.findAll();
     }
