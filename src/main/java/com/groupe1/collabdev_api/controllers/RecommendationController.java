@@ -19,14 +19,14 @@ public class RecommendationController {
     @Autowired
     private RecommendationService recommendationService;
 
-    @Operation(summary = "pour obtention les récommandations d'idées de projet d'un utilisateur")
+    @Operation(summary = "pour obtenir les recommandations d'idées de projet d'un utilisateur")
     @GetMapping("/idees-projet/{idUtilisateur}")
     public ResponseEntity<?> getRecommendedIdeas(
             @PathVariable int idUtilisateur
     ) {
         try {
             return new ResponseEntity<>(
-                    recommendationService.getRecommendedIdeas(idUtilisateur),
+                    recommendationService.getRecommendedIdeasToResponse(idUtilisateur),
                     HttpStatus.OK
             );
         } catch (EntityNotFoundException e) {
@@ -36,4 +36,23 @@ public class RecommendationController {
             );
         }
     }
+
+    @Operation(summary = "pour obtenir les recommandations de projets d'un utilisateur")
+    @GetMapping("/projets/{idUtilisateur}")
+    public ResponseEntity<?> getRecommendedProjects(
+            @PathVariable int idUtilisateur
+    ) {
+        try {
+            return new ResponseEntity<>(
+                    recommendationService.getRecommendedProjects(idUtilisateur),
+                    HttpStatus.OK
+            );
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+    }
+
 }

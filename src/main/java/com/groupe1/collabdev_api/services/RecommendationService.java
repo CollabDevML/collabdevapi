@@ -34,7 +34,22 @@ public class RecommendationService {
     @Autowired
     private ProjetRepository projetRepository;
 
-    public List<ResponseIdeeProjet> getRecommendedIdeas(int idUtilisateur) {
+    public List<ResponseIdeeProjet> getRecommendedIdeasToResponse(int idUtilisateur) {
+        List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
+        Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
+        List<ResponseIdeeProjet> recommendedIdeasResponse = new ArrayList<>();
+        for (IdeeProjet recommendedIdea : recommendedIdeas) {
+            recommendedIdeasResponse.add(recommendedIdea.toResponse());
+        }
+        if(recommendedIdeasResponse.isEmpty()) {
+            for (IdeeProjet ideeProjet : ideeProjets) {
+                recommendedIdeasResponse.add(ideeProjet.toResponse());
+            }
+        }
+        return recommendedIdeasResponse;
+    }
+
+    public Set<IdeeProjet> getRecommendedIdeas(int idUtilisateur, List<IdeeProjet> ideeProjets) {
         Utilisateur utilisateur = utilisateurRepository.findById(idUtilisateur)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Utilisateur non trouvable avec cet id!")
@@ -46,7 +61,6 @@ public class RecommendationService {
         }
         List<IdeeProjet> ideesProjetSoutenus = new ArrayList<>(ideeProjetRepository.findAllById(idIdeesProjet));
         List<String> preferences = utilisateur.getPreferences();
-        List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
         Set<IdeeProjet> recommendedIdeas = new HashSet<>();
         for (IdeeProjet ideesProjetSoutenu : ideesProjetSoutenus) {
             for (IdeeProjet ideeProjet : ideeProjets) {
@@ -63,23 +77,24 @@ public class RecommendationService {
             }
         }
         recommendedIdeas.removeIf(ideeProjet -> ideeProjet.getUtilisateur().getId() == idUtilisateur);
-        List<ResponseIdeeProjet> recommendedIdeasResponse = new ArrayList<>();
-        for (IdeeProjet recommendedIdea : recommendedIdeas) {
-            recommendedIdeasResponse.add(recommendedIdea.toResponse());
-        }
-        if(recommendedIdeasResponse.isEmpty()) {
-            for (IdeeProjet ideeProjet : ideeProjets) {
-                recommendedIdeasResponse.add(ideeProjet.toResponse());
-            }
-        }
-        return recommendedIdeasResponse;
+        return recommendedIdeas;
     }
 
     public List<ProjetDto> getRecommendedProjects(int idUtilisateur) {
-        List<ResponseIdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur);
+        List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
+        List<Projet> projets = projetRepository.findAll();
+        Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
         List<ProjetDto> recommendedProjects = new ArrayList<>();
-        for (ResponseIdeeProjet recommendedIdea : recommendedIdeas) {
+        for (IdeeProjet recommendedIdea : recommendedIdeas) {
+            if(recommendedIdea.getProjet() != null) {
+                recommendedProjects.add(recommendedIdea.getProjet().toDto());
+            }
         }
-        return new ArrayList<>();
+        if(recommendedProjects.isEmpty()) {
+            for (Projet projet : projets) {
+                recommendedProjects.add(projet.toDto());
+            }
+        }
+        return recommendedProjects;
     }
 }
