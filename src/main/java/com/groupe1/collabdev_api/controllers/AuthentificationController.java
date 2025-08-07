@@ -1,7 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
-import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseAuthentification;
 import com.groupe1.collabdev_api.services.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +24,11 @@ public class AuthentificationController {
             @RequestBody RequestAuthentification user
     ) {
         try {
-            boolean isAuthenticatedUser = authenticationService.authenticate(user);
-            if (isAuthenticatedUser) {
+            ResponseAuthentification userInfo = authenticationService.authenticate(user);
+            if (userInfo != null) {
                 return
                         new ResponseEntity<>(
-                                "Authentification réussie!",
+                                userInfo,
                                 HttpStatus.OK
                         );
             } else {
@@ -38,12 +38,6 @@ public class AuthentificationController {
                                 HttpStatus.OK
                         );
             }
-        } catch (UserNotFoundException e) {
-            return
-                    new ResponseEntity<>(
-                            e.getMessage(),
-                            HttpStatus.NOT_FOUND
-                    );
         } catch (RuntimeException e) {
             return
                     new ResponseEntity<>(
