@@ -62,7 +62,7 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour lister les idées de projet (version 2)")
-    @GetMapping("/idees-projet")
+    @GetMapping("/idees-projet/v2")
     public List<ResponseIdeeProjet2> listeIdeeProjetV2() {
         List<IdeeProjet> ideeProjets = ideeProjetService.chercherTous();
         List<ResponseIdeeProjet2> responseIdeeProjets = new ArrayList<>();
