@@ -20,4 +20,5 @@ public class ProjetDto {
     private boolean etat;
     private int idGestionnaire;
     private int piecesDAcces;
+    private int idIdeeProjet;
 }
