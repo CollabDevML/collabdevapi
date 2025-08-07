@@ -2,6 +2,7 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
@@ -52,6 +53,7 @@ public class IdeeProjetService {
                 0,
                 LocalDate.now(),
                 utilisateur,
+                new Projet(),
                 new ArrayList<>()
         ));
     }

@@ -26,7 +26,7 @@ public class RecommendationController {
     ) {
         try {
             return new ResponseEntity<>(
-                    recommendationService.getRecommendedIdea(idUtilisateur),
+                    recommendationService.getRecommendedIdeas(idUtilisateur),
                     HttpStatus.OK
             );
         } catch (EntityNotFoundException e) {

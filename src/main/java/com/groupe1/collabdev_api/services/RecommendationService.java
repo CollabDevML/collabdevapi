@@ -1,10 +1,13 @@
 package com.groupe1.collabdev_api.services;
 
+import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.entities.Soutien;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.IdeeProjetRepository;
+import com.groupe1.collabdev_api.repositories.ProjetRepository;
 import com.groupe1.collabdev_api.repositories.SoutienRepository;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -28,7 +31,10 @@ public class RecommendationService {
     @Autowired
     private IdeeProjetRepository ideeProjetRepository;
 
-    public List<ResponseIdeeProjet> getRecommendedIdea(int idUtilisateur) {
+    @Autowired
+    private ProjetRepository projetRepository;
+
+    public List<ResponseIdeeProjet> getRecommendedIdeas(int idUtilisateur) {
         Utilisateur utilisateur = utilisateurRepository.findById(idUtilisateur)
                 .orElseThrow(
                         () -> new EntityNotFoundException("Utilisateur non trouvable avec cet id!")
@@ -67,5 +73,13 @@ public class RecommendationService {
             }
         }
         return recommendedIdeasResponse;
+    }
+
+    public List<ProjetDto> getRecommendedProjects(int idUtilisateur) {
+        List<ResponseIdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur);
+        List<ProjetDto> recommendedProjects = new ArrayList<>();
+        for (ResponseIdeeProjet recommendedIdea : recommendedIdeas) {
+        }
+        return new ArrayList<>();
     }
 }

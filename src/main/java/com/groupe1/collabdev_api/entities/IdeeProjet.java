@@ -50,6 +50,10 @@ public class IdeeProjet {
     @JoinColumn(name = "id_utilisateur")
     private Utilisateur utilisateur;
 
+    @Transient
+    @OneToOne(mappedBy = "ideeProjet")
+    private Projet projet;
+
     @OneToMany(mappedBy = "ideeProjet")
     private List<CommentaireIdeeProjet> commentairesIdeeProjet = new ArrayList<>();
 

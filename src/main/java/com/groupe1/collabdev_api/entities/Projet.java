@@ -49,6 +49,10 @@ public class Projet {
     @Column(nullable = false)
     private int piecesDAcces;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_idee_projet", nullable = false)
+    private IdeeProjet ideeProjet;
+
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
     private Gestionnaire gestionnaire;
@@ -91,7 +95,8 @@ public class Projet {
                 this.getNiveauDAcces(),
                 this.isEtat(),
                 this.getGestionnaire().getId(),
-                this.piecesDAcces
+                this.piecesDAcces,
+                this.ideeProjet.getId()
         );
     }
 }
