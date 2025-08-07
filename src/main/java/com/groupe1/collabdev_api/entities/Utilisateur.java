@@ -72,7 +72,8 @@ public class Utilisateur {
                 email,
                 motDePasse,
                 genre,
-                preferences
+                preferences,
+                0
         );
     }
 }

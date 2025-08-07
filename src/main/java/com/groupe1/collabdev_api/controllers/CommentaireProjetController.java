@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/utilisateurs/commentaires-idees-projet")
+@RequestMapping("/utilisateurs/commentaires-projet")
 @Tag(name = "projets",
         description = """
                 Ce contrôleur permet d'ajouter des commentaires de projets, les lister, modifier et supprimer""")

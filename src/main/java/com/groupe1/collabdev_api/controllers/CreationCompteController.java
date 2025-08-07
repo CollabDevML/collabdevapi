@@ -122,7 +122,7 @@ public class CreationCompteController {
                         new ArrayList<>()
                 )
         );
-        porteurProjetService.ajouter(
+        PorteurProjet porteurProjet = porteurProjetService.ajouter(
                 new PorteurProjet(
                         0,
                         utilisateurAjoute
@@ -137,7 +137,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getEmail(),
                                 utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
-                                utilisateurAjoute.getPreferences()
+                                utilisateurAjoute.getPreferences(),
+                                porteurProjet.getId()
                         ),
                         HttpStatus.CREATED
                 );
