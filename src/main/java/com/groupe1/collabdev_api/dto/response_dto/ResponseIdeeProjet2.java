@@ -21,5 +21,5 @@ public class ResponseIdeeProjet2 {
     private int nombreSoutien;
     private LocalDate datePublication;
     private int idUtilisateur;
-    private List<CommentaireIdeeProjet> commentaireIdeeProjets;
+    private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }

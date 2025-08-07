@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
@@ -66,6 +67,10 @@ public class IdeeProjet {
     }
 
     public ResponseIdeeProjet2 toResponse2() {
+        List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets = new ArrayList<>();
+        for (CommentaireIdeeProjet commentaireIdeeProjet : commentairesIdeeProjet) {
+            commentaireIdeeProjets.add(commentaireIdeeProjet.toResponse());
+        }
         return new ResponseIdeeProjet2(
                 id,
                 titre,
@@ -75,7 +80,7 @@ public class IdeeProjet {
                 nombreDeSoutien,
                 datePublication,
                 utilisateur.getId(),
-                commentairesIdeeProjet
+                commentaireIdeeProjets
         );
     }
 }
