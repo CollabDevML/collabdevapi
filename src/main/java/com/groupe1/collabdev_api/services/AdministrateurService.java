@@ -4,6 +4,7 @@ import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.AdministrateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -17,6 +18,12 @@ public class AdministrateurService {
     @Autowired
     private AdministrateurRepository administrateurRepository;
 
+    @Value("${spring.mail.username}")
+    private String email;
+
+    @Value("${application.password}")
+    private String password;
+
     //Pour la creation de Super-Admin Par le systeme :
 
     public void superAdmin() {
@@ -24,10 +31,8 @@ public class AdministrateurService {
         if (adminList.isEmpty()) {
             
             Administrateur admin = new Administrateur();
-            String email = "super.admin@collab.dev";
-            String password = BCrypt.hashpw("admin1234", BCrypt.gensalt());
             admin.setEmail(email);
-            admin.setMotDePasse(password);
+            admin.setMotDePasse(BCrypt.hashpw(password, BCrypt.gensalt()));
             admin.setRole(Role.SUPER_ADMIN);
             administrateurRepository.save(admin);
         }
