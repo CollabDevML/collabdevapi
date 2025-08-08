@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/authentification")
 @Tag(name = "Authentification Api",
@@ -32,22 +34,28 @@ public class AuthentificationController {
                                 HttpStatus.OK
                         );
             } else {
+                HashMap<String, String> response = new HashMap<>();
+                response.put("message", "Authentification échouée!");
                 return
                         new ResponseEntity<>(
-                                "Authentification échouée!",
+                                response,
                                 HttpStatus.OK
                         );
             }
         } catch (RuntimeException e) {
+            HashMap<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
             return
                     new ResponseEntity<>(
-                            e.getMessage(),
+                            response,
                             HttpStatus.FORBIDDEN
                     );
         } catch (Exception e) {
+            HashMap<String, String> response = new HashMap<>();
+            response.put("message", e.getMessage());
             return
                     new ResponseEntity<>(
-                            e.getMessage(),
+                            response,
                             HttpStatus.INTERNAL_SERVER_ERROR
                     );
         }
