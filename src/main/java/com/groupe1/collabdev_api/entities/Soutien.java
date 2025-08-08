@@ -2,7 +2,10 @@ package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.response_dto.ResponseSoutien;
 import com.groupe1.collabdev_api.entities.ids.SoutienId;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EmbeddedId;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

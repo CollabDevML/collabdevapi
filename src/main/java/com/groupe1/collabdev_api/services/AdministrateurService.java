@@ -29,7 +29,7 @@ public class AdministrateurService {
     public void superAdmin() {
         List<Administrateur> adminList = administrateurRepository.findAll();
         if (adminList.isEmpty()) {
-            
+
             Administrateur admin = new Administrateur();
             admin.setEmail(email);
             admin.setMotDePasse(BCrypt.hashpw(password, BCrypt.gensalt()));

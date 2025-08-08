@@ -68,12 +68,12 @@ public class AuthenticationService {
         if (!utilisateur.isEtat()) {
             throw new RuntimeException("Votre compte est bloqué, impossible de se connecter!");
         }
-        if(utilisateur.getRole() == Role.GESTIONNAIRE) {
+        if (utilisateur.getRole() == Role.GESTIONNAIRE) {
             Gestionnaire gestionnaire = gestionnaireRepository.findByUtilisateurId(utilisateur.getId())
                     .orElseThrow(
                             () -> new EntityNotFoundException("Erreur lors du chargement des données de l'utilisateur!")
                     );
-            if (!gestionnaire.isEstValide()){
+            if (!gestionnaire.isEstValide()) {
                 throw new RuntimeException("Authentification impossible! Compte gestionnaire non validé!");
             }
         }
