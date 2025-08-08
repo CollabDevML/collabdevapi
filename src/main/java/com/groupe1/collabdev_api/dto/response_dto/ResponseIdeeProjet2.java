@@ -1,6 +1,5 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
-import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,6 +19,6 @@ public class ResponseIdeeProjet2 {
     private String uriCDC;
     private int nombreSoutien;
     private LocalDate datePublication;
-    private int idUtilisateur;
+    private ResponseUserNames utilisateur;
     private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }
