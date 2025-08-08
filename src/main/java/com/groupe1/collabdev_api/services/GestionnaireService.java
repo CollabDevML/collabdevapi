@@ -53,7 +53,6 @@ public class GestionnaireService {
                             gestionnaire.getUtilisateur().getPrenom(),
                             gestionnaire.getUtilisateur().getNom(),
                             gestionnaire.getUtilisateur().getEmail(),
-                            gestionnaire.getUtilisateur().getMotDePasse(),
                             gestionnaire.getUtilisateur().getGenre(),
                             gestionnaire.getUtilisateur().getPreferences(),
                             gestionnaire.getUriCv(),

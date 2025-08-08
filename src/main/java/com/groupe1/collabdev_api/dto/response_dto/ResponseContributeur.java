@@ -19,8 +19,8 @@ public class ResponseContributeur extends ResponseUtilisateur {
     private String uriCv;
     private int idContributeur;
 
-    public ResponseContributeur(int id, String prenom, String nom, String email, String motDePasse, Genre genre, List<String> preferences, Niveau niveau, String specialite, Type type, double pieces, String uriCv, int idContributeur) {
-        super(id, prenom, nom, email, motDePasse, genre, preferences);
+    public ResponseContributeur(int id, String prenom, String nom, String email, Genre genre, List<String> preferences, Niveau niveau, String specialite, Type type, double pieces, String uriCv, int idContributeur) {
+        super(id, prenom, nom, email, genre, preferences);
         this.niveau = niveau;
         this.specialite = specialite;
         this.type = type;

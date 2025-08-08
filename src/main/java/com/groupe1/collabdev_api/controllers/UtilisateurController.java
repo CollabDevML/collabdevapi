@@ -80,7 +80,6 @@ public class UtilisateurController {
                                     utilisateur.getPrenom(),
                                     utilisateur.getNom(),
                                     utilisateur.getEmail(),
-                                    utilisateur.getMotDePasse(),
                                     utilisateur.getGenre(),
                                     utilisateur.getPreferences(),
                                     contributeur.getNiveau(),
@@ -104,7 +103,6 @@ public class UtilisateurController {
                                     utilisateur.getPrenom(),
                                     utilisateur.getNom(),
                                     utilisateur.getEmail(),
-                                    utilisateur.getMotDePasse(),
                                     utilisateur.getGenre(),
                                     utilisateur.getPreferences(),
                                     gestionnaire.getUriCv(),
@@ -125,7 +123,6 @@ public class UtilisateurController {
                                     utilisateur.getPrenom(),
                                     utilisateur.getNom(),
                                     utilisateur.getEmail(),
-                                    utilisateur.getMotDePasse(),
                                     utilisateur.getGenre(),
                                     utilisateur.getPreferences(),
                                     porteurProjet.getId()

@@ -11,8 +11,8 @@ import java.util.List;
 public class ResponsePorteurProjet extends ResponseUtilisateur {
     private int idPorteurProjet;
 
-    public ResponsePorteurProjet(int id, String prenom, String nom, String email, String motDePasse, Genre genre, List<String> preferences, int idPorteurProjet) {
-        super(id, prenom, nom, email, motDePasse, genre, preferences);
+    public ResponsePorteurProjet(int id, String prenom, String nom, String email, Genre genre, List<String> preferences, int idPorteurProjet) {
+        super(id, prenom, nom, email, genre, preferences);
         this.idPorteurProjet = idPorteurProjet;
     }
 }

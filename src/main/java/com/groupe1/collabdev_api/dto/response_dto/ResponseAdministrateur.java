@@ -13,6 +13,5 @@ import lombok.Setter;
 public class ResponseAdministrateur {
     private int id;
     private String email;
-    private String motDePasse;
     private Role role;
 }

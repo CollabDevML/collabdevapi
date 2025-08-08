@@ -87,7 +87,6 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
                                 utilisateurAjoute.getPreferences(),
                                 contributeurAjoute.getNiveau(),
@@ -135,7 +134,6 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
                                 utilisateurAjoute.getPreferences(),
                                 porteurProjet.getId()
@@ -181,7 +179,6 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
                                 utilisateurAjoute.getPreferences(),
                                 gestionnaireAjoute.getUriCv(),
