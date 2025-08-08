@@ -1,7 +1,5 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
-import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
-import com.groupe1.collabdev_api.entities.CommentaireIdeeProjet;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -3,7 +3,6 @@ package com.groupe1.collabdev_api.controllers;
 import com.groupe1.collabdev_api.dto.request_dto.RequestCommentaireProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
 import com.groupe1.collabdev_api.entities.CommentaireProjet;
-import com.groupe1.collabdev_api.repositories.CommentaireProjetRepository;
 import com.groupe1.collabdev_api.services.CommentaireProjetService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +20,10 @@ import java.util.List;
 public class CommentaireProjetController {
     @Autowired
     private CommentaireProjetService commentaireProjetService;
-    private CommentaireProjetRepository commentaireProjetRepository;
 
     @PostMapping
-    public CommentaireProjet ajouterCommentaire(@RequestBody CommentaireProjet commentaire) {
-        return commentaireProjetService.ajouter(commentaire);
+    public ResponseCommentaireProjet ajouterCommentaire(@RequestBody CommentaireProjet commentaire) {
+        return commentaireProjetService.ajouter(commentaire).toResponse();
     }
 
     @GetMapping("/projets/{idProjet}")
@@ -50,16 +48,7 @@ public class CommentaireProjetController {
     }
 
     @PutMapping("/{id}")
-    public CommentaireProjet modifier(@PathVariable int id, @RequestBody RequestCommentaireProjet requestCommentaireProjet) {
-        CommentaireProjet comExiste = commentaireProjetRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("Commentaire introuvable!"));
-        comExiste.setDateCommentaire(requestCommentaireProjet.getDateCommentaire());
-        comExiste.setContenu(requestCommentaireProjet.getContenu());
-        return commentaireProjetRepository.save(comExiste);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseCommentaireProjet PratModification(@PathVariable Integer id, @RequestBody RequestCommentaireProjet requestCommentaireProjet) {
+    public ResponseCommentaireProjet modifier(@PathVariable int id, @RequestBody RequestCommentaireProjet requestCommentaireProjet) {
         return commentaireProjetService.modifier(id, requestCommentaireProjet).toResponse();
     }
 }

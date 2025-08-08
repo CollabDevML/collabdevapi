@@ -40,7 +40,7 @@ public class CommentaireIdeeProjetService {
             throw new RuntimeException("l'utilisateur est vide");
         }
         Optional<Utilisateur> user = utilisateurRepository.findById(commentaireIdeeProjet.getUtilisateur().getId());
-        if (user.isEmpty()){
+        if (user.isEmpty()) {
             throw new EntityNotFoundException("Utilisateur non trouvable!");
         }
         IdeeProjet ideeProjet = ideeProjetRepository.findById(commentaireIdeeProjet.getIdeeProjet().getId()).orElseThrow(() -> new RuntimeException("Idée de projet introuvable"));

@@ -15,4 +15,5 @@ public class ResponseCommentaireProjet {
     private int id;
     private String contenu;
     private LocalDate dateCommentaire;
+    private ResponseUserNames utilisateur;
 }

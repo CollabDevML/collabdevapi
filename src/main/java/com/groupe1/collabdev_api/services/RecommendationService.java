@@ -1,7 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
-import com.groupe1.collabdev_api.dto.ProjetDto;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.entities.Soutien;
@@ -34,16 +34,16 @@ public class RecommendationService {
     @Autowired
     private ProjetRepository projetRepository;
 
-    public List<ResponseIdeeProjet> getRecommendedIdeasToResponse(int idUtilisateur) {
+    public List<ResponseIdeeProjet2> getRecommendedIdeasToResponse(int idUtilisateur) {
         List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
         Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
-        List<ResponseIdeeProjet> recommendedIdeasResponse = new ArrayList<>();
+        List<ResponseIdeeProjet2> recommendedIdeasResponse = new ArrayList<>();
         for (IdeeProjet recommendedIdea : recommendedIdeas) {
-            recommendedIdeasResponse.add(recommendedIdea.toResponse());
+            recommendedIdeasResponse.add(recommendedIdea.toResponse2());
         }
-        if(recommendedIdeasResponse.isEmpty()) {
+        if (recommendedIdeasResponse.isEmpty()) {
             for (IdeeProjet ideeProjet : ideeProjets) {
-                recommendedIdeasResponse.add(ideeProjet.toResponse());
+                recommendedIdeasResponse.add(ideeProjet.toResponse2());
             }
         }
         return recommendedIdeasResponse;
@@ -80,19 +80,19 @@ public class RecommendationService {
         return recommendedIdeas;
     }
 
-    public List<ProjetDto> getRecommendedProjects(int idUtilisateur) {
+    public List<ResponseProjet> getRecommendedProjects(int idUtilisateur) {
         List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
         List<Projet> projets = projetRepository.findAll();
         Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
-        List<ProjetDto> recommendedProjects = new ArrayList<>();
+        List<ResponseProjet> recommendedProjects = new ArrayList<>();
         for (IdeeProjet recommendedIdea : recommendedIdeas) {
-            if(recommendedIdea.getProjet() != null) {
-                recommendedProjects.add(recommendedIdea.getProjet().toDto());
+            if (recommendedIdea.getProjet() != null) {
+                recommendedProjects.add(recommendedIdea.getProjet().toResponse());
             }
         }
-        if(recommendedProjects.isEmpty()) {
+        if (recommendedProjects.isEmpty()) {
             for (Projet projet : projets) {
-                recommendedProjects.add(projet.toDto());
+                recommendedProjects.add(projet.toResponse());
             }
         }
         return recommendedProjects;

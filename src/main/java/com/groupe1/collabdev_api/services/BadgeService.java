@@ -1,12 +1,7 @@
-
 package com.groupe1.collabdev_api.services;
 
-import com.groupe1.collabdev_api.dto.ContributionDto;
 import com.groupe1.collabdev_api.entities.Badge;
-import com.groupe1.collabdev_api.entities.Contributeur;
-import com.groupe1.collabdev_api.entities.ObtentionBadge;
 import com.groupe1.collabdev_api.repositories.BadgeRepository;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -14,9 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.groupe1.collabdev_api.services.UploadFichier.upload;
 

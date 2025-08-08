@@ -45,7 +45,7 @@ public class SoutienService {
                 .orElseThrow(
                         () -> new EntityNotFoundException("Idée de projet introuvable!")
                 );
-        ideeProjet.setNombreDeSoutien(ideeProjet.getNombreDeSoutien()+1);
+        ideeProjet.setNombreDeSoutien(ideeProjet.getNombreDeSoutien() + 1);
         ideeProjetRepository.save(ideeProjet);
         return soutienRepository.save(soutien).toResponse();
     }
@@ -63,7 +63,7 @@ public class SoutienService {
                 .orElseThrow(
                         () -> new EntityNotFoundException("Idée de projet introuvable!")
                 );
-        ideeProjet.setNombreDeSoutien(ideeProjet.getNombreDeSoutien()-1);
+        ideeProjet.setNombreDeSoutien(ideeProjet.getNombreDeSoutien() - 1);
         ideeProjetRepository.save(ideeProjet);
         soutienRepository.deleteById(idSoutien);
         return "L'utilisateur a arrêté de soutenir cette idée!";

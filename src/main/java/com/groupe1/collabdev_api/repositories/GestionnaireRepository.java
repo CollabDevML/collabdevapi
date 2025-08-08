@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface GestionnaireRepository extends JpaRepository<Gestionnaire, Integer> {
     List<Gestionnaire> findAllByEstValide(boolean estValide);
+
     Optional<Gestionnaire> findByUtilisateurId(int idUtilisateur);
 }

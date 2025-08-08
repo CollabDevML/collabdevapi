@@ -32,7 +32,7 @@ public class Utilisateur {
     @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -64,6 +64,7 @@ public class Utilisateur {
 
     @OneToMany(mappedBy = "utilisateur")
     private List<GestionAdminUtilisateur> gestionsAdminUtilisateur = new ArrayList<>();
+
     public ResponseUtilisateur toResponse() {
         return new ResponsePorteurProjet(
                 id,
