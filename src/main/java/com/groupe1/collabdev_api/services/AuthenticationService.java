@@ -3,9 +3,12 @@ package com.groupe1.collabdev_api.services;
 import com.groupe1.collabdev_api.dto.request_dto.RequestAuthentification;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseAuthentification;
 import com.groupe1.collabdev_api.entities.Administrateur;
+import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.Utilisateur;
+import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.repositories.AdministrateurRepository;
+import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,9 @@ public class AuthenticationService {
 
     @Autowired
     private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private GestionnaireRepository gestionnaireRepository;
 
     public ResponseAuthentification authenticate(RequestAuthentification user) throws UserNotFoundException {
         Boolean userExist = isExistUser(user.getEmail());
@@ -61,6 +67,15 @@ public class AuthenticationService {
                 );
         if (!utilisateur.isEtat()) {
             throw new RuntimeException("Votre compte est bloqué, impossible de se connecter!");
+        }
+        if(utilisateur.getRole() == Role.GESTIONNAIRE) {
+            Gestionnaire gestionnaire = gestionnaireRepository.findByUtilisateurId(utilisateur.getId())
+                    .orElseThrow(
+                            () -> new EntityNotFoundException("Erreur lors du chargement des données de l'utilisateur!")
+                    );
+            if (!gestionnaire.isEstValide()){
+                throw new RuntimeException("Authentification impossible! Compte gestionnaire non validé!");
+            }
         }
         if (BCrypt.checkpw(
                 motDePasse,
