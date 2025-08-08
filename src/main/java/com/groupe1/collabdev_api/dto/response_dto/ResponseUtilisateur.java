@@ -15,7 +15,6 @@ public class ResponseUtilisateur {
     private String prenom;
     private String nom;
     private String email;
-    private String motDePasse;
     private Genre genre;
     private List<String> preferences;
 }

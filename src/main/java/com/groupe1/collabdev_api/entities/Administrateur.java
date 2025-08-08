@@ -44,7 +44,6 @@ public class Administrateur {
                 new ResponseAdministrateur(
                         this.id,
                         this.email,
-                        this.motDePasse,
                         this.role
                 );
     }

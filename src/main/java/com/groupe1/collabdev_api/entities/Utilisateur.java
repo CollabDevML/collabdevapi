@@ -70,7 +70,6 @@ public class Utilisateur {
                 prenom,
                 nom,
                 email,
-                motDePasse,
                 genre,
                 preferences,
                 0
