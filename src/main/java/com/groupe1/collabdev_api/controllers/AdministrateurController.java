@@ -18,6 +18,7 @@ import java.util.List;
 
 @Tag(name = "Utilisateurs Api",
         description = "CRUD pour l'administrateur")
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/administrateurs")
 public class AdministrateurController {

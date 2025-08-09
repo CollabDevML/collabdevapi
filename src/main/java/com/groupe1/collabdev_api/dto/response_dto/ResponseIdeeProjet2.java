@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponseIdeeProjet {
+public class ResponseIdeeProjet2 {
     private int id;
     private String titre;
     private String description;
@@ -19,5 +19,6 @@ public class ResponseIdeeProjet {
     private String uriCDC;
     private int nombreSoutien;
     private LocalDate datePublication;
-    private int idUtilisateur;
+    private ResponseUserNames utilisateur;
+    private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }

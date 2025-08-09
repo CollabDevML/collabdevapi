@@ -2,12 +2,14 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
+import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +39,10 @@ public class IdeeProjetService {
         return ideeProjetRepository.findAll();
     }
 
-    public IdeeProjet ajouter(RequestIdeeProjet ideeProjet) throws EntityNotFoundException {
-        Utilisateur utilisateur = utilisateurRepository.findById(ideeProjet.getIdUtilisateur())
+    public IdeeProjet ajouter(RequestIdeeProjet ideeProjet, int idUtilisateur) throws EntityNotFoundException {
+        Utilisateur utilisateur = utilisateurRepository.findById(idUtilisateur)
                 .orElseThrow(
-                        () -> new EntityNotFoundException("Utilisateur introuvable avec l'id : " + ideeProjet.getIdUtilisateur())
+                        () -> new EntityNotFoundException("Utilisateur introuvable avec l'id : " + idUtilisateur)
                 );
         return ideeProjetRepository.save(new IdeeProjet(
                 0,
@@ -48,9 +50,10 @@ public class IdeeProjetService {
                 ideeProjet.getDescription(),
                 ideeProjet.getDomaine(),
                 ideeProjet.getUriCDC(),
-                ideeProjet.getNombreSoutien(),
-                ideeProjet.getDatePublication(),
+                0,
+                LocalDate.now(),
                 utilisateur,
+                new Projet(),
                 new ArrayList<>()
         ));
     }
@@ -70,14 +73,6 @@ public class IdeeProjetService {
     public Boolean supprimerParId(int id) {
         ideeProjetRepository.deleteById(id);
         return true;
-    }
-
-    public IdeeProjet soutenirIdeeProjet(int id) {
-        IdeeProjet projet = ideeProjetRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Projet introuvable"));
-
-        projet.setNombreDeSoutien(projet.getNombreDeSoutien() + 1);
-        return ideeProjetRepository.save(projet);
     }
 }
 

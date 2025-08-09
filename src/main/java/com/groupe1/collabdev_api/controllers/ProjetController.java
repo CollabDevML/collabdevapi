@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.ProjetDto;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.services.ProjetService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequestMapping("/gestionnaires")
 @Tag(name = "Projet Api",
         description = "Gestion du projet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProjetController {
 
     @Autowired
@@ -48,10 +50,16 @@ public class ProjetController {
         return projetDtos;
     }
 
-    @Operation(summary = "pour l'affichage d'un seul projet'")
+    @Operation(summary = "pour l'affichage d'un seul projet")
     @GetMapping("/projets/{id}")
     public ProjetDto afficherUnProjet(@PathVariable int id) {
         return projetService.chercherParId(id).toDto();
+    }
+
+    @Operation(summary = "pour l'affichage d'un seul projet (visiteur)")
+    @GetMapping("/projets/v2/{id}")
+    public ResponseProjet afficherUnProjetVisiteur(@PathVariable int id) {
+        return projetService.chercherParId(id).toResponse();
     }
 
     @Operation(summary = "pour l'affichage de tous les projets d'un gestionnaire'")

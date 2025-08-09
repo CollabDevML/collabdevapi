@@ -2,6 +2,9 @@ package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.dto.ProjetDto;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -49,6 +52,10 @@ public class Projet {
     @Column(nullable = false)
     private int piecesDAcces;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_idee_projet", nullable = false)
+    private IdeeProjet ideeProjet;
+
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
     private Gestionnaire gestionnaire;
@@ -91,7 +98,42 @@ public class Projet {
                 this.getNiveauDAcces(),
                 this.isEtat(),
                 this.getGestionnaire().getId(),
-                this.piecesDAcces
+                this.piecesDAcces,
+                this.ideeProjet.getId()
         );
     }
+
+    public ResponseProjet toResponse() {
+        int nombreContributeurs = 0;
+        for (DemandeContribution demandeContribution : demandeContributions) {
+            if (demandeContribution.isEstAcceptee()) {
+                nombreContributeurs++;
+            }
+        }
+        List<ResponseCommentaireProjet> commentaireProjets = new ArrayList<>();
+        for (CommentaireProjet commentaireProjet : this.commentairesProjet) {
+            commentaireProjets.add(commentaireProjet.toResponse());
+        }
+        return new ResponseProjet(
+                titre,
+                description,
+                isEstFini(),
+                getDateDebut(),
+                getDateFin(),
+                getNiveauDAcces(),
+                isEtat(),
+                new ResponseUserNames(
+                        gestionnaire.getUtilisateur().getPrenom(),
+                        gestionnaire.getUtilisateur().getNom()
+                ),
+                piecesDAcces,
+                new ResponseUserNames(
+                        ideeProjet.getUtilisateur().getPrenom(),
+                        ideeProjet.getUtilisateur().getNom()
+                ),
+                commentaireProjets,
+                nombreContributeurs
+        );
+    }
+
 }

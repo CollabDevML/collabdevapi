@@ -1,0 +1,100 @@
+package com.groupe1.collabdev_api.services;
+
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
+import com.groupe1.collabdev_api.entities.IdeeProjet;
+import com.groupe1.collabdev_api.entities.Projet;
+import com.groupe1.collabdev_api.entities.Soutien;
+import com.groupe1.collabdev_api.entities.Utilisateur;
+import com.groupe1.collabdev_api.repositories.IdeeProjetRepository;
+import com.groupe1.collabdev_api.repositories.ProjetRepository;
+import com.groupe1.collabdev_api.repositories.SoutienRepository;
+import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@Service
+public class RecommendationService {
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private SoutienRepository soutienRepository;
+
+    @Autowired
+    private IdeeProjetRepository ideeProjetRepository;
+
+    @Autowired
+    private ProjetRepository projetRepository;
+
+    public List<ResponseIdeeProjet2> getRecommendedIdeasToResponse(int idUtilisateur) {
+        List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
+        Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
+        List<ResponseIdeeProjet2> recommendedIdeasResponse = new ArrayList<>();
+        for (IdeeProjet recommendedIdea : recommendedIdeas) {
+            recommendedIdeasResponse.add(recommendedIdea.toResponse2());
+        }
+        if (recommendedIdeasResponse.isEmpty()) {
+            for (IdeeProjet ideeProjet : ideeProjets) {
+                recommendedIdeasResponse.add(ideeProjet.toResponse2());
+            }
+        }
+        return recommendedIdeasResponse;
+    }
+
+    public Set<IdeeProjet> getRecommendedIdeas(int idUtilisateur, List<IdeeProjet> ideeProjets) {
+        Utilisateur utilisateur = utilisateurRepository.findById(idUtilisateur)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Utilisateur non trouvable avec cet id!")
+                );
+        List<Integer> idIdeesProjet = new ArrayList<>();
+        List<Soutien> soutiens = soutienRepository.findByIdSoutienIdUtilisateur(idUtilisateur);
+        for (Soutien soutien : soutiens) {
+            idIdeesProjet.add(soutien.getIdSoutien().getIdIdeeProjet());
+        }
+        List<IdeeProjet> ideesProjetSoutenus = new ArrayList<>(ideeProjetRepository.findAllById(idIdeesProjet));
+        List<String> preferences = utilisateur.getPreferences();
+        Set<IdeeProjet> recommendedIdeas = new HashSet<>();
+        for (IdeeProjet ideesProjetSoutenu : ideesProjetSoutenus) {
+            for (IdeeProjet ideeProjet : ideeProjets) {
+                if (ideesProjetSoutenu.getDomaine().stream().anyMatch(ideeProjet.getDomaine()::contains)) {
+                    recommendedIdeas.add(ideeProjet);
+                }
+            }
+        }
+        for (String preference : preferences) {
+            for (IdeeProjet ideeProjet : ideeProjets) {
+                if (ideeProjet.getTitre().toLowerCase().contains(preference.toLowerCase()) || ideeProjet.getDescription().toLowerCase().contains(preference.toLowerCase())) {
+                    recommendedIdeas.add(ideeProjet);
+                }
+            }
+        }
+        recommendedIdeas.removeIf(ideeProjet -> ideeProjet.getUtilisateur().getId() == idUtilisateur);
+        return recommendedIdeas;
+    }
+
+    public List<ResponseProjet> getRecommendedProjects(int idUtilisateur) {
+        List<IdeeProjet> ideeProjets = ideeProjetRepository.findAll();
+        List<Projet> projets = projetRepository.findAll();
+        Set<IdeeProjet> recommendedIdeas = getRecommendedIdeas(idUtilisateur, ideeProjets);
+        List<ResponseProjet> recommendedProjects = new ArrayList<>();
+        for (IdeeProjet recommendedIdea : recommendedIdeas) {
+            if (recommendedIdea.getProjet() != null) {
+                recommendedProjects.add(recommendedIdea.getProjet().toResponse());
+            }
+        }
+        if (recommendedProjects.isEmpty()) {
+            for (Projet projet : projets) {
+                recommendedProjects.add(projet.toResponse());
+            }
+        }
+        return recommendedProjects;
+    }
+}

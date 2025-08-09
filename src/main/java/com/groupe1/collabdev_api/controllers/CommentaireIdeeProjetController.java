@@ -16,7 +16,8 @@ import java.util.List;
 @Tag(name = "idees-projet",
         description = """
                 Ce contrôleur permet d'ajouter des commentaires de projets, les lister, modifier et supprimer""")
-@RequestMapping("/utilisateurs/commentaires-projets")
+@RequestMapping("/utilisateurs/commentaires-idees-projet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommentaireIdeeProjetController {
     @Autowired
     private CommentaireIdeeProjetService commentaireIdeeProjetService;
@@ -28,7 +29,7 @@ public class CommentaireIdeeProjetController {
             return ResponseEntity.status(HttpStatus.CREATED).body(commentaireIdeeProjet.toResponse());
 
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.badRequest().body(e.getStackTrace());
         }
     }
 

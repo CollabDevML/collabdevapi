@@ -21,10 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -32,6 +29,7 @@ import java.util.ArrayList;
 @RequestMapping("/utilisateurs")
 @Tag(name = "Authentification Api",
         description = "pour la création du compte des utilisateurs")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CreationCompteController {
 
     @Autowired
@@ -61,6 +59,7 @@ public class CreationCompteController {
                         requestContributeur.getGenre(),
                         Role.CONTRIBUTEUR,
                         true,
+                        requestContributeur.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -88,8 +87,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences(),
                                 contributeurAjoute.getNiveau(),
                                 contributeurAjoute.getSpecialite(),
                                 contributeurAjoute.getType(),
@@ -116,12 +115,13 @@ public class CreationCompteController {
                         requestPorteurProjet.getGenre(),
                         Role.PORTEUR_PROJET,
                         true,
+                        requestPorteurProjet.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
                 )
         );
-        porteurProjetService.ajouter(
+        PorteurProjet porteurProjet = porteurProjetService.ajouter(
                 new PorteurProjet(
                         0,
                         utilisateurAjoute
@@ -134,8 +134,9 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
-                                utilisateurAjoute.getGenre()
+                                utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences(),
+                                porteurProjet.getId()
                         ),
                         HttpStatus.CREATED
                 );
@@ -156,6 +157,7 @@ public class CreationCompteController {
                         requestGestionnaire.getGenre(),
                         Role.GESTIONNAIRE,
                         true,
+                        requestGestionnaire.getPreferences(),
                         new ArrayList<>(),
                         new ArrayList<>(),
                         new ArrayList<>()
@@ -177,8 +179,8 @@ public class CreationCompteController {
                                 utilisateurAjoute.getPrenom(),
                                 utilisateurAjoute.getNom(),
                                 utilisateurAjoute.getEmail(),
-                                utilisateurAjoute.getMotDePasse(),
                                 utilisateurAjoute.getGenre(),
+                                utilisateurAjoute.getPreferences(),
                                 gestionnaireAjoute.getUriCv(),
                                 gestionnaireAjoute.isEstValide(),
                                 gestionnaireAjoute.getId()

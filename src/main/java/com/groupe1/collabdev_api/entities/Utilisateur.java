@@ -32,7 +32,7 @@ public class Utilisateur {
     @Column(nullable = false)
     private String nom;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
@@ -45,8 +45,13 @@ public class Utilisateur {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Role role;
+
     @Column(nullable = false)
     private boolean etat = true;
+
+    @ElementCollection
+    @CollectionTable(name = "preferences_utilisateurs")
+    private List<String> preferences;
 
 
     @JsonIgnore
@@ -66,8 +71,9 @@ public class Utilisateur {
                 prenom,
                 nom,
                 email,
-                motDePasse,
-                genre
+                genre,
+                preferences,
+                0
         );
     }
 }

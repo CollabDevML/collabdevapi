@@ -5,6 +5,7 @@ import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.repositories.PorteurProjetRepository;
 import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,13 @@ public class PorteurProjetService {
 
     public PorteurProjet chercherParId(int id) {
         return porteurProjetRepository.findById(id).orElse(null);
+    }
+
+    public PorteurProjet chercherIdUtilisateur(int idUtilisateur) throws EntityNotFoundException {
+        return porteurProjetRepository.findByUtilisateurId(idUtilisateur)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Erreur lors du chargement des données de l'utilisateur!")
+                );
     }
 
     public List<PorteurProjet> chercherTous() {

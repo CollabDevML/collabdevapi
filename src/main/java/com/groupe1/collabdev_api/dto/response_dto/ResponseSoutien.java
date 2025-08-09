@@ -9,11 +9,10 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ResponseCommentaireProjet {
-    private int id;
-    private String contenu;
-    private LocalDate dateCommentaire;
-    private ResponseUserNames utilisateur;
+@NoArgsConstructor
+public class ResponseSoutien {
+    private int idIdeeProjet;
+    private int idUtilisateur;
+    private LocalDate dateSoutien;
 }
