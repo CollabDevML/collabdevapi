@@ -9,7 +9,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class IdeeProjetService {
                 ideeProjet.getDomaine(),
                 ideeProjet.getUriCDC(),
                 0,
-                LocalDate.now(),
+                LocalDateTime.now(),
                 utilisateur,
                 new Projet(),
                 new ArrayList<>()

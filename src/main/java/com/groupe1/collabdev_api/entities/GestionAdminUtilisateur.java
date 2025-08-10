@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "gestions_admin_utilisateur")
@@ -23,7 +23,7 @@ public class GestionAdminUtilisateur {
     private TypeGestionUtilisateurs typeGestion;
 
     @Column(nullable = false)
-    private LocalDate dateGestion = LocalDate.now();
+    private LocalDateTime dateGestion = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "id_administrateur")

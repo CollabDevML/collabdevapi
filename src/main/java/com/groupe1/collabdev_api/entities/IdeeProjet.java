@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class IdeeProjet {
     private int nombreDeSoutien = 0;
 
     @Column(nullable = false)
-    private LocalDate datePublication = LocalDate.now();
+    private LocalDateTime datePublication = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur")
