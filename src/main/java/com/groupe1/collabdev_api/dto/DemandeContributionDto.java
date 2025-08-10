@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -15,6 +15,6 @@ import java.time.LocalDate;
 public class DemandeContributionDto {
     private int id;
     private Boolean estAccepte;
-    private LocalDate dateEnvoi;
+    private LocalDateTime dateEnvoi;
     private Type profileContributeur;
 }

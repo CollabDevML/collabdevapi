@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -24,7 +24,7 @@ public class CommentaireIdeeProjet {
     private String contenu;
 
     @Column(nullable = false)
-    private LocalDate dateCommentaire = LocalDate.now();
+    private LocalDateTime dateCommentaire = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)

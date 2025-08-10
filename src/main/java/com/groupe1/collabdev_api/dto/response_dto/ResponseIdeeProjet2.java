@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,7 +18,7 @@ public class ResponseIdeeProjet2 {
     private List<DomaineIdeeProjet> domaine;
     private String uriCDC;
     private int nombreSoutien;
-    private LocalDate datePublication;
+    private LocalDateTime datePublication;
     private ResponseUserNames utilisateur;
     private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }

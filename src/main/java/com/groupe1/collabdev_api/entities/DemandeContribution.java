@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,7 +26,7 @@ public class DemandeContribution {
     private boolean estAcceptee = false;
 
     @Column(nullable = false)
-    private LocalDate dateEnvoi = LocalDate.now();
+    private LocalDateTime dateEnvoi = LocalDateTime.now();
 
     @Column(nullable = false)
     private Type profileContributeur;

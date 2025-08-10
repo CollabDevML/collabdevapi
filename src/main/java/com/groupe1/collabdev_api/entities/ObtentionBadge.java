@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,7 +22,7 @@ public class ObtentionBadge {
     private int id;
 
     @Column(nullable = false)
-    private LocalDate dateObtention = LocalDate.now();
+    private LocalDateTime dateObtention = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_contributeur", nullable = false)

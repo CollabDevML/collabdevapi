@@ -11,7 +11,7 @@ import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +53,7 @@ public class CommentaireProjetService {
         CommentaireProjet commentaireProjetMod = commentaireProjetRepository.findById(id).
                 orElseThrow(() -> new RuntimeException("Commentaire non trouvé!"));
         commentaireProjetMod.setContenu(requestCommentaireProjet.getContenu());
-        commentaireProjetMod.setDateCommentaire(LocalDate.now());
+        commentaireProjetMod.setDateCommentaire(LocalDateTime.now());
         return commentaireProjetRepository.save(commentaireProjetMod);
     }
 
