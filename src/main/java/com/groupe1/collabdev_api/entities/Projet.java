@@ -115,6 +115,7 @@ public class Projet {
             commentaireProjets.add(commentaireProjet.toResponse());
         }
         return new ResponseProjet(
+                this.id,
                 titre,
                 description,
                 isEstFini(),

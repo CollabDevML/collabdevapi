@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class ResponseProjet {
+    private int id;
     private String titre;
     private String description;
     private boolean estFini;
