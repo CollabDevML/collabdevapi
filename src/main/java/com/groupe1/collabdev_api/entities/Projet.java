@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -123,14 +123,16 @@ public class Projet {
                 getDateFin(),
                 getNiveauDAcces(),
                 isEtat(),
-                new ResponseUserNames(
+                new ResponseUser(
                         gestionnaire.getUtilisateur().getPrenom(),
-                        gestionnaire.getUtilisateur().getNom()
+                        gestionnaire.getUtilisateur().getNom(),
+                        gestionnaire.getUtilisateur().getRole()
                 ),
                 piecesDAcces,
-                new ResponseUserNames(
+                new ResponseUser(
                         ideeProjet.getUtilisateur().getPrenom(),
-                        ideeProjet.getUtilisateur().getNom()
+                        ideeProjet.getUtilisateur().getNom(),
+                        ideeProjet.getUtilisateur().getRole()
                 ),
                 commentaireProjets,
                 nombreContributeurs

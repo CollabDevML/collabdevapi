@@ -1,7 +1,7 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +39,10 @@ public class CommentaireProjet {
                 this.id,
                 this.contenu,
                 this.dateCommentaire,
-                new ResponseUserNames(
+                new ResponseUser(
                         utilisateur.getPrenom(),
-                        utilisateur.getNom()
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
                 )
         );
     }

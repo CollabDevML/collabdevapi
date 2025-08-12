@@ -3,7 +3,7 @@ package com.groupe1.collabdev_api.entities;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -84,9 +84,10 @@ public class IdeeProjet {
                 uriCDC,
                 nombreDeSoutien,
                 datePublication,
-                new ResponseUserNames(
+                new ResponseUser(
                         utilisateur.getPrenom(),
-                        utilisateur.getNom()
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
                 ),
                 commentaireIdeeProjets
         );

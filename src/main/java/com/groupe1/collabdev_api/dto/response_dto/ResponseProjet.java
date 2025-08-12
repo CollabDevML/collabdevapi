@@ -20,9 +20,9 @@ public class ResponseProjet {
     private LocalDateTime dateFin;
     private Niveau niveauDAcces;
     private boolean etat;
-    private ResponseUserNames gestionnaire;
+    private ResponseUser gestionnaire;
     private int piecesDAcces;
-    private ResponseUserNames porteur;
+    private ResponseUser porteur;
     private List<ResponseCommentaireProjet> commentaires;
     private int nombreContributeurs;
 }
