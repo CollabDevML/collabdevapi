@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Projet;
 import com.groupe1.collabdev_api.entities.Utilisateur;
@@ -73,6 +74,15 @@ public class IdeeProjetService {
     public Boolean supprimerParId(int id) {
         ideeProjetRepository.deleteById(id);
         return true;
+    }
+
+    public List<ResponseIdeeProjet2> chercherParIdUtilisateur(int idUtilisateur) {
+        List<ResponseIdeeProjet2> ideesProjetResponse = new ArrayList<>();
+        List<IdeeProjet> ideeProjets = ideeProjetRepository.findByUtilisateurId(idUtilisateur);
+        for (IdeeProjet ideeProjet : ideeProjets) {
+            ideesProjetResponse.add(ideeProjet.toResponse2());
+        }
+        return ideesProjetResponse;
     }
 }
 
