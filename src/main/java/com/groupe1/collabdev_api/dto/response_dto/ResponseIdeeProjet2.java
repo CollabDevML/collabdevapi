@@ -19,6 +19,6 @@ public class ResponseIdeeProjet2 {
     private String uriCDC;
     private int nombreSoutien;
     private LocalDateTime datePublication;
-    private ResponseUserNames utilisateur;
+    private ResponseUser utilisateur;
     private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }
