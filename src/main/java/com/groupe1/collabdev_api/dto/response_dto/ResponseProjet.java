@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -15,8 +16,8 @@ public class ResponseProjet {
     private String titre;
     private String description;
     private boolean estFini;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
+    private Date dateDebut;
+    private Date dateFin;
     private Niveau niveauDAcces;
     private boolean etat;
     private ResponseUserNames gestionnaire;

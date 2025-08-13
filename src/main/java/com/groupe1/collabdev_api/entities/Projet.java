@@ -14,6 +14,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -37,10 +38,10 @@ public class Projet {
     private boolean estFini = false;
 
     @Column(nullable = false)
-    private LocalDate dateDebut;
+    private Date dateDebut;
 
     @Column(nullable = false)
-    private LocalDate dateFin;
+    private Date dateFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
