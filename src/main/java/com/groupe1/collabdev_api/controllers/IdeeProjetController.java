@@ -51,7 +51,7 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour lister les idées de projet")
-    @GetMapping("/idees-projet")
+    @GetMapping("/idees-projet/v2")
     public List<ResponseIdeeProjet> listeIdeeProjet() {
         List<IdeeProjet> ideeProjets = ideeProjetService.chercherTous();
         List<ResponseIdeeProjet> responseIdeeProjets = new ArrayList<>();
@@ -62,9 +62,21 @@ public class IdeeProjetController {
     }
 
     @Operation(summary = "pour lister les idées de projet (version 2)")
-    @GetMapping("/idees-projet/v2")
+    @GetMapping("/idees-projet")
     public List<ResponseIdeeProjet2> listeIdeeProjetV2() {
         List<IdeeProjet> ideeProjets = ideeProjetService.chercherTous();
+        List<ResponseIdeeProjet2> responseIdeeProjets = new ArrayList<>();
+        for (IdeeProjet ideeProjet : ideeProjets) {
+            responseIdeeProjets.add(ideeProjet.toResponse2());
+        }
+        return responseIdeeProjets;
+    }
+
+
+    @Operation(summary = "pour lister les idées de projet par id ")
+    @GetMapping("/idees-projet/{id}/utilisateur")
+    public List<ResponseIdeeProjet2> listeIdeeProjetParId(@PathVariable int id) {
+        List<IdeeProjet> ideeProjets = ideeProjetService.chercherParIdUt(id);
         List<ResponseIdeeProjet2> responseIdeeProjets = new ArrayList<>();
         for (IdeeProjet ideeProjet : ideeProjets) {
             responseIdeeProjets.add(ideeProjet.toResponse2());
