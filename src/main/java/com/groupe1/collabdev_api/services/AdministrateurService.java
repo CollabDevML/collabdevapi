@@ -32,6 +32,8 @@ public class AdministrateurService {
 
             Administrateur admin = new Administrateur();
             admin.setEmail(email);
+            admin.setPrenom("Kadiatou");
+            admin.setNom("TALL");
             admin.setMotDePasse(BCrypt.hashpw(password, BCrypt.gensalt()));
             admin.setRole(Role.SUPER_ADMIN);
             administrateurRepository.save(admin);
