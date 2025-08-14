@@ -22,4 +22,5 @@ public class ProjetDto {
     private int idGestionnaire;
     private int piecesDAcces;
     private int idIdeeProjet;
+    private int id = 0;
 }

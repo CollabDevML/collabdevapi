@@ -100,7 +100,8 @@ public class Projet {
                 this.isEtat(),
                 this.getGestionnaire().getId(),
                 this.piecesDAcces,
-                this.ideeProjet.getId()
+                this.ideeProjet.getId(),
+                this.id
         );
     }
 

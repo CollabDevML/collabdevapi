@@ -13,10 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ContributeurDto {
+    private int id;
     private String nom;
     private String prenom;
     private String email;
-    private String motDePasse;
     private Genre genre;
     private Niveau niveau;
     private String specialite;

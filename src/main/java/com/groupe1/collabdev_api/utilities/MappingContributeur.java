@@ -8,10 +8,10 @@ public class MappingContributeur {
     public static ContributeurDto contributeurToDto(Contributeur contributeur) {
         Utilisateur utilisateur = contributeur.getUtilisateur();
         return new ContributeurDto(
+                utilisateur.getId(),
                 utilisateur.getPrenom(),
                 utilisateur.getNom(),
                 utilisateur.getEmail(),
-                utilisateur.getMotDePasse(),
                 utilisateur.getGenre(),
                 contributeur.getNiveau(),
                 contributeur.getSpecialite(),

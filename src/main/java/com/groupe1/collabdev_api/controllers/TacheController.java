@@ -28,10 +28,10 @@ public class TacheController {
 
     @Operation(summary = "pour l'ajout d'une tache")
     @PostMapping
-    public ResponseEntity<?> ajouterUneTache(
-            @RequestBody RequestTache requestTache
-    ) {
+    public ResponseEntity<?> ajouterUneTache(@RequestBody RequestTache requestTache) {
         try {
+
+            System.out.println("Le titre est : "+requestTache.getTitre());
             return
                     new ResponseEntity<>(
                             tacheService.ajouter(requestTache),
