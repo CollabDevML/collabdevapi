@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -24,7 +24,7 @@ public class Soutien {
     private SoutienId idSoutien;
 
     @Column(nullable = false)
-    private LocalDate dateSoutien;
+    private LocalDateTime dateSoutien;
 
     public ResponseSoutien toResponse() {
         return new ResponseSoutien(

@@ -3,7 +3,7 @@ package com.groupe1.collabdev_api.entities;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class IdeeProjet {
     private int nombreDeSoutien = 0;
 
     @Column(nullable = false)
-    private LocalDate datePublication = LocalDate.now();
+    private LocalDateTime datePublication = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur")
@@ -84,9 +84,10 @@ public class IdeeProjet {
                 uriCDC,
                 nombreDeSoutien,
                 datePublication,
-                new ResponseUserNames(
+                new ResponseUser(
                         utilisateur.getPrenom(),
-                        utilisateur.getNom()
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
                 ),
                 commentaireIdeeProjets
         );

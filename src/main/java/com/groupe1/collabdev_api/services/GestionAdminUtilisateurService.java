@@ -11,7 +11,7 @@ import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -34,7 +34,7 @@ public class GestionAdminUtilisateurService {
         GestionAdminUtilisateur gestionAdminUtilisateur = new GestionAdminUtilisateur();
         gestionAdminUtilisateur.setAdministrateur(admin);
         gestionAdminUtilisateur.setUtilisateur(utilisateur);
-        gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+        gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
         gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.SUPPRIMER);
         gestionAdminUtilisateurRepository.save(gestionAdminUtilisateur);
 
@@ -55,7 +55,7 @@ public class GestionAdminUtilisateurService {
         utilisateurRepository.findById(id).ifPresent(utilisateur -> {
             utilisateur.setEtat(false);
             gestionAdminUtilisateur.setUtilisateur(utilisateur);
-            gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+            gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
             gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.BLOQUER);
 
 
@@ -79,7 +79,7 @@ public class GestionAdminUtilisateurService {
                 utilisateur.setEtat(false);
 
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
-                gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+                gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
                 gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.BLOQUER);
 
                 gestionAdminUtilisateurRepository.save(gestionAdminUtilisateur);
@@ -107,7 +107,7 @@ public class GestionAdminUtilisateurService {
             if (utilisateur.getRole().equals(role)) {
                 utilisateur.setEtat(true);
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
-                gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+                gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
                 gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.DEBLOQUER);
 
                 gestionAdminUtilisateurRepository.save(gestionAdminUtilisateur);
@@ -130,7 +130,7 @@ public class GestionAdminUtilisateurService {
             utilisateur.setEtat(true);
             gestionAdminUtilisateur.setAdministrateur(admin);
             gestionAdminUtilisateur.setUtilisateur(utilisateur);
-            gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+            gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
             gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.DEBLOQUER);
 
             gestionAdminUtilisateurRepository.save(gestionAdminUtilisateur);
@@ -151,7 +151,7 @@ public class GestionAdminUtilisateurService {
             if (!utilisateur.isEtat()) {
                 utilisateur.setEtat(true);
                 gestionAdminUtilisateur.setUtilisateur(utilisateur);
-                gestionAdminUtilisateur.setDateGestion(LocalDate.now());
+                gestionAdminUtilisateur.setDateGestion(LocalDateTime.now());
 
                 gestionAdminUtilisateur.setTypeGestion(TypeGestionUtilisateurs.DEBLOQUER);
                 utilisateurRepository.save(utilisateur);

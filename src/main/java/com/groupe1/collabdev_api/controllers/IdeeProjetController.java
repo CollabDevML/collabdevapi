@@ -162,4 +162,12 @@ public class IdeeProjetController {
                     );
         }
     }
+
+    @Operation(summary = "pour avoir les idées de projet proposées par un utilisateur")
+    @GetMapping("/{idUtilisateur}/idees-projet")
+    public ResponseEntity<?> userProjectIdeas(
+            @PathVariable int idUtilisateur
+    ) {
+        return ResponseEntity.ok(ideeProjetService.chercherParIdUtilisateur(idUtilisateur));
+    }
 }

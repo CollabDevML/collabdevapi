@@ -5,24 +5,24 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 public class ResponseProjet {
+    private int id;
     private String titre;
     private String description;
     private boolean estFini;
-    private Date dateDebut;
-    private Date dateFin;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
     private Niveau niveauDAcces;
     private boolean etat;
-    private ResponseUserNames gestionnaire;
+    private ResponseUser gestionnaire;
     private int piecesDAcces;
-    private ResponseUserNames porteur;
+    private ResponseUser porteur;
     private List<ResponseCommentaireProjet> commentaires;
     private int nombreContributeurs;
 }

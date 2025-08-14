@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,9 +12,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @NoArgsConstructor
@@ -38,10 +37,10 @@ public class Projet {
     private boolean estFini = false;
 
     @Column(nullable = false)
-    private Date dateDebut;
+    private LocalDateTime dateDebut;
 
     @Column(nullable = false)
-    private Date dateFin;
+    private LocalDateTime dateFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -117,6 +116,7 @@ public class Projet {
             commentaireProjets.add(commentaireProjet.toResponse());
         }
         return new ResponseProjet(
+                this.id,
                 titre,
                 description,
                 isEstFini(),
@@ -124,14 +124,16 @@ public class Projet {
                 getDateFin(),
                 getNiveauDAcces(),
                 isEtat(),
-                new ResponseUserNames(
+                new ResponseUser(
                         gestionnaire.getUtilisateur().getPrenom(),
-                        gestionnaire.getUtilisateur().getNom()
+                        gestionnaire.getUtilisateur().getNom(),
+                        gestionnaire.getUtilisateur().getRole()
                 ),
                 piecesDAcces,
-                new ResponseUserNames(
+                new ResponseUser(
                         ideeProjet.getUtilisateur().getPrenom(),
-                        ideeProjet.getUtilisateur().getNom()
+                        ideeProjet.getUtilisateur().getNom(),
+                        ideeProjet.getUtilisateur().getRole()
                 ),
                 commentaireProjets,
                 nombreContributeurs
