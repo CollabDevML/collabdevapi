@@ -2,11 +2,13 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestAdministrateur;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseAdministrateur;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseStats;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -65,4 +67,9 @@ public class AdministrateurController {
         return administrateurService.supprimerParId(id);
     }
 
+    @Operation(summary = "pour avoir les statistiques du système")
+    @GetMapping("/stats")
+    public ResponseEntity<ResponseStats> getStats() {
+        return ResponseEntity.ok(administrateurService.getStats());
+    }
 }
