@@ -6,6 +6,8 @@ import com.groupe1.collabdev_api.entities.enums.Type;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 public class RequestContributeur extends RequestUtilisateur {
@@ -17,8 +19,8 @@ public class RequestContributeur extends RequestUtilisateur {
     private String uriCv;
 
 
-    public RequestContributeur(String prenom, String nom, String email, String motDePasse, Genre genre, Niveau niveau, String specialite, Type type, double pieces, String uriCv) {
-        super(prenom, nom, email, motDePasse, genre);
+    public RequestContributeur(String prenom, String nom, String email, String motDePasse, Genre genre, List<String> preferences, Niveau niveau, String specialite, Type type, double pieces, String uriCv) {
+        super(prenom, nom, email, motDePasse, genre, preferences);
         this.niveau = niveau;
         this.specialite = specialite;
         this.type = type;

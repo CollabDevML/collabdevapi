@@ -32,6 +32,13 @@ public class GestionnaireService {
         return gestionnaireRepository.findById(id).orElse(null);
     }
 
+    public Gestionnaire chercherParIdUtilisateur(int idUtilisateur) throws EntityNotFoundException {
+        return gestionnaireRepository.findByUtilisateurId(idUtilisateur)
+                .orElseThrow(
+                        () -> new EntityNotFoundException("Erreur lors du chargement des données de l'utilisateur!")
+                );
+    }
+
     public List<Gestionnaire> chercherTous() {
         return gestionnaireRepository.findAll();
     }
@@ -46,8 +53,8 @@ public class GestionnaireService {
                             gestionnaire.getUtilisateur().getPrenom(),
                             gestionnaire.getUtilisateur().getNom(),
                             gestionnaire.getUtilisateur().getEmail(),
-                            gestionnaire.getUtilisateur().getMotDePasse(),
                             gestionnaire.getUtilisateur().getGenre(),
+                            gestionnaire.getUtilisateur().getPreferences(),
                             gestionnaire.getUriCv(),
                             gestionnaire.isEstValide(),
                             gestionnaire.getId()

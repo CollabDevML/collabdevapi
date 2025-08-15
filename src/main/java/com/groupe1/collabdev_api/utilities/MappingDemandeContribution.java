@@ -11,7 +11,8 @@ public class MappingDemandeContribution {
         return new DemandeContributionDto(
                 demandeContribution.getId(),
                 demandeContribution.isEstAcceptee(),
-                demandeContribution.getDateEnvoi()
+                demandeContribution.getDateEnvoi(),
+                demandeContribution.getProfileContributeur()
         );
     }
 

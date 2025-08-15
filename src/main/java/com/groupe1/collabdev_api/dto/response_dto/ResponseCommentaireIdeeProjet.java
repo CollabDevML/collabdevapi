@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -14,5 +14,6 @@ import java.time.LocalDate;
 public class ResponseCommentaireIdeeProjet {
     private int id;
     private String contenu;
-    private LocalDate dateCommentaire;
+    private LocalDateTime dateCommentaire;
+    private ResponseUser utilisateur;
 }

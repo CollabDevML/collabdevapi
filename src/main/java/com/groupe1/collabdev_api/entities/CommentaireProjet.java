@@ -1,12 +1,13 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -23,7 +24,7 @@ public class CommentaireProjet {
     private String contenu;
 
     @Column(nullable = false)
-    private LocalDate dateCommentaire = LocalDate.now();
+    private LocalDateTime dateCommentaire = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
@@ -37,7 +38,12 @@ public class CommentaireProjet {
         return new ResponseCommentaireProjet(
                 this.id,
                 this.contenu,
-                this.dateCommentaire
+                this.dateCommentaire,
+                new ResponseUser(
+                        utilisateur.getPrenom(),
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
+                )
         );
     }
 }

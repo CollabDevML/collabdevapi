@@ -17,7 +17,8 @@ public class MappingProjet {
                 projet.getNiveauDAcces(),
                 projet.isEtat(),
                 projet.getGestionnaire().getId(),
-                projet.getPiecesDAcces()
+                projet.getPiecesDAcces(),
+                projet.getIdeeProjet().getId()
         );
     }
 

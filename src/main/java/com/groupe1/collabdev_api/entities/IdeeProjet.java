@@ -1,13 +1,17 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireIdeeProjet;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseIdeeProjet2;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
+import com.groupe1.collabdev_api.entities.enums.DomaineIdeeProjet;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +34,10 @@ public class IdeeProjet {
     private String description;
 
     @Column(nullable = false)
-    private String domaine;
+    @Enumerated(EnumType.STRING)
+    @ElementCollection
+    @CollectionTable(name = "domaines_idees_projet")
+    private List<DomaineIdeeProjet> domaine;
 
     private String uriCDC;
 
@@ -38,11 +45,15 @@ public class IdeeProjet {
     private int nombreDeSoutien = 0;
 
     @Column(nullable = false)
-    private LocalDate datePublication = LocalDate.now();
+    private LocalDateTime datePublication = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur")
     private Utilisateur utilisateur;
+
+    @Transient
+    @OneToOne(mappedBy = "ideeProjet")
+    private Projet projet;
 
     @OneToMany(mappedBy = "ideeProjet")
     private List<CommentaireIdeeProjet> commentairesIdeeProjet = new ArrayList<>();
@@ -57,6 +68,28 @@ public class IdeeProjet {
                 nombreDeSoutien,
                 datePublication,
                 utilisateur.getId()
+        );
+    }
+
+    public ResponseIdeeProjet2 toResponse2() {
+        List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets = new ArrayList<>();
+        for (CommentaireIdeeProjet commentaireIdeeProjet : commentairesIdeeProjet) {
+            commentaireIdeeProjets.add(commentaireIdeeProjet.toResponse());
+        }
+        return new ResponseIdeeProjet2(
+                id,
+                titre,
+                description,
+                domaine,
+                uriCDC,
+                nombreDeSoutien,
+                datePublication,
+                new ResponseUser(
+                        utilisateur.getPrenom(),
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
+                ),
+                commentaireIdeeProjets
         );
     }
 }

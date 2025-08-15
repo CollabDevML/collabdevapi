@@ -15,6 +15,7 @@ import java.util.List;
 @RequestMapping("/administrateurs/gestion/projets/")
 @Tag(name = "Admin Api",
         description = "Autorisation du gestionnaire")
+@CrossOrigin(origins = "http://localhost:4200")
 public class GestionAdminProjetController {
     @Autowired
     private GestionAdminProjetService gestionAdminProjetService;

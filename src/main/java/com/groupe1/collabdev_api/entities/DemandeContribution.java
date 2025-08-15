@@ -1,13 +1,14 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.entities.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -25,7 +26,10 @@ public class DemandeContribution {
     private boolean estAcceptee = false;
 
     @Column(nullable = false)
-    private LocalDate dateEnvoi = LocalDate.now();
+    private LocalDateTime dateEnvoi = LocalDateTime.now();
+
+    @Column(nullable = false)
+    private Type profileContributeur;
 
     @ManyToOne
     @JoinColumn(name = "id_contributeur", nullable = false)
@@ -39,7 +43,8 @@ public class DemandeContribution {
         return new DemandeContributionDto(
                 this.id,
                 this.estAcceptee,
-                this.dateEnvoi
+                this.dateEnvoi,
+                this.profileContributeur
         );
     }
 

@@ -7,16 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 @Tag(name = "Fichier Api",
         description = "Gestion des fichiers")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UploadController {
 
     @Autowired
@@ -36,11 +37,10 @@ public class UploadController {
                             HttpStatus.INTERNAL_SERVER_ERROR
                     );
         } else {
-            return
-                    new ResponseEntity<>(
-                            fileName,
-                            HttpStatus.CREATED
-                    );
+            Map<String, String> res = new HashMap<>();
+            res.put("chemin", filePath);
+            return new ResponseEntity<>(res, HttpStatus.CREATED);
+
         }
     }
 }

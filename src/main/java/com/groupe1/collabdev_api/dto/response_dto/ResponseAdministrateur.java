@@ -12,7 +12,8 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ResponseAdministrateur {
     private int id;
+    private String prenom;
+    private String nom;
     private String email;
-    private String motDePasse;
     private Role role;
 }

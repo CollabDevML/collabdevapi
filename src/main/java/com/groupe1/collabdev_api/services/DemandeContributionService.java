@@ -17,7 +17,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -74,7 +74,8 @@ public class DemandeContributionService {
         DemandeContribution demandeContribution = new DemandeContribution(
                 0,
                 false,
-                LocalDate.now(),
+                LocalDateTime.now(),
+                requestDemandeContribution.getProfileContributeur(),
                 contributeur,
                 projet
         );

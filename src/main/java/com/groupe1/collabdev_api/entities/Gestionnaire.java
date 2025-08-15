@@ -39,8 +39,8 @@ public class Gestionnaire {
                 this.utilisateur.getPrenom(),
                 this.utilisateur.getNom(),
                 this.utilisateur.getEmail(),
-                this.utilisateur.getMotDePasse(),
                 this.utilisateur.getGenre(),
+                this.utilisateur.getPreferences(),
                 this.uriCv,
                 this.estValide,
                 this.getId()

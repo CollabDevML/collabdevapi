@@ -2,6 +2,9 @@ package com.groupe1.collabdev_api.entities;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.groupe1.collabdev_api.dto.ProjetDto;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjet;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,10 +37,10 @@ public class Projet {
     private boolean estFini = false;
 
     @Column(nullable = false)
-    private LocalDate dateDebut;
+    private LocalDateTime dateDebut;
 
     @Column(nullable = false)
-    private LocalDate dateFin;
+    private LocalDateTime dateFin;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -48,6 +51,10 @@ public class Projet {
 
     @Column(nullable = false)
     private int piecesDAcces;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_idee_projet", nullable = false)
+    private IdeeProjet ideeProjet;
 
     @ManyToOne
     @JoinColumn(name = "id_gestionnaire", nullable = false)
@@ -91,7 +98,45 @@ public class Projet {
                 this.getNiveauDAcces(),
                 this.isEtat(),
                 this.getGestionnaire().getId(),
-                this.piecesDAcces
+                this.piecesDAcces,
+                this.ideeProjet.getId()
         );
     }
+
+    public ResponseProjet toResponse() {
+        int nombreContributeurs = 0;
+        for (DemandeContribution demandeContribution : demandeContributions) {
+            if (demandeContribution.isEstAcceptee()) {
+                nombreContributeurs++;
+            }
+        }
+        List<ResponseCommentaireProjet> commentaireProjets = new ArrayList<>();
+        for (CommentaireProjet commentaireProjet : this.commentairesProjet) {
+            commentaireProjets.add(commentaireProjet.toResponse());
+        }
+        return new ResponseProjet(
+                this.id,
+                titre,
+                description,
+                isEstFini(),
+                getDateDebut(),
+                getDateFin(),
+                getNiveauDAcces(),
+                isEtat(),
+                new ResponseUser(
+                        gestionnaire.getUtilisateur().getPrenom(),
+                        gestionnaire.getUtilisateur().getNom(),
+                        gestionnaire.getUtilisateur().getRole()
+                ),
+                piecesDAcces,
+                new ResponseUser(
+                        ideeProjet.getUtilisateur().getPrenom(),
+                        ideeProjet.getUtilisateur().getNom(),
+                        ideeProjet.getUtilisateur().getRole()
+                ),
+                commentaireProjets,
+                nombreContributeurs
+        );
+    }
+
 }

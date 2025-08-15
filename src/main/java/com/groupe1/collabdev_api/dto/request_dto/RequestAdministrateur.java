@@ -10,6 +10,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RequestAdministrateur {
+    private String prenom;
+    private String nom;
     private String email;
     private String motDePasse;
 }

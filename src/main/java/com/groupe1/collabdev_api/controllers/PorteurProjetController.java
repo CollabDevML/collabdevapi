@@ -17,6 +17,7 @@ import java.util.List;
 @RequestMapping("/utilisateurs/porteurs-projet")
 @Tag(name = "Utilisateurs Api",
         description = "Porteur de projet")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PorteurProjetController {
     @Autowired
     private PorteurProjetService porteurProjetService;

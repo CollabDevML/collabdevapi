@@ -18,6 +18,7 @@ import java.util.List;
 @RequestMapping("/uploads/badges")
 @Tag(name = "Badge Api",
         description = "la gestion CRUD pour les badges")
+@CrossOrigin(origins = "http://localhost:4200")
 public class BadgeController {
 
     @Autowired

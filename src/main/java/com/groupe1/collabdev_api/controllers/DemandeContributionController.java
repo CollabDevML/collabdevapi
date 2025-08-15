@@ -19,6 +19,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/gestionnaires/projets/demandes-contribution")
 @Tag(name = "Contribution Api")
+@CrossOrigin(origins = "http://localhost:4200")
 public class DemandeContributionController {
     public final DemandeContributionService demandeContributionService;
 
