@@ -8,10 +8,7 @@ import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.PorteurProjet;
 import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
-import com.groupe1.collabdev_api.services.ContributeurService;
-import com.groupe1.collabdev_api.services.GestionnaireService;
-import com.groupe1.collabdev_api.services.PorteurProjetService;
-import com.groupe1.collabdev_api.services.UtilisateurService;
+import com.groupe1.collabdev_api.services.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
@@ -40,6 +37,9 @@ public class UtilisateurController {
 
     @Autowired
     private PorteurProjetService porteurProjetService;
+
+    @Autowired
+    private SoutienService soutienService;
 
     @Operation(summary = "Modifier les préférences de l'utilisateur")
     @PutMapping("/{idUtilisateur}")
@@ -136,6 +136,14 @@ public class UtilisateurController {
                 return ResponseEntity.badRequest().body("Non prise en charge");
             }
         }
+    }
+
+    @GetMapping("/{idUtilisateur}/idees-projet/{idIdeeProjet}/est-soutenu")
+    public ResponseEntity<?> isHelped (
+            @PathVariable int idUtilisateur,
+            @PathVariable int idIdeeProjet
+    ) {
+        return new ResponseEntity<>(soutienService.isHelped(idUtilisateur, idIdeeProjet), HttpStatus.OK);
     }
 
 }

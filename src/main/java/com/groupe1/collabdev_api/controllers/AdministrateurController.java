@@ -2,11 +2,13 @@ package com.groupe1.collabdev_api.controllers;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestAdministrateur;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseAdministrateur;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseStats;
 import com.groupe1.collabdev_api.entities.Administrateur;
 import com.groupe1.collabdev_api.entities.enums.Role;
 import com.groupe1.collabdev_api.services.AdministrateurService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,13 +32,13 @@ public class AdministrateurController {
     @PostMapping
     public ResponseAdministrateur add(@RequestBody RequestAdministrateur admin) {
         admin.setMotDePasse(BCrypt.hashpw(admin.getMotDePasse(), BCrypt.gensalt()));
-        return administrateurService.ajouter(new Administrateur(0, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>())).toResponse();
+        return administrateurService.ajouter(new Administrateur(0, admin.getPrenom(), admin.getNom(), admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>())).toResponse();
     }
 
     @Operation(summary = "pour la modification d'un administrateur par son id")
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody RequestAdministrateur admin) {
-        return administrateurService.updateAdmin(id, new Administrateur(id, admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>()));
+        return administrateurService.updateAdmin(id, new Administrateur(id, admin.getPrenom(), admin.getNom(), admin.getEmail(), admin.getMotDePasse(), Role.ADMIN, new ArrayList<>(), new ArrayList<>()));
     }
 
     @Operation(summary = "pour récuperer la liste des admins")
@@ -65,4 +67,9 @@ public class AdministrateurController {
         return administrateurService.supprimerParId(id);
     }
 
+    @Operation(summary = "pour avoir les statistiques du système")
+    @GetMapping("/stats")
+    public ResponseEntity<ResponseStats> getStats() {
+        return ResponseEntity.ok(administrateurService.getStats());
+    }
 }

@@ -4,9 +4,11 @@ import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Projet;
+import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import com.groupe1.collabdev_api.repositories.IdeeProjetRepository;
 import com.groupe1.collabdev_api.repositories.ProjetRepository;
+import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class ProjetService {
     public Projet ajouter(ProjetDto projetDto) throws RuntimeException {
         Gestionnaire gestionnaire = gestionnaireRepository.findById(projetDto.getIdGestionnaire())
                 .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
-        //System.out.println(projetDto.getIdIdeeProjet());
+        System.out.println(projetDto.getIdIdeeProjet());
         IdeeProjet ideeProjet = ideeProjetRepository.findById(projetDto.getIdIdeeProjet())
                 .orElseThrow(() -> new RuntimeException("Idée de projet introuvable avec cet id!"));
         Projet projet = new Projet(
@@ -60,16 +62,16 @@ public class ProjetService {
                 new ArrayList<>()
         );
         Projet projetToResponse = projetRepository.save(projet);
-        //emailService.envoyerEmail(
-          //      gestionnaire.getUtilisateur().getEmail(),
-            //    "Création de projet",
-              //  String.format("""
-                //                Bonjour %s %s. \n
-                  //              Votre projet %s a été créé avec succès, place à le gérer :)"""
-                    //    , gestionnaire.getUtilisateur().getPrenom(),
-                      //  gestionnaire.getUtilisateur().getNom(),
-                        ///projetToResponse.getTitre())
-        //);
+        emailService.envoyerEmail(
+                gestionnaire.getUtilisateur().getEmail(),
+                "Création de projet",
+                String.format("""
+                                Bonjour %s %s. \n
+                                Votre projet %s a été créé avec succès, place à le gérer :)"""
+                        , gestionnaire.getUtilisateur().getPrenom(),
+                        gestionnaire.getUtilisateur().getNom(),
+                        projetToResponse.getTitre())
+        );
         return projetToResponse;
     }
 
