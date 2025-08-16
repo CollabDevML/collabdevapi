@@ -12,12 +12,115 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Table(name = "contributeurs")
 public class Contributeur {
+    public Contributeur() {
+    }
+
+    public Contributeur(int id, Utilisateur utilisateur, Niveau niveau, String specialite, Type type, double pieces, String uriCv, List<Tache> taches, List<Contribution> contributions, List<DemandeContribution> demandeContributions, List<ObtentionBadge> obtentionBadges) {
+        this.id = id;
+        this.utilisateur = utilisateur;
+        this.niveau = niveau;
+        this.specialite = specialite;
+        this.type = type;
+        this.pieces = pieces;
+        this.uriCv = uriCv;
+        this.taches = taches;
+        this.contributions = contributions;
+        this.demandeContributions = demandeContributions;
+        this.obtentionBadges = obtentionBadges;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public double getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(double pieces) {
+        this.pieces = pieces;
+    }
+
+    public String getUriCv() {
+        return uriCv;
+    }
+
+    public void setUriCv(String uriCv) {
+        this.uriCv = uriCv;
+    }
+
+    public List<Tache> getTaches() {
+        return taches;
+    }
+
+    public void setTaches(List<Tache> taches) {
+        this.taches = taches;
+    }
+
+    public List<Contribution> getContributions() {
+        return contributions;
+    }
+
+    public void setContributions(List<Contribution> contributions) {
+        this.contributions = contributions;
+    }
+
+    public List<DemandeContribution> getDemandeContributions() {
+        return demandeContributions;
+    }
+
+    public void setDemandeContributions(List<DemandeContribution> demandeContributions) {
+        this.demandeContributions = demandeContributions;
+    }
+
+    public List<ObtentionBadge> getObtentionBadges() {
+        return obtentionBadges;
+    }
+
+    public void setObtentionBadges(List<ObtentionBadge> obtentionBadges) {
+        this.obtentionBadges = obtentionBadges;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

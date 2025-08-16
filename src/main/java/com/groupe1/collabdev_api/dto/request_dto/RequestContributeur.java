@@ -15,6 +15,47 @@ public class RequestContributeur extends RequestUtilisateur {
     private Niveau niveau;
     private String specialite;
     private Type type;
+
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public double getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(double pieces) {
+        this.pieces = pieces;
+    }
+
+    public String getUriCv() {
+        return uriCv;
+    }
+
+    public void setUriCv(String uriCv) {
+        this.uriCv = uriCv;
+    }
+
     private double pieces;
     private String uriCv;
 

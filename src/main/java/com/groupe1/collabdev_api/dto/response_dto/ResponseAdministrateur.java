@@ -8,10 +8,43 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ResponseAdministrateur {
     private int id;
     private String email;
+
+    public ResponseAdministrateur() {
+    }
+
     private Role role;
+
+    public ResponseAdministrateur(int id, String email, Role role) {
+        this.id = id;
+        this.email = email;
+        this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

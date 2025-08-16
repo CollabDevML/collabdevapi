@@ -19,6 +19,54 @@ public class ResponseContributeur extends ResponseUtilisateur {
     private String uriCv;
     private int idContributeur;
 
+    public Niveau getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(Niveau niveau) {
+        this.niveau = niveau;
+    }
+
+    public String getSpecialite() {
+        return specialite;
+    }
+
+    public void setSpecialite(String specialite) {
+        this.specialite = specialite;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public double getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(double pieces) {
+        this.pieces = pieces;
+    }
+
+    public String getUriCv() {
+        return uriCv;
+    }
+
+    public void setUriCv(String uriCv) {
+        this.uriCv = uriCv;
+    }
+
+    public int getIdContributeur() {
+        return idContributeur;
+    }
+
+    public void setIdContributeur(int idContributeur) {
+        this.idContributeur = idContributeur;
+    }
+
     public ResponseContributeur(int id, String prenom, String nom, String email, Genre genre, List<String> preferences, Niveau niveau, String specialite, Type type, double pieces, String uriCv, int idContributeur) {
         super(id, prenom, nom, email, genre, preferences);
         this.niveau = niveau;

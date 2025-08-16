@@ -9,10 +9,42 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ResponseSoutien {
     private int idIdeeProjet;
     private int idUtilisateur;
+
+
+
+    public ResponseSoutien(int idIdeeProjet, int idUtilisateur, LocalDate dateSoutien) {
+        this.idIdeeProjet = idIdeeProjet;
+        this.idUtilisateur = idUtilisateur;
+        this.dateSoutien = dateSoutien;
+    }
+
+    public int getIdIdeeProjet() {
+        return idIdeeProjet;
+    }
+
+    public void setIdIdeeProjet(int idIdeeProjet) {
+        this.idIdeeProjet = idIdeeProjet;
+    }
+
+    public int getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public LocalDate getDateSoutien() {
+        return dateSoutien;
+    }
+
+    public void setDateSoutien(LocalDate dateSoutien) {
+        this.dateSoutien = dateSoutien;
+    }
+
     private LocalDate dateSoutien;
 }

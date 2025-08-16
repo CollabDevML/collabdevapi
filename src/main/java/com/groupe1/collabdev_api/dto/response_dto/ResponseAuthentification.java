@@ -7,8 +7,33 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
+
 public class ResponseAuthentification {
     private int id;
+
+    public ResponseAuthentification() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public ResponseAuthentification(int id, Role role) {
+        this.id = id;
+        this.role = role;
+    }
+
     private Role role;
 }

@@ -13,10 +13,59 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "contributions")
 public class Contribution {
+    public Contribution() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isEstValide() {
+        return estValide;
+    }
+
+    public void setEstValide(boolean estValide) {
+        this.estValide = estValide;
+    }
+
+    public Contributeur getContributeur() {
+        return contributeur;
+    }
+
+    public void setContributeur(Contributeur contributeur) {
+        this.contributeur = contributeur;
+    }
+
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
+    public Tache getTache() {
+        return tache;
+    }
+
+    public void setTache(Tache tache) {
+        this.tache = tache;
+    }
+
+    public Contribution(int id, boolean estValide, Contributeur contributeur, Projet projet, Tache tache) {
+        this.id = id;
+        this.estValide = estValide;
+        this.contributeur = contributeur;
+        this.projet = projet;
+        this.tache = tache;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

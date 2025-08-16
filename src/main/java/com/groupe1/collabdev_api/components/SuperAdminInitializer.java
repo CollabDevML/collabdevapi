@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SuperAdminInitializer implements CommandLineRunner {
 
-    @Autowired
-    private AdministrateurService administrateurService;
+
+    AdministrateurService administrateurService;
+    SuperAdminInitializer(AdministrateurService administrateurService){
+        this.administrateurService = administrateurService;
+    }
 
     @Override
     public void run(String... args) throws Exception {

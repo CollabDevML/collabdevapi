@@ -18,10 +18,104 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "idees_projet")
 public class IdeeProjet {
+    public IdeeProjet() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<DomaineIdeeProjet> getDomaine() {
+        return domaine;
+    }
+
+    public void setDomaine(List<DomaineIdeeProjet> domaine) {
+        this.domaine = domaine;
+    }
+
+    public String getUriCDC() {
+        return uriCDC;
+    }
+
+    public void setUriCDC(String uriCDC) {
+        this.uriCDC = uriCDC;
+    }
+
+    public int getNombreDeSoutien() {
+        return nombreDeSoutien;
+    }
+
+    public void setNombreDeSoutien(int nombreDeSoutien) {
+        this.nombreDeSoutien = nombreDeSoutien;
+    }
+
+    public LocalDate getDatePublication() {
+        return datePublication;
+    }
+
+    public void setDatePublication(LocalDate datePublication) {
+        this.datePublication = datePublication;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
+    public List<CommentaireIdeeProjet> getCommentairesIdeeProjet() {
+        return commentairesIdeeProjet;
+    }
+
+    public void setCommentairesIdeeProjet(List<CommentaireIdeeProjet> commentairesIdeeProjet) {
+        this.commentairesIdeeProjet = commentairesIdeeProjet;
+    }
+
+    public IdeeProjet(int id, String titre, String description, List<DomaineIdeeProjet> domaine, String uriCDC, int nombreDeSoutien, LocalDate datePublication, Utilisateur utilisateur, Projet projet, List<CommentaireIdeeProjet> commentairesIdeeProjet) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.domaine = domaine;
+        this.uriCDC = uriCDC;
+        this.nombreDeSoutien = nombreDeSoutien;
+        this.datePublication = datePublication;
+        this.utilisateur = utilisateur;
+        this.projet = projet;
+        this.commentairesIdeeProjet = commentairesIdeeProjet;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

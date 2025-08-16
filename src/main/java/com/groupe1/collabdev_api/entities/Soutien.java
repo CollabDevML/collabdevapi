@@ -14,8 +14,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Setter
 @Getter
 @Table(name = "soutiens")
@@ -25,6 +24,30 @@ public class Soutien {
 
     @Column(nullable = false)
     private LocalDate dateSoutien;
+
+    public SoutienId getIdSoutien() {
+        return idSoutien;
+    }
+
+    public Soutien(SoutienId idSoutien, LocalDate dateSoutien) {
+        this.idSoutien = idSoutien;
+        this.dateSoutien = dateSoutien;
+    }
+
+    public void setIdSoutien(SoutienId idSoutien) {
+        this.idSoutien = idSoutien;
+    }
+
+    public LocalDate getDateSoutien() {
+        return dateSoutien;
+    }
+
+    public void setDateSoutien(LocalDate dateSoutien) {
+        this.dateSoutien = dateSoutien;
+    }
+
+    public Soutien() {
+    }
 
     public ResponseSoutien toResponse() {
         return new ResponseSoutien(

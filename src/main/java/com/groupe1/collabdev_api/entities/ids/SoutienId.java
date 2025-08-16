@@ -9,9 +9,32 @@ import lombok.Setter;
 @Embeddable
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class SoutienId {
+    public SoutienId(int idUtilisateur, int idIdeeProjet) {
+        this.idUtilisateur = idUtilisateur;
+        this.idIdeeProjet = idIdeeProjet;
+    }
+
+    public SoutienId() {
+    }
+
+    public int getIdUtilisateur() {
+        return idUtilisateur;
+    }
+
+    public void setIdUtilisateur(int idUtilisateur) {
+        this.idUtilisateur = idUtilisateur;
+    }
+
+    public int getIdIdeeProjet() {
+        return idIdeeProjet;
+    }
+
+    public void setIdIdeeProjet(int idIdeeProjet) {
+        this.idIdeeProjet = idIdeeProjet;
+    }
+
     private int idUtilisateur;
     private int idIdeeProjet;
 }

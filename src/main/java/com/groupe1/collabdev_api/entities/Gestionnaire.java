@@ -12,13 +12,63 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "gestionnaires")
 public class Gestionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public String getUriCv() {
+        return uriCv;
+    }
+
+    public void setUriCv(String uriCv) {
+        this.uriCv = uriCv;
+    }
+
+    public boolean isEstValide() {
+        return estValide;
+    }
+
+    public void setEstValide(boolean estValide) {
+        this.estValide = estValide;
+    }
+
+    public List<Projet> getProjets() {
+        return projets;
+    }
+
+    public void setProjets(List<Projet> projets) {
+        this.projets = projets;
+    }
+
+    public Gestionnaire() {
+    }
+
+    public Gestionnaire(int id, Utilisateur utilisateur, String uriCv, boolean estValide, List<Projet> projets) {
+        this.id = id;
+        this.utilisateur = utilisateur;
+        this.uriCv = uriCv;
+        this.estValide = estValide;
+        this.projets = projets;
+    }
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "id_utilisateur", nullable = false)
@@ -30,7 +80,7 @@ public class Gestionnaire {
     @Column(nullable = false)
     private boolean estValide;
 
-    @OneToMany
+    @OneToMany(mappedBy = "gestionnaire", fetch = FetchType.EAGER)
     private List<Projet> projets;
 
     public ResponseGestionnaire toResponse() {

@@ -11,8 +11,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Entity
@@ -26,11 +25,107 @@ public class Tache {
     @Column(nullable = false)
     private String titre;
 
+    public Tache() {
+    }
+
     @Column(nullable = false)
     private String description;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPieceAGagner() {
+        return pieceAGagner;
+    }
+
+    public void setPieceAGagner(int pieceAGagner) {
+        this.pieceAGagner = pieceAGagner;
+    }
+
+    public LocalDate getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(LocalDate dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public LocalDate getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(LocalDate dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public boolean isEstFini() {
+        return estFini;
+    }
+
+    public void setEstFini(boolean estFini) {
+        this.estFini = estFini;
+    }
+
+    public NiveauTache getNiveau() {
+        return niveau;
+    }
+
+    public void setNiveau(NiveauTache niveau) {
+        this.niveau = niveau;
+    }
+
+    public Contributeur getContributeur() {
+        return contributeur;
+    }
+
+    public void setContributeur(Contributeur contributeur) {
+        this.contributeur = contributeur;
+    }
+
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
     @Column(nullable = false)
     private int pieceAGagner;
+
+    public Tache(int id, String titre, String description, int pieceAGagner, LocalDate dateDebut, LocalDate dateFin, boolean estFini, NiveauTache niveau, Contributeur contributeur, Projet projet) {
+        this.id = id;
+        this.titre = titre;
+        this.description = description;
+        this.pieceAGagner = pieceAGagner;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.estFini = estFini;
+        this.niveau = niveau;
+        this.contributeur = contributeur;
+        this.projet = projet;
+    }
 
     @Column(nullable = false)
     private LocalDate dateDebut;

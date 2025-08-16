@@ -11,9 +11,31 @@ import lombok.Setter;
 @Table(name = "porteurs_projet")
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class PorteurProjet {
+    public PorteurProjet(int id, Utilisateur utilisateur) {
+        this.id = id;
+        this.utilisateur = utilisateur;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public PorteurProjet() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

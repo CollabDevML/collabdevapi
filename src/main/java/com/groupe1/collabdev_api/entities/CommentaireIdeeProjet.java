@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Table(name = "commentaires_idee_projet")
@@ -19,6 +19,57 @@ public class CommentaireIdeeProjet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public CommentaireIdeeProjet() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public LocalDate getDateCommentaire() {
+        return dateCommentaire;
+    }
+
+    public void setDateCommentaire(LocalDate dateCommentaire) {
+        this.dateCommentaire = dateCommentaire;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public IdeeProjet getIdeeProjet() {
+        return ideeProjet;
+    }
+
+    public void setIdeeProjet(IdeeProjet ideeProjet) {
+        this.ideeProjet = ideeProjet;
+    }
+
+    public CommentaireIdeeProjet(int id, String contenu, LocalDate dateCommentaire, Utilisateur utilisateur, IdeeProjet ideeProjet) {
+        this.id = id;
+        this.contenu = contenu;
+        this.dateCommentaire = dateCommentaire;
+        this.utilisateur = utilisateur;
+        this.ideeProjet = ideeProjet;
+    }
 
     @Column(nullable = false)
     private String contenu;

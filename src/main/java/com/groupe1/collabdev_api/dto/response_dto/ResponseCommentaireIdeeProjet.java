@@ -9,10 +9,52 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class ResponseCommentaireIdeeProjet {
     private int id;
+
+    public ResponseCommentaireIdeeProjet() {
+    }
+
+    public ResponseCommentaireIdeeProjet(int id, String contenu, LocalDate dateCommentaire, ResponseUserNames utilisateur) {
+        this.id = id;
+        this.contenu = contenu;
+        this.dateCommentaire = dateCommentaire;
+        this.utilisateur = utilisateur;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public LocalDate getDateCommentaire() {
+        return dateCommentaire;
+    }
+
+    public void setDateCommentaire(LocalDate dateCommentaire) {
+        this.dateCommentaire = dateCommentaire;
+    }
+
+    public ResponseUserNames getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(ResponseUserNames utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
     private String contenu;
     private LocalDate dateCommentaire;
     private ResponseUserNames utilisateur;

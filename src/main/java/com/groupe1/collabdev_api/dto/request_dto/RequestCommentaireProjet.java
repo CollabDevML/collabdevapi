@@ -9,9 +9,30 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 public class RequestCommentaireProjet {
     private String contenu;
+
+    public RequestCommentaireProjet(String contenu, LocalDate dateCommentaire) {
+        this.contenu = contenu;
+        this.dateCommentaire = dateCommentaire;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public LocalDate getDateCommentaire() {
+        return dateCommentaire;
+    }
+
+    public void setDateCommentaire(LocalDate dateCommentaire) {
+        this.dateCommentaire = dateCommentaire;
+    }
+
     private LocalDate dateCommentaire;
 }
