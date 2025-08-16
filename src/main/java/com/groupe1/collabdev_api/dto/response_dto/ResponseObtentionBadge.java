@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,7 +16,7 @@ public class ResponseObtentionBadge {
     public ResponseObtentionBadge() {
     }
 
-    public ResponseObtentionBadge(int id, String nomContributeur, String titreBadge, LocalDate dateObtention) {
+    public ResponseObtentionBadge(int id, String nomContributeur, String titreBadge, LocalDateTime dateObtention) {
         this.id = id;
         this.nomContributeur = nomContributeur;
         this.titreBadge = titreBadge;
@@ -47,14 +47,14 @@ public class ResponseObtentionBadge {
         this.titreBadge = titreBadge;
     }
 
-    public LocalDate getDateObtention() {
+    public LocalDateTime getDateObtention() {
         return dateObtention;
     }
 
-    public void setDateObtention(LocalDate dateObtention) {
+    public void setDateObtention(LocalDateTime dateObtention) {
         this.dateObtention = dateObtention;
     }
 
     private String titreBadge;
-    private LocalDate dateObtention;
+    private LocalDateTime dateObtention;
 }

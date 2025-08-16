@@ -50,6 +50,17 @@ public class ProjetController {
         return projetDtos;
     }
 
+    @Operation(summary = "pour afficher tous les projets (version 2)")
+    @GetMapping("/projets/v2")
+    public List<ResponseProjet> afficherToutLesProjetVersion2() {
+        List<Projet> projets = projetService.chercherTous();
+        List<ResponseProjet> projetDtos = new ArrayList<>();
+        for (Projet projet : projets) {
+            projetDtos.add(projet.toResponse());
+        }
+        return projetDtos;
+    }
+
     @Operation(summary = "pour l'affichage d'un seul projet")
     @GetMapping("/projets/{id}")
     public ProjetDto afficherUnProjet(@PathVariable int id) {

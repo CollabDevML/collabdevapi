@@ -1,20 +1,47 @@
 package com.groupe1.collabdev_api.dto;
 
+import com.groupe1.collabdev_api.dto.response_dto.ResponseGestionnaire;
+import com.groupe1.collabdev_api.entities.DemandeContribution;
+import com.groupe1.collabdev_api.entities.Tache;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 public class ProjetDto {
+    private int id;
     private String titre;
     private String description;
     private boolean estFini;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
+
+    private Niveau niveauDAcces;
+    private boolean etat;
+    private int idGestionnaire;
+    private int piecesDAcces;
+    private int idIdeeProjet;
+    private List<DemandeContributionDto> demandeContributions;
+    private List<ContributionDto> listContributions;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public List<ContributionDto> getListContributions() {
+        return listContributions;
+    }
+
+    public void setListContributions(List<ContributionDto> listContributions) {
+        this.listContributions = listContributions;
+    }
 
     public ProjetDto() {
     }
@@ -43,19 +70,19 @@ public class ProjetDto {
         this.estFini = estFini;
     }
 
-    public LocalDate getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(LocalDateTime dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -91,6 +118,14 @@ public class ProjetDto {
         this.piecesDAcces = piecesDAcces;
     }
 
+    public List<DemandeContributionDto> getDemandeContributions() {
+        return demandeContributions;
+    }
+
+    public void setDemandeContributions(List<DemandeContributionDto> demandeContributions) {
+        this.demandeContributions = demandeContributions;
+    }
+
     public int getIdIdeeProjet() {
         return idIdeeProjet;
     }
@@ -99,7 +134,11 @@ public class ProjetDto {
         this.idIdeeProjet = idIdeeProjet;
     }
 
-    public ProjetDto(String titre, String description, boolean estFini, LocalDate dateDebut, LocalDate dateFin, Niveau niveauDAcces, boolean etat, int idGestionnaire, int piecesDAcces, int idIdeeProjet) {
+    public ProjetDto(int id, String titre, String description, boolean estFini,
+                     LocalDateTime dateDebut, LocalDateTime dateFin, Niveau niveauDAcces, boolean etat, int idGestionnaire, int piecesDAcces, int idIdeeProjet,
+                     List<DemandeContributionDto> demandeContributions,
+                     List<ContributionDto> listContributions) {
+        this.id = id;
         this.titre = titre;
         this.description = description;
         this.estFini = estFini;
@@ -110,11 +149,8 @@ public class ProjetDto {
         this.idGestionnaire = idGestionnaire;
         this.piecesDAcces = piecesDAcces;
         this.idIdeeProjet = idIdeeProjet;
+        this.demandeContributions = demandeContributions;
+        this.listContributions = listContributions;
     }
 
-    private Niveau niveauDAcces;
-    private boolean etat;
-    private int idGestionnaire;
-    private int piecesDAcces;
-    private int idIdeeProjet;
 }

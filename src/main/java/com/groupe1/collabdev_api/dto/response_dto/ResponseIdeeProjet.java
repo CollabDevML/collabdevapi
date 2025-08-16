@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -21,7 +21,7 @@ public class ResponseIdeeProjet {
         return id;
     }
 
-    public ResponseIdeeProjet(int id, String titre, String description, List<DomaineIdeeProjet> domaine, String uriCDC, int nombreSoutien, LocalDate datePublication, int idUtilisateur) {
+    public ResponseIdeeProjet(int id, String titre, String description, List<DomaineIdeeProjet> domaine, String uriCDC, int nombreSoutien, LocalDateTime datePublication, int idUtilisateur) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -76,11 +76,11 @@ public class ResponseIdeeProjet {
         this.nombreSoutien = nombreSoutien;
     }
 
-    public LocalDate getDatePublication() {
+    public LocalDateTime getDatePublication() {
         return datePublication;
     }
 
-    public void setDatePublication(LocalDate datePublication) {
+    public void setDatePublication(LocalDateTime datePublication) {
         this.datePublication = datePublication;
     }
 
@@ -94,6 +94,6 @@ public class ResponseIdeeProjet {
 
     private String uriCDC;
     private int nombreSoutien;
-    private LocalDate datePublication;
+    private LocalDateTime datePublication;
     private int idUtilisateur;
 }

@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 
@@ -23,13 +23,13 @@ public class Soutien {
     private SoutienId idSoutien;
 
     @Column(nullable = false)
-    private LocalDate dateSoutien;
+    private LocalDateTime dateSoutien;
 
     public SoutienId getIdSoutien() {
         return idSoutien;
     }
 
-    public Soutien(SoutienId idSoutien, LocalDate dateSoutien) {
+    public Soutien(SoutienId idSoutien, LocalDateTime dateSoutien) {
         this.idSoutien = idSoutien;
         this.dateSoutien = dateSoutien;
     }
@@ -38,11 +38,11 @@ public class Soutien {
         this.idSoutien = idSoutien;
     }
 
-    public LocalDate getDateSoutien() {
+    public LocalDateTime getDateSoutien() {
         return dateSoutien;
     }
 
-    public void setDateSoutien(LocalDate dateSoutien) {
+    public void setDateSoutien(LocalDateTime dateSoutien) {
         this.dateSoutien = dateSoutien;
     }
 

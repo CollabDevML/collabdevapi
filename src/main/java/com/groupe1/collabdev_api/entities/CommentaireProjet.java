@@ -1,13 +1,14 @@
 package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.response_dto.ResponseCommentaireProjet;
-import com.groupe1.collabdev_api.dto.response_dto.ResponseUserNames;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseUser;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -34,11 +35,11 @@ public class CommentaireProjet {
         this.contenu = contenu;
     }
 
-    public LocalDate getDateCommentaire() {
+    public LocalDateTime getDateCommentaire() {
         return dateCommentaire;
     }
 
-    public void setDateCommentaire(LocalDate dateCommentaire) {
+    public void setDateCommentaire(LocalDateTime dateCommentaire) {
         this.dateCommentaire = dateCommentaire;
     }
 
@@ -58,7 +59,7 @@ public class CommentaireProjet {
         this.projet = projet;
     }
 
-    public CommentaireProjet(int id, String contenu, LocalDate dateCommentaire, Utilisateur utilisateur, Projet projet) {
+    public CommentaireProjet(int id, String contenu, LocalDateTime dateCommentaire, Utilisateur utilisateur, Projet projet) {
         this.id = id;
         this.contenu = contenu;
         this.dateCommentaire = dateCommentaire;
@@ -74,7 +75,7 @@ public class CommentaireProjet {
     private String contenu;
 
     @Column(nullable = false)
-    private LocalDate dateCommentaire = LocalDate.now();
+    private LocalDateTime dateCommentaire = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_utilisateur", nullable = false)
@@ -89,9 +90,10 @@ public class CommentaireProjet {
                 this.id,
                 this.contenu,
                 this.dateCommentaire,
-                new ResponseUserNames(
+                new ResponseUser(
                         utilisateur.getPrenom(),
-                        utilisateur.getNom()
+                        utilisateur.getNom(),
+                        utilisateur.getRole()
                 )
         );
     }

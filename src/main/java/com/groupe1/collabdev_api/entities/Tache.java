@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -63,19 +63,19 @@ public class Tache {
         this.pieceAGagner = pieceAGagner;
     }
 
-    public LocalDate getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(LocalDateTime dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -114,7 +114,7 @@ public class Tache {
     @Column(nullable = false)
     private int pieceAGagner;
 
-    public Tache(int id, String titre, String description, int pieceAGagner, LocalDate dateDebut, LocalDate dateFin, boolean estFini, NiveauTache niveau, Contributeur contributeur, Projet projet) {
+    public Tache(int id, String titre, String description, int pieceAGagner, LocalDateTime dateDebut, LocalDateTime dateFin, boolean estFini, NiveauTache niveau, Contributeur contributeur, Projet projet) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -128,10 +128,10 @@ public class Tache {
     }
 
     @Column(nullable = false)
-    private LocalDate dateDebut;
+    private LocalDateTime dateDebut;
 
     @Column(nullable = false)
-    private LocalDate dateFin;
+    private LocalDateTime dateFin;
 
     @Column(nullable = false)
     private boolean estFini = false;

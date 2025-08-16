@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,11 +13,14 @@ import java.time.LocalDate;
 public class ResponseCommentaireProjet {
     private int id;
     private String contenu;
+    private LocalDateTime dateCommentaire;
+    private ResponseUser utilisateur;
+
 
     public ResponseCommentaireProjet() {
     }
 
-    public ResponseCommentaireProjet(int id, String contenu, LocalDate dateCommentaire, ResponseUserNames utilisateur) {
+    public ResponseCommentaireProjet(int id, String contenu, LocalDateTime dateCommentaire, ResponseUser utilisateur) {
         this.id = id;
         this.contenu = contenu;
         this.dateCommentaire = dateCommentaire;
@@ -40,22 +43,25 @@ public class ResponseCommentaireProjet {
         this.contenu = contenu;
     }
 
-    public LocalDate getDateCommentaire() {
+    public LocalDateTime getDateCommentaire() {
         return dateCommentaire;
     }
 
-    public void setDateCommentaire(LocalDate dateCommentaire) {
+    public void setDateCommentaire(LocalDateTime dateCommentaire) {
         this.dateCommentaire = dateCommentaire;
     }
 
-    public ResponseUserNames getUtilisateur() {
+    public ResponseUser getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(ResponseUserNames utilisateur) {
+    public void setUtilisateur(ResponseUser utilisateur) {
         this.utilisateur = utilisateur;
     }
 
-    private LocalDate dateCommentaire;
-    private ResponseUserNames utilisateur;
+
+
+
+
+
 }

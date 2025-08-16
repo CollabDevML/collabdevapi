@@ -96,7 +96,10 @@ public class Contribution {
                                 contribution.estValide,
                                 contribution.tache.getId(),
                                 contribution.tache.getDescription(),
-                                contribution.getContributeur().getId()
+                                contribution.getContributeur().getId(),
+                                contribution.getProjet().getTitre(),
+                                contribution.getContributeur().getUtilisateur().getNom(),
+                                contribution.getContributeur().getUtilisateur().getPrenom()
                         )
                 )
         );
@@ -109,7 +112,10 @@ public class Contribution {
                 this.estValide,
                 this.tache.getId(),
                 this.tache.getDescription(),
-                this.getContributeur().getId()
+                this.getContributeur().getId(),
+                this.getProjet().getTitre(),
+                this.getContributeur().getUtilisateur().getNom(),
+                this.getContributeur().getUtilisateur().getPrenom()
         );
     }
 

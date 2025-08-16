@@ -1,24 +1,37 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
 import com.groupe1.collabdev_api.entities.enums.Niveau;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
 @Setter
 
 public class ResponseProjet {
+
     public ResponseProjet() {
     }
 
+
+    private int id;
     private String titre;
     private String description;
+    private boolean estFini;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
+    private Niveau niveauDAcces;
+    private boolean etat;
+    private ResponseUser gestionnaire;
+    private int piecesDAcces;
+    private ResponseUser porteur;
+    private List<ResponseCommentaireProjet> commentaires;
+    private int nombreContributeurs;
 
-    public ResponseProjet(String titre, String description, boolean estFini, LocalDate dateDebut, LocalDate dateFin, Niveau niveauDAcces, boolean etat, ResponseUserNames gestionnaire, int piecesDAcces, ResponseUserNames porteur, List<ResponseCommentaireProjet> commentaires, int nombreContributeurs) {
+    public ResponseProjet(int id, String titre, String description, boolean estFini, LocalDateTime dateDebut, LocalDateTime dateFin, Niveau niveauDAcces, boolean etat, ResponseUser gestionnaire, int piecesDAcces, ResponseUser porteur, List<ResponseCommentaireProjet> commentaires, int nombreContributeurs) {
+        this.id = id;
         this.titre = titre;
         this.description = description;
         this.estFini = estFini;
@@ -57,19 +70,19 @@ public class ResponseProjet {
         this.estFini = estFini;
     }
 
-    public LocalDate getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(LocalDateTime dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -89,11 +102,11 @@ public class ResponseProjet {
         this.etat = etat;
     }
 
-    public ResponseUserNames getGestionnaire() {
+    public ResponseUser getGestionnaire() {
         return gestionnaire;
     }
 
-    public void setGestionnaire(ResponseUserNames gestionnaire) {
+    public void setGestionnaire(ResponseUser gestionnaire) {
         this.gestionnaire = gestionnaire;
     }
 
@@ -105,11 +118,11 @@ public class ResponseProjet {
         this.piecesDAcces = piecesDAcces;
     }
 
-    public ResponseUserNames getPorteur() {
+    public ResponseUser getPorteur() {
         return porteur;
     }
 
-    public void setPorteur(ResponseUserNames porteur) {
+    public void setPorteur(ResponseUser porteur) {
         this.porteur = porteur;
     }
 
@@ -129,14 +142,5 @@ public class ResponseProjet {
         this.nombreContributeurs = nombreContributeurs;
     }
 
-    private boolean estFini;
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-    private Niveau niveauDAcces;
-    private boolean etat;
-    private ResponseUserNames gestionnaire;
-    private int piecesDAcces;
-    private ResponseUserNames porteur;
-    private List<ResponseCommentaireProjet> commentaires;
-    private int nombreContributeurs;
+
 }

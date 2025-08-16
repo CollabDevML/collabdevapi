@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -18,7 +18,7 @@ public class ResponseIdeeProjet2 {
     public ResponseIdeeProjet2() {
     }
 
-    public ResponseIdeeProjet2(int id, String titre, String description, List<DomaineIdeeProjet> domaine, String uriCDC, int nombreSoutien, LocalDate datePublication, ResponseUserNames utilisateur, List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets) {
+    public ResponseIdeeProjet2(int id, String titre, String description, List<DomaineIdeeProjet> domaine, String uriCDC, int nombreSoutien, LocalDateTime datePublication, ResponseUser utilisateur, List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -78,19 +78,19 @@ public class ResponseIdeeProjet2 {
         this.nombreSoutien = nombreSoutien;
     }
 
-    public LocalDate getDatePublication() {
+    public LocalDateTime getDatePublication() {
         return datePublication;
     }
 
-    public void setDatePublication(LocalDate datePublication) {
+    public void setDatePublication(LocalDateTime datePublication) {
         this.datePublication = datePublication;
     }
 
-    public ResponseUserNames getUtilisateur() {
+    public ResponseUser getUtilisateur() {
         return utilisateur;
     }
 
-    public void setUtilisateur(ResponseUserNames utilisateur) {
+    public void setUtilisateur(ResponseUser utilisateur) {
         this.utilisateur = utilisateur;
     }
 
@@ -106,7 +106,7 @@ public class ResponseIdeeProjet2 {
     private List<DomaineIdeeProjet> domaine;
     private String uriCDC;
     private int nombreSoutien;
-    private LocalDate datePublication;
-    private ResponseUserNames utilisateur;
+    private LocalDateTime datePublication;
+    private ResponseUser utilisateur;
     private List<ResponseCommentaireIdeeProjet> commentaireIdeeProjets;
 }

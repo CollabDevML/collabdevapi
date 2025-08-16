@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -14,16 +14,15 @@ public class ResponseTache {
     private int id;
     private String titre;
     private String description;
+    private LocalDateTime dateDebut;
+    private LocalDateTime dateFin;
 
-    public int getId() {
-        return id;
+    public ResponseTache() {
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    private int piecesAGagner;
 
-    public ResponseTache(int id, String titre, String description, LocalDate dateDebut, LocalDate dateFin, int piecesAGagner, NiveauTache niveau) {
+    public ResponseTache(int id, String titre, String description, LocalDateTime dateDebut, LocalDateTime dateFin, int piecesAGagner, NiveauTache niveau) {
         this.id = id;
         this.titre = titre;
         this.description = description;
@@ -31,6 +30,16 @@ public class ResponseTache {
         this.dateFin = dateFin;
         this.piecesAGagner = piecesAGagner;
         this.niveau = niveau;
+    }
+
+    private NiveauTache niveau;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitre() {
@@ -49,19 +58,19 @@ public class ResponseTache {
         this.description = description;
     }
 
-    public LocalDate getDateDebut() {
+    public LocalDateTime getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(LocalDate dateDebut) {
+    public void setDateDebut(LocalDateTime dateDebut) {
         this.dateDebut = dateDebut;
     }
 
-    public LocalDate getDateFin() {
+    public LocalDateTime getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(LocalDate dateFin) {
+    public void setDateFin(LocalDateTime dateFin) {
         this.dateFin = dateFin;
     }
 
@@ -80,9 +89,4 @@ public class ResponseTache {
     public void setNiveau(NiveauTache niveau) {
         this.niveau = niveau;
     }
-
-    private LocalDate dateDebut;
-    private LocalDate dateFin;
-    private int piecesAGagner;
-    private NiveauTache niveau;
 }

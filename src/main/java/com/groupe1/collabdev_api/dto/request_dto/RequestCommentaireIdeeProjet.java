@@ -5,16 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 
 public class RequestCommentaireIdeeProjet {
     private String contenu;
-    private LocalDate dateCommentaire;
 
-    public RequestCommentaireIdeeProjet(String contenu, LocalDate dateCommentaire) {
+    private LocalDateTime dateCommentaire;
+
+    public RequestCommentaireIdeeProjet(String contenu, LocalDateTime dateCommentaire) {
         this.contenu = contenu;
         this.dateCommentaire = dateCommentaire;
     }
@@ -27,11 +28,11 @@ public class RequestCommentaireIdeeProjet {
         this.contenu = contenu;
     }
 
-    public LocalDate getDateCommentaire() {
+    public LocalDateTime getDateCommentaire() {
         return dateCommentaire;
     }
 
-    public void setDateCommentaire(LocalDate dateCommentaire) {
+    public void setDateCommentaire(LocalDateTime dateCommentaire) {
         this.dateCommentaire = dateCommentaire;
     }
 }

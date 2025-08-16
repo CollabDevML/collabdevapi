@@ -1,23 +1,25 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
+import com.groupe1.collabdev_api.entities.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 
-public class ResponseUserNames {
+
+public class ResponseUser {
     private String prenom;
-    private String nom;
 
-    public ResponseUserNames() {
+    public ResponseUser() {
     }
 
-    public ResponseUserNames(String prenom, String nom) {
+    public ResponseUser(String prenom, String nom, Role role) {
         this.prenom = prenom;
         this.nom = nom;
+        this.role = role;
     }
+
+    private String nom;
 
     public String getPrenom() {
         return prenom;
@@ -34,4 +36,15 @@ public class ResponseUserNames {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    private Role role;
+
 }

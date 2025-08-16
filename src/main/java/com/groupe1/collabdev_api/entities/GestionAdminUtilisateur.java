@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "gestions_admin_utilisateur")
@@ -18,7 +18,7 @@ public class GestionAdminUtilisateur {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    public GestionAdminUtilisateur(int id, TypeGestionUtilisateurs typeGestion, LocalDate dateGestion, Administrateur administrateur, Utilisateur utilisateur) {
+    public GestionAdminUtilisateur(int id, TypeGestionUtilisateurs typeGestion, LocalDateTime dateGestion, Administrateur administrateur, Utilisateur utilisateur) {
         this.id = id;
         this.typeGestion = typeGestion;
         this.dateGestion = dateGestion;
@@ -42,11 +42,11 @@ public class GestionAdminUtilisateur {
         this.typeGestion = typeGestion;
     }
 
-    public LocalDate getDateGestion() {
+    public LocalDateTime getDateGestion() {
         return dateGestion;
     }
 
-    public void setDateGestion(LocalDate dateGestion) {
+    public void setDateGestion(LocalDateTime dateGestion) {
         this.dateGestion = dateGestion;
     }
 
@@ -73,7 +73,7 @@ public class GestionAdminUtilisateur {
     private TypeGestionUtilisateurs typeGestion;
 
     @Column(nullable = false)
-    private LocalDate dateGestion = LocalDate.now();
+    private LocalDateTime dateGestion = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(nullable = false, name = "id_administrateur")

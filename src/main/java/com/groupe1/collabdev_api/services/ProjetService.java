@@ -4,9 +4,11 @@ import com.groupe1.collabdev_api.dto.ProjetDto;
 import com.groupe1.collabdev_api.entities.Gestionnaire;
 import com.groupe1.collabdev_api.entities.IdeeProjet;
 import com.groupe1.collabdev_api.entities.Projet;
+import com.groupe1.collabdev_api.entities.Utilisateur;
 import com.groupe1.collabdev_api.repositories.GestionnaireRepository;
 import com.groupe1.collabdev_api.repositories.IdeeProjetRepository;
 import com.groupe1.collabdev_api.repositories.ProjetRepository;
+import com.groupe1.collabdev_api.repositories.UtilisateurRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class ProjetService {
     @Autowired
     private EnvoieDemailService emailService;
     @Autowired
+    private UtilisateurRepository utilisateurRepository;
+    @Autowired
     private IdeeProjetRepository ideeProjetRepository;
 
     public Projet chercherParId(int id) {
@@ -36,8 +40,10 @@ public class ProjetService {
     }
 
     public Projet ajouter(ProjetDto projetDto) throws RuntimeException {
-        Gestionnaire gestionnaire = gestionnaireRepository.findById(projetDto.getIdGestionnaire())
-                .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
+        Utilisateur utilisateur = utilisateurRepository.findById(projetDto.getIdGestionnaire())
+                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
+        Gestionnaire gestionnaire = gestionnaireRepository.findByUtilisateurId(utilisateur.getId())
+                        .orElseThrow(() -> new RuntimeException("Projet créable que par les gestionnaires!"));
         System.out.println(projetDto.getIdIdeeProjet());
         IdeeProjet ideeProjet = ideeProjetRepository.findById(projetDto.getIdIdeeProjet())
                 .orElseThrow(() -> new RuntimeException("Idée de projet introuvable avec cet id!"));

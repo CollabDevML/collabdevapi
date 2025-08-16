@@ -11,7 +11,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -53,7 +53,7 @@ public class GestionAdminProjetService {
                 new GestionAdminProjet(
                         0,
                         TypeGestionProjet.SUPPRIMER,
-                        LocalDate.now(),
+                        LocalDateTime.now(),
                         administrateur,
                         projet
                 )
@@ -82,7 +82,7 @@ public class GestionAdminProjetService {
 
             gProjet.setProjet(projet1);
             gProjet.setAdministrateur(admin);
-            gProjet.setDateGestion(LocalDate.now());
+            gProjet.setDateGestion(LocalDateTime.now());
             gestionAdminProjetRepository.save(gProjet);
 
         });
@@ -105,7 +105,7 @@ public class GestionAdminProjetService {
 
             gProjet.setProjet(projet1);
             gProjet.setAdministrateur(admin);
-            gProjet.setDateGestion(LocalDate.now());
+            gProjet.setDateGestion(LocalDateTime.now());
             gestionAdminProjetRepository.save(gProjet);
 
         });

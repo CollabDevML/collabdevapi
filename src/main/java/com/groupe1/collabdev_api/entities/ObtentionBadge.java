@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Getter
@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "obtentions_badge")
 public class ObtentionBadge {
-    public ObtentionBadge(int id, LocalDate dateObtention, Contributeur contributeur, Badge badge) {
+    public ObtentionBadge(int id, LocalDateTime dateObtention, Contributeur contributeur, Badge badge) {
         this.id = id;
         this.dateObtention = dateObtention;
         this.contributeur = contributeur;
@@ -27,7 +27,7 @@ public class ObtentionBadge {
     private int id;
 
     @Column(nullable = false)
-    private LocalDate dateObtention = LocalDate.now();
+    private LocalDateTime dateObtention = LocalDateTime.now();
 
     @ManyToOne
     @JoinColumn(name = "id_contributeur", nullable = false)
@@ -59,11 +59,11 @@ public class ObtentionBadge {
         this.id = id;
     }
 
-    public LocalDate getDateObtention() {
+    public LocalDateTime getDateObtention() {
         return dateObtention;
     }
 
-    public void setDateObtention(LocalDate dateObtention) {
+    public void setDateObtention(LocalDateTime dateObtention) {
         this.dateObtention = dateObtention;
     }
 

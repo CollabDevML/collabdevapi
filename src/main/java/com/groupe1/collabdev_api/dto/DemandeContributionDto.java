@@ -6,15 +6,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
 public class DemandeContributionDto {
     private int id;
     private Boolean estAccepte;
-    private LocalDate dateEnvoi;
+    private LocalDateTime dateEnvoi;
     private Type profileContributeur;
+    private String nom_projet;
+    private String nom_contributeur;
+    private String prenom_contributeur;
+    private int contributeur_id;
 
     public DemandeContributionDto() {
     }
@@ -27,11 +31,49 @@ public class DemandeContributionDto {
         this.id = id;
     }
 
-    public DemandeContributionDto(int id, Boolean estAccepte, LocalDate dateEnvoi, Type profileContributeur) {
+    public String getNom_projet() {
+        return nom_projet;
+    }
+
+    public void setNom_projet(String nom_projet) {
+        this.nom_projet = nom_projet;
+    }
+
+    public String getNom_contributeur() {
+        return nom_contributeur;
+    }
+
+    public void setNom_contributeur(String nom_contributeur) {
+        this.nom_contributeur = nom_contributeur;
+    }
+
+    public String getPrenom_contributeur() {
+        return prenom_contributeur;
+    }
+
+    public void setPrenom_contributeur(String prenom_contributeur) {
+        this.prenom_contributeur = prenom_contributeur;
+    }
+
+    public DemandeContributionDto(int id, Boolean estAccepte, LocalDateTime dateEnvoi, Type profileContributeur
+            , String nom_projet, String nom_contributeur, String prenom_contributeur,
+                                  int contributeur_id) {
         this.id = id;
         this.estAccepte = estAccepte;
         this.dateEnvoi = dateEnvoi;
         this.profileContributeur = profileContributeur;
+        this.nom_projet = nom_projet;
+        this.prenom_contributeur = prenom_contributeur;
+        this.nom_contributeur = nom_contributeur;
+        this.contributeur_id = contributeur_id;
+    }
+
+    public int getContributeur_id() {
+        return contributeur_id;
+    }
+
+    public void setContributeur_id(int contributeur_id) {
+        this.contributeur_id = contributeur_id;
     }
 
     public Boolean getEstAccepte() {
@@ -42,11 +84,11 @@ public class DemandeContributionDto {
         this.estAccepte = estAccepte;
     }
 
-    public LocalDate getDateEnvoi() {
+    public LocalDateTime getDateEnvoi() {
         return dateEnvoi;
     }
 
-    public void setDateEnvoi(LocalDate dateEnvoi) {
+    public void setDateEnvoi(LocalDateTime dateEnvoi) {
         this.dateEnvoi = dateEnvoi;
     }
 

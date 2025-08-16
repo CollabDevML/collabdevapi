@@ -26,8 +26,26 @@ public class Administrateur {
     public Administrateur() {
     }
 
-    public Administrateur(int id, String email, String motDePasse, Role role, List<GestionAdminUtilisateur> gestionsAdminUtilisateur, List<GestionAdminProjet> gestionsAdminProjet) {
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Administrateur(int id, String prenom, String nom, String email, String motDePasse, Role role, List<GestionAdminUtilisateur> gestionsAdminUtilisateur, List<GestionAdminProjet> gestionsAdminProjet) {
         this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
         this.email = email;
         this.motDePasse = motDePasse;
         this.role = role;
@@ -84,6 +102,12 @@ public class Administrateur {
     }
 
     @Column(nullable = false)
+    private String prenom;
+
+    @Column(nullable = false)
+    private String nom;
+
+    @Column(nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -103,6 +127,8 @@ public class Administrateur {
         return
                 new ResponseAdministrateur(
                         this.id,
+                        this.prenom,
+                        this.nom,
                         this.email,
                         this.role
                 );

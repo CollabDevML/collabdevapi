@@ -13,7 +13,10 @@ public class MappingContribution {
                 contribution.isEstValide(),
                 contribution.getTache().getId(),
                 contribution.getTache().getDescription(),
-                contribution.getContributeur().getId()
+                contribution.getContributeur().getId(),
+                contribution.getProjet().getTitre(),
+                contribution.getContributeur().getUtilisateur().getNom(),
+                contribution.getContributeur().getUtilisateur().getPrenom()
         );
     }
 

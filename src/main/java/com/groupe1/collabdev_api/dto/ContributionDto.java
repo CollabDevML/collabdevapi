@@ -11,6 +11,9 @@ import lombok.Setter;
 public class ContributionDto {
     private int id;
     private Boolean estValide;
+    private String nom_projet;
+    private String nom_contributeur;
+    private String prenom_contributeur;
 
     public ContributionDto() {
     }
@@ -55,12 +58,42 @@ public class ContributionDto {
         this.idContributeur = idContributeur;
     }
 
-    public ContributionDto(int id, Boolean estValide, int idTache, String descriptionTache, int idContributeur) {
+    public String getNom_projet() {
+        return nom_projet;
+    }
+
+    public void setNom_projet(String nom_projet) {
+        this.nom_projet = nom_projet;
+    }
+
+    public String getNom_contributeur() {
+        return nom_contributeur;
+    }
+
+    public void setNom_contributeur(String nom_contributeur) {
+        this.nom_contributeur = nom_contributeur;
+    }
+
+    public String getPrenom_contributeur() {
+        return prenom_contributeur;
+    }
+
+    public void setPrenom_contributeur(String prenom_contributeur) {
+        this.prenom_contributeur = prenom_contributeur;
+    }
+
+    public ContributionDto(int id, Boolean estValide,
+                           int idTache, String descriptionTache,
+                           int idContributeur,
+                           String nom_projet, String nom_contributeur,String prenom_contributeur) {
         this.id = id;
         this.estValide = estValide;
         this.idTache = idTache;
         this.descriptionTache = descriptionTache;
         this.idContributeur = idContributeur;
+        this.nom_projet = nom_projet;
+        this.nom_contributeur = nom_contributeur;
+        this.prenom_contributeur = prenom_contributeur;
     }
 
     private int idTache;

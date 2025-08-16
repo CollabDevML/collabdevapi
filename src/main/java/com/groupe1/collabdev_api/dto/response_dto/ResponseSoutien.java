@@ -1,27 +1,15 @@
 package com.groupe1.collabdev_api.dto.response_dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
 
 public class ResponseSoutien {
-    private int idIdeeProjet;
-    private int idUtilisateur;
-
-
-
-    public ResponseSoutien(int idIdeeProjet, int idUtilisateur, LocalDate dateSoutien) {
-        this.idIdeeProjet = idIdeeProjet;
-        this.idUtilisateur = idUtilisateur;
-        this.dateSoutien = dateSoutien;
-    }
-
     public int getIdIdeeProjet() {
         return idIdeeProjet;
     }
@@ -38,13 +26,25 @@ public class ResponseSoutien {
         this.idUtilisateur = idUtilisateur;
     }
 
-    public LocalDate getDateSoutien() {
+    public LocalDateTime getDateSoutien() {
         return dateSoutien;
     }
 
-    public void setDateSoutien(LocalDate dateSoutien) {
+    public void setDateSoutien(LocalDateTime dateSoutien) {
         this.dateSoutien = dateSoutien;
     }
 
-    private LocalDate dateSoutien;
+    private int idIdeeProjet;
+    private int idUtilisateur;
+
+    public ResponseSoutien() {
+    }
+
+    private LocalDateTime dateSoutien;
+
+    public ResponseSoutien(int idIdeeProjet, int idUtilisateur, LocalDateTime dateSoutien) {
+        this.idIdeeProjet = idIdeeProjet;
+        this.idUtilisateur = idUtilisateur;
+        this.dateSoutien = dateSoutien;
+    }
 }
