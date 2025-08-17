@@ -73,4 +73,10 @@ public class GestionnaireController {
         }
     }
 
+
+    @GetMapping("/{idutilisateur}/gestionnaire")
+    public Gestionnaire trouverUnGestionnaireParSonIdUtilisateur(@PathVariable int idutilisateur){
+        return  gestionnaireService.chercherParIdUtilisateur(idutilisateur);
+    }
+
 }
