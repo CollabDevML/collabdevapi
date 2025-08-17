@@ -15,6 +15,7 @@ import com.groupe1.collabdev_api.utilities.MappingDemandeContribution;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -148,16 +149,16 @@ public class DemandeContributionService {
     }
 
     @Transactional
-    public Optional<DemandeContribution> modifierEstAcceptee(int idDemandeContribution, boolean estAcceptee) throws RuntimeException {
+    public Optional<DemandeContribution> modifierEstAcceptee(int idDemandeContribution, boolean estAcceptee) throws BadRequestException {
         DemandeContribution demandeContribution = demandeContributionRepository
                 .findById(idDemandeContribution).orElseThrow(
                         () -> new EntityNotFoundException("La demande est introuvable!")
                 );
         if (demandeContribution.isEstAcceptee()) {
-            throw new RuntimeException("Cette demande a déjà été acceptée!");
+            throw new BadRequestException("Cette demande a déjà été acceptée!");
         }
         if (demandeContribution.getContributeur().getPieces() < demandeContribution.getProjet().getPiecesDAcces()) {
-            throw new RuntimeException("Le contributeur n'a pas assez de pièces pour contribuer à ce projet!");
+            throw new BadRequestException("Le contributeur n'a pas assez de pièces pour contribuer à ce projet!");
         }
         if (estAcceptee) {
             Contributeur contributeur = demandeContribution.getContributeur();

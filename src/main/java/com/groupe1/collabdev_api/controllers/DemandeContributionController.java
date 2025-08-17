@@ -10,10 +10,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.apache.coyote.BadRequestException;
+import org.hibernate.mapping.Any;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -114,24 +117,31 @@ public class DemandeContributionController {
         try {
             Optional<DemandeContribution> demandeContribution = demandeContributionService.modifierEstAcceptee(id, value);
             if (demandeContribution.isEmpty()) {
+                HashMap<String, Object> response = new HashMap<>();
+                response.put("code", HttpStatus.BAD_REQUEST.value());
+                response.put("message", "La demande a été rejetée");
+                response.put("data", null);
                 return new ResponseEntity<>(
-                        "La demande a été rejetée!",
+                        response,
                         HttpStatus.OK
                 );
             }
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("code", HttpStatus.OK.value());
+            response.put("message", "La demande a été acceptée");
+            response.put("data", demandeContribution.get().toResponse());
             return new ResponseEntity<>(
-                    demandeContribution.get().toDto(),
+                    response,
                     HttpStatus.OK
             );
-        } catch (EntityNotFoundException e) {
+        } catch (EntityNotFoundException | BadRequestException e) {
+            HashMap<String, Object> response = new HashMap<>();
+            response.put("code", HttpStatus.BAD_REQUEST.value());
+            response.put("message", e.getMessage());
+            response.put("data", null);
             return new ResponseEntity<>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(
-                    e.getMessage(),
-                    HttpStatus.FORBIDDEN
+                    response,
+                    HttpStatus.OK
             );
         }
     }
