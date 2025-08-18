@@ -42,8 +42,8 @@ public class Tache {
     @Column(nullable = false)
     private boolean estFini = false;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private NiveauTache niveau;
 
     @ManyToOne
