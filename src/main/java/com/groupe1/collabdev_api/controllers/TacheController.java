@@ -9,12 +9,15 @@ import com.groupe1.collabdev_api.exceptions.UserNotFoundException;
 import com.groupe1.collabdev_api.services.TacheService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/utilisateurs/gestionnaires/projets/taches")
@@ -57,21 +60,25 @@ public class TacheController {
     public ResponseEntity<?> afficherTousLesTache(@RequestParam int projetId) {
         try {
             List<ResponseTache> taches = tacheService.chercherTous(projetId);
+
             if (taches.isEmpty()) {
-                return new ResponseEntity<>(
-                        "Aucune tache dans ce projet",
-                        HttpStatus.OK
-                );
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Aucune tâche dans ce projet");
+                return ResponseEntity.ok(response);
             }
-            return new ResponseEntity<>(
-                    taches,
-                    HttpStatus.OK
-            );
-        } catch (RuntimeException e) {
-            return new ResponseEntity<>(
-                    e.getMessage(),
-                    HttpStatus.BAD_REQUEST
-            );
+
+            return ResponseEntity.ok(taches);
+
+        } catch (EntityNotFoundException e) {
+            // si le projet n'existe pas
+            Map<String, String> response = new HashMap<>();
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+
+        } catch (Exception e) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "Erreur lors de la récupération des tâches");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
