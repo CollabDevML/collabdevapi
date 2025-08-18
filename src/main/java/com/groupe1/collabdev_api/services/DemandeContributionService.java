@@ -2,6 +2,7 @@ package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.dto.request_dto.RequestDemandeContribution;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseDemandeContribution;
 import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.DemandeContribution;
 import com.groupe1.collabdev_api.entities.Projet;
@@ -18,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -120,6 +122,15 @@ public class DemandeContributionService {
     public List<DemandeContributionDto> chercherParProjet(int idProjet) {
         List<DemandeContribution> demandeContributions = demandeContributionRepository.findByProjet_Id(idProjet);
         return MappingDemandeContribution.ToDemandeDtoToList(demandeContributions);
+    }
+
+    public List<ResponseDemandeContribution> chercherParProjet2(int idProjet) {
+        List<DemandeContribution> demandeContributions = demandeContributionRepository.findByProjet_Id(idProjet);
+        List<ResponseDemandeContribution> responseDemandeContributions = new ArrayList<>();
+        for (DemandeContribution demandeContribution : demandeContributions) {
+            responseDemandeContributions.add(demandeContribution.toResponse());
+        }
+        return responseDemandeContributions;
     }
 
     //afficher la liste des demandes acceptées / refué d'un projet

@@ -12,7 +12,11 @@ public class MappingDemandeContribution {
                 demandeContribution.getId(),
                 demandeContribution.isEstAcceptee(),
                 demandeContribution.getDateEnvoi(),
-                demandeContribution.getProfileContributeur()
+                demandeContribution.getProfileContributeur(),
+                demandeContribution.getProjet().getTitre(),
+                demandeContribution.getContributeur().getUtilisateur().getPrenom(),
+                demandeContribution.getContributeur().getUtilisateur().getNom(),
+                demandeContribution.getContributeur().getId()
         );
     }
 

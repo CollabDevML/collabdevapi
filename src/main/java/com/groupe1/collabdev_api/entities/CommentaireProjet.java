@@ -7,14 +7,65 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
+
 @Getter
 @Setter
 @Table(name = "commentaires_projet")
 @Entity
 public class CommentaireProjet {
+    public CommentaireProjet() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContenu() {
+        return contenu;
+    }
+
+    public void setContenu(String contenu) {
+        this.contenu = contenu;
+    }
+
+    public LocalDateTime getDateCommentaire() {
+        return dateCommentaire;
+    }
+
+    public void setDateCommentaire(LocalDateTime dateCommentaire) {
+        this.dateCommentaire = dateCommentaire;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
+
+    public CommentaireProjet(int id, String contenu, LocalDateTime dateCommentaire, Utilisateur utilisateur, Projet projet) {
+        this.id = id;
+        this.contenu = contenu;
+        this.dateCommentaire = dateCommentaire;
+        this.utilisateur = utilisateur;
+        this.projet = projet;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -11,6 +11,14 @@ import java.util.List;
 public class RequestGestionnaire extends RequestUtilisateur {
     private String uriCv;
 
+    public String getUriCv() {
+        return uriCv;
+    }
+
+    public void setUriCv(String uriCv) {
+        this.uriCv = uriCv;
+    }
+
     public RequestGestionnaire(String prenom, String nom, String email, String motDePasse, Genre genre, List<String> preferences, String uriCv) {
         super(prenom, nom, email, motDePasse, genre, preferences);
         this.uriCv = uriCv;

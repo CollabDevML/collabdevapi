@@ -12,12 +12,62 @@ import java.time.LocalDateTime;
 @Table(name = "gestions_admin_utilisateur")
 @Getter
 @Setter
-@NoArgsConstructor
 public class GestionAdminUtilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public GestionAdminUtilisateur(int id, TypeGestionUtilisateurs typeGestion, LocalDateTime dateGestion, Administrateur administrateur, Utilisateur utilisateur) {
+        this.id = id;
+        this.typeGestion = typeGestion;
+        this.dateGestion = dateGestion;
+        this.administrateur = administrateur;
+        this.utilisateur = utilisateur;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TypeGestionUtilisateurs getTypeGestion() {
+        return typeGestion;
+    }
+
+    public void setTypeGestion(TypeGestionUtilisateurs typeGestion) {
+        this.typeGestion = typeGestion;
+    }
+
+    public LocalDateTime getDateGestion() {
+        return dateGestion;
+    }
+
+    public void setDateGestion(LocalDateTime dateGestion) {
+        this.dateGestion = dateGestion;
+    }
+
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
+    }
+
+    public Utilisateur getUtilisateur() {
+        return utilisateur;
+    }
+
+    public void setUtilisateur(Utilisateur utilisateur) {
+        this.utilisateur = utilisateur;
+    }
+
+    public GestionAdminUtilisateur() {
+    }
 
     @Column(nullable = false)
     private TypeGestionUtilisateurs typeGestion;

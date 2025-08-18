@@ -9,13 +9,18 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Entity
 @Table(name = "obtentions_badge")
 public class ObtentionBadge {
+    public ObtentionBadge(int id, LocalDateTime dateObtention, Contributeur contributeur, Badge badge) {
+        this.id = id;
+        this.dateObtention = dateObtention;
+        this.contributeur = contributeur;
+        this.badge = badge;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,5 +46,40 @@ public class ObtentionBadge {
                 this.badge.getTitre(),
                 this.dateObtention
         );
+    }
+
+    public ObtentionBadge() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateObtention() {
+        return dateObtention;
+    }
+
+    public void setDateObtention(LocalDateTime dateObtention) {
+        this.dateObtention = dateObtention;
+    }
+
+    public Contributeur getContributeur() {
+        return contributeur;
+    }
+
+    public void setContributeur(Contributeur contributeur) {
+        this.contributeur = contributeur;
+    }
+
+    public Badge getBadge() {
+        return badge;
+    }
+
+    public void setBadge(Badge badge) {
+        this.badge = badge;
     }
 }

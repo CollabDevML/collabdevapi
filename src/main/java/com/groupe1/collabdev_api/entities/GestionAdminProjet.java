@@ -12,14 +12,63 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "gestions_admin_projet")
 public class GestionAdminProjet {
+    public GestionAdminProjet() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public TypeGestionProjet getType() {
+        return type;
+    }
+
+    public void setType(TypeGestionProjet type) {
+        this.type = type;
+    }
+
+    public LocalDateTime getDateGestion() {
+        return dateGestion;
+    }
+
+    public void setDateGestion(LocalDateTime dateGestion) {
+        this.dateGestion = dateGestion;
+    }
+
+    public Administrateur getAdministrateur() {
+        return administrateur;
+    }
+
+    public void setAdministrateur(Administrateur administrateur) {
+        this.administrateur = administrateur;
+    }
+
+    public Projet getProjet() {
+        return projet;
+    }
+
+    public void setProjet(Projet projet) {
+        this.projet = projet;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public GestionAdminProjet(int id, TypeGestionProjet type, LocalDateTime dateGestion, Administrateur administrateur, Projet projet) {
+        this.id = id;
+        this.type = type;
+        this.dateGestion = dateGestion;
+        this.administrateur = administrateur;
+        this.projet = projet;
+    }
 
     @Column(nullable = false)
     private TypeGestionProjet type;

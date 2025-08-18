@@ -12,13 +12,55 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
+
 @Table(name = "badges")
 public class Badge {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    public Badge() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getUriImage() {
+        return uriImage;
+    }
+
+    public void setUriImage(String uriImage) {
+        this.uriImage = uriImage;
+    }
+
+    public List<ObtentionBadge> getObtentionBadges() {
+        return obtentionBadges;
+    }
+
+    public void setObtentionBadges(List<ObtentionBadge> obtentionBadges) {
+        this.obtentionBadges = obtentionBadges;
+    }
+
+    public Badge(int id, String titre, String uriImage, List<ObtentionBadge> obtentionBadges) {
+        this.id = id;
+        this.titre = titre;
+        this.uriImage = uriImage;
+        this.obtentionBadges = obtentionBadges;
+    }
 
     @Column(nullable = false, unique = true)
     private String titre;
