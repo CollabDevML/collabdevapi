@@ -2,6 +2,9 @@ package com.groupe1.collabdev_api.entities;
 
 import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseContributeurDemande;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseDemandeContribution;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseProjetDemande;
 import com.groupe1.collabdev_api.entities.enums.Type;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -49,6 +52,26 @@ public class DemandeContribution {
                 getContributeur().getUtilisateur().getNom(),
                 getContributeur().getUtilisateur().getPrenom(),
                 getProjet().getTitre()
+        );
+    }
+
+    public ResponseDemandeContribution toResponse() {
+        return new ResponseDemandeContribution(
+                this.id,
+                this.dateEnvoi,
+                new ResponseContributeurDemande(
+                        this.contributeur.getUtilisateur().getId(),
+                        this.contributeur.getUtilisateur().getPrenom(),
+                        this.contributeur.getUtilisateur().getNom(),
+                        this.contributeur.getNiveau(),
+                        this.profileContributeur
+                ),
+                new ResponseProjetDemande(
+                        this.projet.getId(),
+                        this.projet.getTitre(),
+                        this.projet.getDescription()
+                ),
+                this.estAcceptee
         );
     }
 

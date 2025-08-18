@@ -72,4 +72,8 @@ public class SoutienService {
     private Boolean areExistUserAndIdea(int idUtilisateur, int idIdeeProjet) {
         return utilisateurRepository.findById(idUtilisateur).isPresent() && ideeProjetRepository.findById(idIdeeProjet).isPresent();
     }
+
+    public boolean isHelped(int idUtilisateur, int idIdeeProjet) {
+        return soutienRepository.existsById(new SoutienId(idUtilisateur, idIdeeProjet));
+    }
 }
