@@ -10,8 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+
 public class ContributeurDto {
     private String nom;
     private String prenom;
