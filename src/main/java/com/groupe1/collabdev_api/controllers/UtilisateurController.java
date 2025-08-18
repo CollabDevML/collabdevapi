@@ -71,7 +71,7 @@ public class UtilisateurController {
             return ResponseEntity.badRequest().body("Utilisateur introuvable avec cet id!");
         }
         switch (role) {
-            case CONTRIBUTEUR -> {
+            case Role.CONTRIBUTEUR -> {
                 try {
                     Contributeur contributeur = contributeurService.chercherIdUtilisateur(idUtilisateur);
                     return ResponseEntity.ok(
