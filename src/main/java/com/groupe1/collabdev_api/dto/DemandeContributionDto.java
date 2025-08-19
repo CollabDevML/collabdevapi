@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.dto;
 
+import com.groupe1.collabdev_api.entities.Contributeur;
 import com.groupe1.collabdev_api.entities.enums.Type;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,4 +18,7 @@ public class DemandeContributionDto {
     private Boolean estAccepte;
     private LocalDateTime dateEnvoi;
     private Type profileContributeur;
+    private String contributeurNom;
+    private String contributeurPrenom;
+    private String projetTitre;
 }

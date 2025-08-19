@@ -36,6 +36,10 @@ public class IdeeProjetService {
         return ideeProjetRepository.findById(id).orElse(null);
     }
 
+    public List<IdeeProjet> chercherParIdUt(int id) {
+        return ideeProjetRepository.findByUtilisateurId(id);
+    }
+
     public List<IdeeProjet> chercherTous() {
         return ideeProjetRepository.findAll();
     }

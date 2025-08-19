@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface IdeeProjetRepository extends JpaRepository<IdeeProjet, Integer> {
-    List<IdeeProjet> findByUtilisateurId(int idUtilisateur);
+    List<IdeeProjet> findByUtilisateurId(int utilisateurId);
 }

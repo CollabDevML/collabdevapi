@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,11 +15,12 @@ public class ProjetDto {
     private String titre;
     private String description;
     private boolean estFini;
-    private LocalDateTime dateDebut;
-    private LocalDateTime dateFin;
+    private Date dateDebut;
+    private Date dateFin;
     private Niveau niveauDAcces;
     private boolean etat;
     private int idGestionnaire;
     private int piecesDAcces;
     private int idIdeeProjet;
+    private int id;
 }

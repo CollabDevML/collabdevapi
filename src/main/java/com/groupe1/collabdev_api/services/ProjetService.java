@@ -27,8 +27,6 @@ public class ProjetService {
     @Autowired
     private EnvoieDemailService emailService;
     @Autowired
-    private UtilisateurRepository utilisateurRepository;
-    @Autowired
     private IdeeProjetRepository ideeProjetRepository;
 
     public Projet chercherParId(int id) {
@@ -40,10 +38,8 @@ public class ProjetService {
     }
 
     public Projet ajouter(ProjetDto projetDto) throws RuntimeException {
-        Utilisateur utilisateur = utilisateurRepository.findById(projetDto.getIdGestionnaire())
-                .orElseThrow(() -> new RuntimeException("Utilisateur introuvable"));
-        Gestionnaire gestionnaire = gestionnaireRepository.findByUtilisateurId(utilisateur.getId())
-                        .orElseThrow(() -> new RuntimeException("Projet créable que par les gestionnaires!"));
+        Gestionnaire gestionnaire = gestionnaireRepository.findById(projetDto.getIdGestionnaire())
+                .orElseThrow(() -> new RuntimeException("Gestionnaire introuvable"));
         System.out.println(projetDto.getIdIdeeProjet());
         IdeeProjet ideeProjet = ideeProjetRepository.findById(projetDto.getIdIdeeProjet())
                 .orElseThrow(() -> new RuntimeException("Idée de projet introuvable avec cet id!"));

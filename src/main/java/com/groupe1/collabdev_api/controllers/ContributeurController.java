@@ -46,6 +46,23 @@ public class ContributeurController {
         }
 
     }
+    @GetMapping("/{id}/contributeur")
+    public ResponseEntity<?> chercherParUtlisateurId(@PathVariable int id){
+        try {
+            Contributeur contribituer = contributeurService.chercherIdUtilisateur(id);
+            return ResponseEntity.ok(contribituer);
+        } catch (EntityNotFoundException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.NOT_FOUND
+            );
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>(
+                    e.getMessage(),
+                    HttpStatus.INTERNAL_SERVER_ERROR
+            );
+        }
+    }
 
     @Operation(summary = "pour chercher tous les contributeurs")
     @GetMapping

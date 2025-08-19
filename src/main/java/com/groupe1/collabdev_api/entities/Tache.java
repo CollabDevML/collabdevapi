@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -41,8 +42,8 @@ public class Tache {
     @Column(nullable = false)
     private boolean estFini = false;
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private NiveauTache niveau;
 
     @ManyToOne
@@ -62,7 +63,8 @@ public class Tache {
                 this.dateDebut,
                 this.dateFin,
                 this.pieceAGagner,
-                this.niveau
+                this.niveau,
+                new ArrayList<>()
         );
     }
 }

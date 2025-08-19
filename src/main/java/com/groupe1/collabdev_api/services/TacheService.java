@@ -1,6 +1,7 @@
 package com.groupe1.collabdev_api.services;
 
 import com.groupe1.collabdev_api.dto.request_dto.RequestTache;
+import com.groupe1.collabdev_api.dto.response_dto.ResponseContributeur;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseTache;
 import com.groupe1.collabdev_api.entities.*;
 import com.groupe1.collabdev_api.entities.enums.Niveau;
@@ -95,15 +96,17 @@ public class TacheService {
         if (projet.getGestionnaire().getId() == gestionnaire.getId()) {
             // Liaison de la tâche avec le projet
             Tache tacheAjoute = tacheRepository.save(tache);
-            return new ResponseTache(
-                    tacheAjoute.getId(),
-                    tacheAjoute.getTitre(),
-                    tacheAjoute.getDescription(),
-                    tacheAjoute.getDateDebut(),
-                    tacheAjoute.getDateFin(),
-                    tacheAjoute.getPieceAGagner(),
-                    tacheAjoute.getNiveau()
-            );
+
+                return new ResponseTache(
+                        tacheAjoute.getId(),
+                        tacheAjoute.getTitre(),
+                        tacheAjoute.getDescription(),
+                        tacheAjoute.getDateDebut(),
+                        tacheAjoute.getDateFin(),
+                        tacheAjoute.getPieceAGagner(),
+                        tacheAjoute.getNiveau(),
+                        new ArrayList<>()
+                        );
         }
         throw new RuntimeException("Vous n'avez pas le droit de créer une tâche pour ce projet");
 

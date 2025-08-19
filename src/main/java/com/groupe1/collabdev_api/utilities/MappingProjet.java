@@ -18,7 +18,8 @@ public class MappingProjet {
                 projet.isEtat(),
                 projet.getGestionnaire().getId(),
                 projet.getPiecesDAcces(),
-                projet.getIdeeProjet().getId()
+                projet.getIdeeProjet().getId(),
+                projet.getId()
         );
     }
 

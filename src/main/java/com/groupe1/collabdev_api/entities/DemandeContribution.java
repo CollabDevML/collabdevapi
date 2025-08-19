@@ -1,5 +1,6 @@
 package com.groupe1.collabdev_api.entities;
 
+import com.groupe1.collabdev_api.dto.ContributeurDto;
 import com.groupe1.collabdev_api.dto.DemandeContributionDto;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseContributeurDemande;
 import com.groupe1.collabdev_api.dto.response_dto.ResponseDemandeContribution;
@@ -47,7 +48,10 @@ public class DemandeContribution {
                 this.id,
                 this.estAcceptee,
                 this.dateEnvoi,
-                this.profileContributeur
+                this.profileContributeur,
+                getContributeur().getUtilisateur().getNom(),
+                getContributeur().getUtilisateur().getPrenom(),
+                getProjet().getTitre()
         );
     }
 
